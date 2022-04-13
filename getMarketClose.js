@@ -81,6 +81,7 @@ function list_ids(){
 	for (i=0; i<get_id.length ; i++){
 		number_tables_div.push(get_id[i].id)
 	}
+	console.log(number_tables_div)
 	return number_tables_div
 }
 
