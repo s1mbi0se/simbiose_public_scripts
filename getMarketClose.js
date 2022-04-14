@@ -1,5 +1,6 @@
 async function getMarket(){
     setInterval(countdown, 1000)
+
 }
 
 function get_round(round){
