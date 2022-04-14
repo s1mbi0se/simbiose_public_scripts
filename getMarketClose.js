@@ -1,6 +1,5 @@
 async function getMarket(){
     setInterval(countdown, 1000)
-
 }
 
 function get_round(round){
@@ -65,7 +64,7 @@ function countdown() {
 				display.textContent = ('MERCADO FECHADO !!!')
 				display.style.color = "red"
 				let button = document.getElementById(e+'btn')
-				button.disabled = false
+				button.disabled = true
 				i++
 				return display
 		   }
