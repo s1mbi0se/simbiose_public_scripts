@@ -2,11 +2,11 @@ async function getMarket(){
     setInterval(countdown, 1000)
 }
 
-function get_rodada(round){
+function get_round(round){
 	let x = list_ids()
 	for (i=0; i<x.length ; i++){
-		let div_mostrar_cronometro =  document.getElementsByClassName(round)[i].textContent
-		return div_mostrar_cronometro
+		let div_shown_countdown =  document.getElementsByClassName(round)[i].textContent
+		return div_shown_countdown
 	}
 }
 
@@ -15,7 +15,7 @@ function countdown() {
 	let i=0;
 	number_tables_div.forEach(e => {
 
-				horario_mercado_fecha = get_rodada(e)
+				horario_mercado_fecha = get_round(e)
 				const mktclose = new Date(horario_mercado_fecha);
 				const currentDate = new Date();
 				const totalSeconds = (mktclose - currentDate) / 1000;
@@ -63,8 +63,8 @@ function countdown() {
 				}
 				display.textContent = ('MERCADO FECHADO !!!')
 				display.style.color = "red"
-				let butao = document.getElementById('btnscl')
-				butao.textContent = ('')
+				let button = document.getElementById(e+'btn')
+				button.disabled = false
 				i++
 				return display
 		   }
@@ -81,7 +81,6 @@ function list_ids(){
 	for (i=0; i<get_id.length ; i++){
 		number_tables_div.push(get_id[i].id)
 	}
-	console.log(number_tables_div)
 	return number_tables_div
 }
 
