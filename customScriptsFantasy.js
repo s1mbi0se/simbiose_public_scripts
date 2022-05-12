@@ -36,7 +36,7 @@ let table_round_id = 1
 		url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}else if(window.location.host == 'fantasydev.simbioseventures.com'){
 		console.log('Entrou aqui')
-		let domain = 'https://apidjangodev.simbioseventures.com/'
+		let domain = 'https://apidjangodev.simbioseventures.com'
 		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}else if(window.location.host == 'fantasystage.simbioseventures.com'){
 		let domain = 'https://fastcrudapistage.simbioseventures.com/'
