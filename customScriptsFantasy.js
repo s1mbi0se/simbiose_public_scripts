@@ -36,7 +36,7 @@ let table_round_id = 1
 		url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}else if(window.location.host == 'fantasydev.simbioseventures.com'){
 		console.log('Entrou aqui')
-		let domain = 'fantasydev.simbioseventures.com'
+		let domain = 'https://apidjangodev.simbioseventures.com/'
 		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}else if(window.location.host == 'fantasystage.simbioseventures.com'){
 		let domain = 'https://fastcrudapistage.simbioseventures.com/'
@@ -46,7 +46,7 @@ let table_round_id = 1
 	let postParameters = { data:{
 		"subscribe_users__user_id-0" : '{current_user}',
 		"subscribe_users__table_round_id-0": table_round_id,
-		"lineups__user_fantasy_id-0": '{current_user}',
+		"lineups__subscribe_id-0": '{current_user}',
 		"lineups__table_round_id-0": table_round_id,
 		"lineups_players__player_id-0": players_infos[0].id,
 		"lineups_players__player_id-1": players_infos[1].id,
