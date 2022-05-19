@@ -15,33 +15,24 @@ let players_obj_btn = []
 let players_infos = [{}]
 players_infos.shift()
 let table_round_id = 1
+let save_formation = '4-3-3'
 
-
-let viewLineupBtn = document.getElementsByClassName('viewLineupBtn')
-viewLineupBtn[0].addEventListener('click', () => {
-	 openModal({ container: 'fantasy-player-choice-striker-container', identifier: null, viewMode: 'fullscreen' })
-})
-/*
-viewLineupBtn[0].VoidActionFullScreen.onClick(() => {
-  openModal({ container: 'fantasy-player-choice-striker-container', identifier: null, viewMode: 'fullscreen' })
-})*/
-
-function resetLabelsPlayers(){
+function resetLabelsPlayers() {
 	let playersContainers = document.getElementsByClassName('playerContainer')
-	for(let i=0; i<playersContainers.length; i++){
-		if(playersContainers[i].children[2].parentNode.className.includes('defender') && !playersContainers[i].children[2].className.includes('preenchido')){
+	for (let i = 0; i < playersContainers.length; i++) {
+		if (playersContainers[i].children[2].parentNode.className.includes('defender') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'ZAG'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('leftBack') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('leftBack') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'LAT'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('rightBack') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('rightBack') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'LAT'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('midfielder') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('midfielder') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'MEI'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('attacker') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('attacker') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'ATA'
 		}
 	}
@@ -58,9 +49,9 @@ let formation442 = ['defender_One4-4-2', 'defender_Two4-4-2', 'leftBack_4-4-2', 
 let formation451 = ['defender_One4-5-1', 'defender_Two4-5-1', 'leftBack_4-5-1', 'rightBack_4-5-1', 'midfielder_One4-5-1', 'midfielder_Two4-5-1', 'midfielder_Three4-5-1', 'midfielder_Four4-5-1', 'midfielder_Five4-5-1', 'attacker_One4-5-1']
 let formation532 = ['defender_One5-3-2', 'defender_Two5-3-2', 'defender_Three5-3-2', 'leftBack_5-3-2', 'rightBack_5-3-2', 'midfielder_One5-3-2', 'midfielder_Two5-3-2', 'midfielder_Three5-3-2', 'attacker_One5-3-2', 'attacker_Two5-3-2']
 let formation541 = ['defender_One5-4-1', 'defender_Two5-4-1', 'defender_Three5-4-1', 'leftBack_5-4-1', 'rightBack_5-4-1', 'midfielder_One5-4-1', 'midfielder_Two5-4-1', 'midfielder_Three5-4-1', 'midfielder_Four5-4-1', 'attacker_One5-4-1']
+save_lineups()
 
-formationSelect[0].addEventListener('change', function(){
-
+function save_lineups() {
 	let backReservation = document.getElementsByClassName('full-backReservation')
 	switch (formationSelect[0].value){
 		case '3-4-3':
@@ -97,28 +88,32 @@ formationSelect[0].addEventListener('change', function(){
 			break
 	}
 
-	for(let i=1; i<11; i++){
+	for (let i = 1; i < 11; i++) {
 		let nameClass = playerContainer[i].className.split(' ')
-		playerContainer[i].classList.replace(nameClass[1], formations[i-1]);
+		playerContainer[i].classList.replace(nameClass[1], formations[i - 1]);
 	}
-
+	save_formation = formationSelect[0].value
 	resetLabelsPlayers()
-	resetNames()
-})
+	// resetNames()
+	// console.log(save_formation)
+
+}
+
+	formationSelect[0].addEventListener('change', save_lineups)
 
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
-	let saveLineupButton = document.getElementById('btn_save')
-	saveLineupButton.addEventListener('click', function saveLineup(){
-		let length_list_save = players_infos.length
-		let free_pos = 16 - length_list_save
-		for(let i = 0; i < free_pos; i++ ) {
-    		players_infos.push( {id: null})
+let saveLineupButton = document.getElementById('btn_save')
+saveLineupButton.addEventListener('click', function saveLineup() {
+	let length_list_save = players_infos.length
+	let free_pos = 16 - length_list_save
+	for (let i = 0; i < free_pos; i++) {
+		players_infos.push({id: null})
 
-		}
+	}
 	let url = '';
 	let div_table_round_id = document.getElementsByClassName('div_table_round_id')
 	table_round_id = parseInt(div_table_round_id[0].textContent)
-	if(window.location.host == 'fantasy.localhost:3004'){
+	if (window.location.host == 'fantasy.localhost:3004') {
 		let domain = window.location.origin.split(`:3004`)[0];
 		let port = 8000;
 		url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
@@ -130,28 +125,45 @@ formationSelect[0].addEventListener('change', function(){
 		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}
 	let autorizationToken = JSON.parse(localStorage.fct).accessToken
-	let postParameters = { data:{
-		"subscribe_users__user_id-0" : '{current_user}',
-		"subscribe_users__table_round_id-0": table_round_id,
-		"lineups__user_fantasy_id-0": '{current_user}',
-		"lineups__subscribe_id-0": '{current_user}',
-		"lineups__table_round_id-0": table_round_id,
-		"lineups_players__player_id-0": players_infos[0].id,
-		"lineups_players__player_id-1": players_infos[1].id,
-		"lineups_players__player_id-2": players_infos[2].id,
-		"lineups_players__player_id-3": players_infos[3].id,
-		"lineups_players__player_id-4": players_infos[4].id,
-		"lineups_players__player_id-5": players_infos[5].id,
-		"lineups_players__player_id-6": players_infos[6].id,
-		"lineups_players__player_id-7": players_infos[7].id,
-		"lineups_players__player_id-8": players_infos[8].id,
-		"lineups_players__player_id-9": players_infos[9].id,
-		"lineups_players__player_id-10": players_infos[10].id,
-		"lineups_players__player_id-11": players_infos[11].id,
-		"lineups_players__player_id-12": players_infos[12].id,
-		"lineups_players__player_id-13": players_infos[13].id,
-		"lineups_players__player_id-14": players_infos[14].id,
-		"lineups_players__player_id-15": players_infos[15].id
+	let postParameters = {
+		data: {
+			"subscribe_users__user_id-0": '{current_user}',
+			"subscribe_users__table_round_id-0": table_round_id,
+			"lineups__user_fantasy_id-0": '{current_user}',
+			"lineups__table_round_id-0": table_round_id,
+			"lineups__formation-0": save_formation,
+			"lineups_players__player_id-0": players_infos[0].id,
+			"lineups_players__position_field-0": players_infos[0].position,
+			"lineups_players__player_id-1": players_infos[1].id,
+			"lineups_players__position_field-1": players_infos[1].position,
+			"lineups_players__player_id-2": players_infos[2].id,
+			"lineups_players__position_field-2": players_infos[2].position,
+			"lineups_players__player_id-3": players_infos[3].id,
+			"lineups_players__position_field-3": players_infos[3].position,
+			"lineups_players__player_id-4": players_infos[4].id,
+			"lineups_players__position_field-4": players_infos[4].position,
+			"lineups_players__player_id-5": players_infos[5].id,
+			"lineups_players__position_field-5": players_infos[5].position,
+			"lineups_players__player_id-6": players_infos[6].id,
+			"lineups_players__position_field-6": players_infos[6].position,
+			"lineups_players__player_id-7": players_infos[7].id,
+			"lineups_players__position_field-7": players_infos[7].position,
+			"lineups_players__player_id-8": players_infos[8].id,
+			"lineups_players__position_field-8": players_infos[8].position,
+			"lineups_players__player_id-9": players_infos[9].id,
+			"lineups_players__position_field-9": players_infos[9].position,
+			"lineups_players__player_id-10": players_infos[10].id,
+			"lineups_players__position_field-10": players_infos[10].position,
+			"lineups_players__player_id-11": players_infos[11].id,
+			"lineups_players__position_field-11": players_infos[11].position,
+			"lineups_players__player_id-12": players_infos[12].id,
+			"lineups_players__position_field-12": players_infos[12].position,
+			"lineups_players__player_id-13": players_infos[13].id,
+			"lineups_players__position_field-13": players_infos[13].position,
+			"lineups_players__player_id-14": players_infos[14].id,
+			"lineups_players__position_field-14": players_infos[14].position,
+			"lineups_players__player_id-15": players_infos[15].id,
+			"lineups_players__position_field-15": players_infos[15].position,
 		}
 	};
 	const options = {
@@ -1278,5 +1290,48 @@ function countAvailablePlayers(position_num){
 					return availableGoalkeepers
 				}
 		}
+
+}
+
+
+
+if (window.location.href.includes('/fantasy-lineup-edit/')) {
+	numberIdentifier = window.location.href
+	numberIdentifier = numberIdentifier.toString()
+	numberIdentifier =numberIdentifier.split('/')
+	numberIdentifier = numberIdentifier[numberIdentifier.length-1]
+	editLineup(numberIdentifier)
+	console.log('identifier',numberIdentifier)
+}
+
+function numbersOnly(string)
+{
+	numsStr = window.location.href.replace(/[^0-9]/g,'');
+    return numsStr;
+}
+
+function editLineup(numberIdentifier) {
+	executeAction('select-lineup-um', null, {identifier: numberIdentifier}).then((result) => {
+		teste = result
+		console.log('esse veio do banco', teste[0].lineups__formation)
+		formationSelect[0].value = teste[0].lineups__formation;
+		save_lineups()
+		testei = numbersOnly()
+		console.log(testei.slice(-1))
+		console.log(testei)
+	}).catch(err => console.log(err))
+
+
+	executeAction('select-lineup-edit', null, {identifier: numberIdentifier}).then((result) => {
+		teste = result
+		for (i = 0; result.length; i++) {
+			conc_var = 'span_'
+			result = conc_var + teste[i].pos_field
+			document.getElementById(result).innerText = teste[i].players__player_name
+			document.getElementById(result).className += ' preenchido'
+
+		}
+	}).catch(err => console.log(err))
+
 
 }
