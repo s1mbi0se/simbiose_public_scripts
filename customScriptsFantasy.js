@@ -7,7 +7,6 @@ getClickDeleteUniqueBtn2()
 checkPlayersForHiddenModal()
 get_field_click()
 get_backArrow_click()
-searchPlayer()
 
 let cost_team = 0
 let bal_aval = 120000
@@ -16,140 +15,25 @@ let players_obj_btn = []
 let players_infos = [{}]
 players_infos.shift()
 let table_round_id = 1
+let save_formation = '4-3-3'
+var identifier_current_lineup= 0
 
-function searchPlayer(){
-
-	let searchStrikerPlayerInput = document.getElementById('searchStrikerPlayerInput')
-	let searchMidfielderPlayerInput = document.getElementById('searchMidfielderPlayerInput')
-	let searchGoalkeeperPlayerInput = document.getElementById('searchGoalkeeperPlayerInput')
-	let searchDefenderPlayerInput = document.getElementById('searchDefenderPlayerInput')
-	let searchBackPlayerInput = document.getElementById('searchBackPlayerInput')
-	//TO-DO
-	searchStrikerPlayerInput.addEventListener('keyup', function(){
-		let strikerContainer = document.getElementsByClassName('insideinfoPlayerContainerStriker')
-		let allStrikerPlayers = strikerContainer[0].children
-		for(let j=0; j<allStrikerPlayers.length; j++){
-			if(!(allStrikerPlayers[j].children[0].children[1].children[0].textContent.includes(searchStrikerPlayerInput.value) || allStrikerPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchStrikerPlayerInput.value))){
-				allStrikerPlayers[j].style.display = 'none'
-			}else{
-				allStrikerPlayers[j].style.display = 'block'
-			}
-		}
-	})
-
-	searchMidfielderPlayerInput.addEventListener('keyup', function(){
-		let MidfielderContainer = document.getElementsByClassName('insideinfoPlayerContainerMidfielder')
-		let allMidfieldersPlayers = MidfielderContainer[0].children
-		for(let j=0; j<allMidfieldersPlayers.length; j++){
-			if(!(allMidfieldersPlayers[j].children[0].children[1].children[0].textContent.includes(searchMidfielderPlayerInput.value) || allMidfieldersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchMidfielderPlayerInput.value))){
-				allMidfieldersPlayers[j].style.display = 'none'
-			}else{
-				allMidfieldersPlayers[j].style.display = 'block'
-			}
-		}
-	})
-
-	searchGoalkeeperPlayerInput.addEventListener('keyup', function(){
-		let goalkeeperContainer = document.getElementsByClassName('insideinfoPlayerContainerGoalkeeper')
-		let allGoalkeepersPlayers = goalkeeperContainer[0].children
-		for(let j=0; j<allGoalkeepersPlayers.length; j++){
-			if(!(allGoalkeepersPlayers[j].children[0].children[1].children[0].textContent.includes(searchGoalkeeperPlayerInput.value) || allGoalkeepersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchGoalkeeperPlayerInput.value))){
-				allGoalkeepersPlayers[j].style.display = 'none'
-			}else{
-				allGoalkeepersPlayers[j].style.display = 'block'
-			}
-		}
-	})
-
-	searchDefenderPlayerInput.addEventListener('keyup', function(){
-		let defenderContainer = document.getElementsByClassName('insideinfoPlayerContainerDefender')
-		let allDefendersPlayers = defenderContainer[0].children
-		for(let j=0; j<allDefendersPlayers.length; j++){
-			if(!(allDefendersPlayers[j].children[0].children[1].children[0].textContent.includes(searchDefenderPlayerInput.value) || allDefendersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchDefenderPlayerInput.value))){
-				allDefendersPlayers[j].style.display = 'none'
-			}else{
-				allDefendersPlayers[j].style.display = 'block'
-			}
-		}
-	})
-
-	searchBackPlayerInput.addEventListener('keyup', function(){
-		let backContainer = document.getElementsByClassName('insideinfoPlayerContainerBack')
-		let allBacksPlayers = backContainer[0].children
-		for(let j=0; j<allBacksPlayers.length; j++){
-			if(!(allBacksPlayers[j].children[0].children[1].children[0].textContent.includes(searchBackPlayerInput.value) || allBacksPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchBackPlayerInput.value))){
-				allBacksPlayers[j].style.display = 'none'
-			}else{
-				allBacksPlayers[j].style.display = 'block'
-			}
-		}
-	})
-}
-
-function resetSearchInput(position){
-	/*Aqui eu limpo o input de pesquisa dos jogadores*/
-	document.getElementById('searchStrikerPlayerInput').value = ''
-	document.getElementById('searchMidfielderPlayerInput').value = ''
-	document.getElementById('searchGoalkeeperPlayerInput').value = ''
-	document.getElementById('searchDefenderPlayerInput').value = ''
-	document.getElementById('searchBackPlayerInput').value = ''
-
-	/*Aqui eu seto novamente o display block nos jogadores que estavam escondidos*/
-	switch(position){
-		case 'Atacantes':
-			let strikerContainer = document.getElementsByClassName('insideinfoPlayerContainerStriker')
-			let allStrikerPlayers = strikerContainer[0].children
-			for(let j=0; j<allStrikerPlayers.length; j++){
-				allStrikerPlayers[j].style.display = 'block'
-			}
-			break;
-		case 'Meias':
-			let midfielderContainer = document.getElementsByClassName('insideinfoPlayerContainerMidfielder')
-			let allMidfieldersPlayers = midfielderContainer[0].children
-			for(let j=0; j<allMidfieldersPlayers.length; j++){
-				allMidfieldersPlayers[j].style.display = 'block'
-			}
-			break;
-		case 'Laterais':
-			let backContainer = document.getElementsByClassName('insideinfoPlayerContainerBack')
-			let allBackPlayers = backContainer[0].children
-			for(let j=0; j<allBackPlayers.length; j++){
-				allBackPlayers[j].style.display = 'block'
-			}
-			break;
-		case 'Zagueiros':
-			let defenderContainer = document.getElementsByClassName('insideinfoPlayerContainerDefender')
-			let allDefendersPlayers = defenderContainer[0].children
-			for(let j=0; j<allDefendersPlayers.length; j++){
-				allDefendersPlayers[j].style.display = 'block'
-			}
-			break;
-		case 'Goleiros':
-			let goalkeeperContainer = document.getElementsByClassName('insideinfoPlayerContainerGoalkeeper')
-			let allGoalkeepersPlayers = goalkeeperContainer[0].children
-			for(let j=0; j<allGoalkeepersPlayers.length; j++){
-				allGoalkeepersPlayers[j].style.display = 'block'
-			}
-			break;
-	}
-}
-
-function resetLabelsPlayers(){
+function resetLabelsPlayers() {
 	let playersContainers = document.getElementsByClassName('playerContainer')
-	for(let i=0; i<playersContainers.length; i++){
-		if(playersContainers[i].children[2].parentNode.className.includes('defender') && !playersContainers[i].children[2].className.includes('preenchido')){
+	for (let i = 0; i < playersContainers.length; i++) {
+		if (playersContainers[i].children[2].parentNode.className.includes('defender') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'ZAG'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('leftBack') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('leftBack') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'LAT'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('rightBack') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('rightBack') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'LAT'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('midfielder') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('midfielder') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'MEI'
 		}
-		if(playersContainers[i].children[2].parentNode.className.includes('attacker') && !playersContainers[i].children[2].className.includes('preenchido')){
+		if (playersContainers[i].children[2].parentNode.className.includes('attacker') && !playersContainers[i].children[2].className.includes('preenchido')) {
 			playersContainers[i].children[2].textContent = 'ATA'
 		}
 	}
@@ -166,9 +50,9 @@ let formation442 = ['defender_One4-4-2', 'defender_Two4-4-2', 'leftBack_4-4-2', 
 let formation451 = ['defender_One4-5-1', 'defender_Two4-5-1', 'leftBack_4-5-1', 'rightBack_4-5-1', 'midfielder_One4-5-1', 'midfielder_Two4-5-1', 'midfielder_Three4-5-1', 'midfielder_Four4-5-1', 'midfielder_Five4-5-1', 'attacker_One4-5-1']
 let formation532 = ['defender_One5-3-2', 'defender_Two5-3-2', 'defender_Three5-3-2', 'leftBack_5-3-2', 'rightBack_5-3-2', 'midfielder_One5-3-2', 'midfielder_Two5-3-2', 'midfielder_Three5-3-2', 'attacker_One5-3-2', 'attacker_Two5-3-2']
 let formation541 = ['defender_One5-4-1', 'defender_Two5-4-1', 'defender_Three5-4-1', 'leftBack_5-4-1', 'rightBack_5-4-1', 'midfielder_One5-4-1', 'midfielder_Two5-4-1', 'midfielder_Three5-4-1', 'midfielder_Four5-4-1', 'attacker_One5-4-1']
+save_lineups()
 
-formationSelect[0].addEventListener('change', function(){
-
+function save_lineups() {
 	let backReservation = document.getElementsByClassName('full-backReservation')
 	switch (formationSelect[0].value){
 		case '3-4-3':
@@ -205,28 +89,32 @@ formationSelect[0].addEventListener('change', function(){
 			break
 	}
 
-	for(let i=1; i<11; i++){
+	for (let i = 1; i < 11; i++) {
 		let nameClass = playerContainer[i].className.split(' ')
-		playerContainer[i].classList.replace(nameClass[1], formations[i-1]);
+		playerContainer[i].classList.replace(nameClass[1], formations[i - 1]);
 	}
-
+	save_formation = formationSelect[0].value
 	resetLabelsPlayers()
-	resetNames()
-})
+	// resetNames()
+	// console.log(save_formation)
+
+}
+
+	formationSelect[0].addEventListener('change', save_lineups)
 
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
-	let saveLineupButton = document.getElementById('btn_save')
-	saveLineupButton.addEventListener('click', function saveLineup(){
-		let length_list_save = players_infos.length
-		let free_pos = 16 - length_list_save
-		for(let i = 0; i < free_pos; i++ ) {
-    		players_infos.push( {id: null})
+let saveLineupButton = document.getElementById('btn_save')
+saveLineupButton.addEventListener('click', function saveLineup() {
+	let length_list_save = players_infos.length
+	let free_pos = 16 - length_list_save
+	for (let i = 0; i < free_pos; i++) {
+		players_infos.push({id: null})
 
-		}
+	}
 	let url = '';
 	let div_table_round_id = document.getElementsByClassName('div_table_round_id')
 	table_round_id = parseInt(div_table_round_id[0].textContent)
-	if(window.location.host == 'fantasy.localhost:3004'){
+	if (window.location.host == 'fantasy.localhost:3004') {
 		let domain = window.location.origin.split(`:3004`)[0];
 		let port = 8000;
 		url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
@@ -238,27 +126,45 @@ formationSelect[0].addEventListener('change', function(){
 		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 	}
 	let autorizationToken = JSON.parse(localStorage.fct).accessToken
-	let postParameters = { data:{
-		"subscribe_users__user_id-0" : '{current_user}',
-		"subscribe_users__table_round_id-0": table_round_id,
-		"lineups__user_fantasy_id-0": '{current_user}',
-		"lineups__table_round_id-0": table_round_id,
-		"lineups_players__player_id-0": players_infos[0].id,
-		"lineups_players__player_id-1": players_infos[1].id,
-		"lineups_players__player_id-2": players_infos[2].id,
-		"lineups_players__player_id-3": players_infos[3].id,
-		"lineups_players__player_id-4": players_infos[4].id,
-		"lineups_players__player_id-5": players_infos[5].id,
-		"lineups_players__player_id-6": players_infos[6].id,
-		"lineups_players__player_id-7": players_infos[7].id,
-		"lineups_players__player_id-8": players_infos[8].id,
-		"lineups_players__player_id-9": players_infos[9].id,
-		"lineups_players__player_id-10": players_infos[10].id,
-		"lineups_players__player_id-11": players_infos[11].id,
-		"lineups_players__player_id-12": players_infos[12].id,
-		"lineups_players__player_id-13": players_infos[13].id,
-		"lineups_players__player_id-14": players_infos[14].id,
-		"lineups_players__player_id-15": players_infos[15].id
+	let postParameters = {
+		data: {
+			"subscribe_users__user_id-0": '{current_user}',
+			"subscribe_users__table_round_id-0": table_round_id,
+			"lineups__user_fantasy_id-0": '{current_user}',
+			"lineups__table_round_id-0": table_round_id,
+			"lineups__formation-0": save_formation,
+			"lineups_players__player_id-0": players_infos[0].id,
+			"lineups_players__position_field-0": players_infos[0].position,
+			"lineups_players__player_id-1": players_infos[1].id,
+			"lineups_players__position_field-1": players_infos[1].position,
+			"lineups_players__player_id-2": players_infos[2].id,
+			"lineups_players__position_field-2": players_infos[2].position,
+			"lineups_players__player_id-3": players_infos[3].id,
+			"lineups_players__position_field-3": players_infos[3].position,
+			"lineups_players__player_id-4": players_infos[4].id,
+			"lineups_players__position_field-4": players_infos[4].position,
+			"lineups_players__player_id-5": players_infos[5].id,
+			"lineups_players__position_field-5": players_infos[5].position,
+			"lineups_players__player_id-6": players_infos[6].id,
+			"lineups_players__position_field-6": players_infos[6].position,
+			"lineups_players__player_id-7": players_infos[7].id,
+			"lineups_players__position_field-7": players_infos[7].position,
+			"lineups_players__player_id-8": players_infos[8].id,
+			"lineups_players__position_field-8": players_infos[8].position,
+			"lineups_players__player_id-9": players_infos[9].id,
+			"lineups_players__position_field-9": players_infos[9].position,
+			"lineups_players__player_id-10": players_infos[10].id,
+			"lineups_players__position_field-10": players_infos[10].position,
+			"lineups_players__player_id-11": players_infos[11].id,
+			"lineups_players__position_field-11": players_infos[11].position,
+			"lineups_players__player_id-12": players_infos[12].id,
+			"lineups_players__position_field-12": players_infos[12].position,
+			"lineups_players__player_id-13": players_infos[13].id,
+			"lineups_players__position_field-13": players_infos[13].position,
+			"lineups_players__player_id-14": players_infos[14].id,
+			"lineups_players__position_field-14": players_infos[14].position,
+			"lineups_players__player_id-15": players_infos[15].id,
+			"lineups_players__position_field-15": players_infos[15].position,
 		}
 	};
 	const options = {
@@ -280,6 +186,7 @@ formationSelect[0].addEventListener('change', function(){
 function balanceController(price, operation){
 
 	if(operation == 'purchase'){ //compra
+
 		bal_aval -= price
 		cost_team += price
 	} else if(operation == 'sale'){ //venda
@@ -440,7 +347,6 @@ function get_backArrow_click() {
     for (let i = 0; i < arrowBacks.length; i++) {
         arrowBacks[i].addEventListener('click', function (event) {
             enableButtons()
-			resetSearchInput(arrowBacks[i].parentNode.children[1].children[0].textContent)
         })
     }
 }
@@ -1388,3 +1294,99 @@ function countAvailablePlayers(position_num){
 		}
 
 }
+
+
+var numberIdentifier = 0;
+if (window.location.href.includes('/fantasy-lineup-edit/')) {
+	numberIdentifier = window.location.href
+	numberIdentifier = numberIdentifier.toString()
+	numberIdentifier = numberIdentifier.split('/')
+	numberIdentifier = numberIdentifier[numberIdentifier.length - 1]
+	document.getElementById('btn_save').id = "btn_edit"
+	saveLineupEditButton = document.getElementById('btn_edit')
+	editLineup(numberIdentifier)
+
+	saveLineupEditButton.addEventListener('click', (e) => {
+
+		let players_update = {}
+		for (i = 0; i < 16; i++) {
+
+			let player = players_infos.find(element => element.position == `p_${i}`)
+			if (player) {
+				players_update[`player_id_${i}`] = player.id
+
+			} else {
+				players_update[`player_id_${i}`] = 0
+			}
+		}
+		let formationSelect = document.getElementsByClassName('formation')
+		console.log('formacao salva',formationSelect[0].value)
+
+		players_update['identifier'] = identifier_current_lineup
+		players_update['formation'] = formationSelect[0].value
+		executeAction('update-lineup-formation', 1, players_update)
+		// executeAction('update-lineup-formation', 1, { 'identifier': identifier_current_lineup, 'formation': formationSelect[0].value})
+
+	})
+}
+
+function numbersOnly(string) {
+	numsStr = window.location.href.replace(/[^0-9]/g, '');
+	return numsStr;
+}
+
+function editLineup(numberIdentifier) {
+	numberIdentifier.toString()
+	identifier_current_lineup = numberIdentifier
+	executeAction('select-lineup-um', null, {identifier: numberIdentifier}).then((result) => {
+		tatic = result
+
+		formationSelect[0].value = tatic[0].lineups__formation;
+		save_lineups()
+		tatic = numbersOnly()
+
+	}).catch(err => console.log(err))
+
+
+	executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
+
+		obj_players = result
+
+		for (i = 0; result.length; i++) {
+			conc_var = 'span_'
+			result = conc_var + obj_players[i].pos_field
+			document.getElementById(result).innerText = obj_players[i].players__player_name
+			document.getElementById(result).className += ' preenchido'
+			document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.className += ' saopaulo'
+			elemento = document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.firstElementChild
+			elemento.style.display = 'none'
+
+			value_players = parseFloat(obj_players[i].team_players__player_value)
+
+			balanceController(value_players, 'purchase')
+			players_infos.push({
+				position: obj_players[i].pos_field,
+				id: obj_players[i].player_Id,
+				price: obj_players[i].team_players__player_value,
+				name: obj_players[i].players__player_name
+			})
+			let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
+			btnBuySaleColor.classList.remove('buyButton')
+			btnBuySaleColor.classList.add('salleButton')
+			players_obj_btn.push(obj_players[i].player_Id)
+		}
+
+	}).catch(err => console.log(err))
+
+
+}
+
+let count_lineup_edit = 0;
+control_identifier = numberIdentifier
+
+
+
+
+
+
+
