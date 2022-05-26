@@ -103,83 +103,91 @@ function save_lineups() {
 	formationSelect[0].addEventListener('change', save_lineups)
 
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
-let saveLineupButton = document.getElementById('btn_save')
+
+	let saveLineupButton = document.getElementById('btn_save')
+
 saveLineupButton.addEventListener('click', function saveLineup() {
-	let length_list_save = players_infos.length
-	let free_pos = 16 - length_list_save
-	for (let i = 0; i < free_pos; i++) {
-		players_infos.push({id: null})
 
-	}
-	let url = '';
-	let div_table_round_id = document.getElementsByClassName('div_table_round_id')
-	table_round_id = parseInt(div_table_round_id[0].textContent)
-	if (window.location.host == 'fantasy.localhost:3004') {
-		let domain = window.location.origin.split(`:3004`)[0];
-		let port = 8000;
-		url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
-	}else if(window.location.host == 'fantasydev.simbioseventures.com'){
-		let domain = 'https://apidjangodev.simbioseventures.com'
-		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
-	}else if(window.location.host == 'fantasystage.simbioseventures.com'){
-		let domain = 'https://fastcrudapistage.simbioseventures.com/'
-		url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
-	}
-	let autorizationToken = JSON.parse(localStorage.fct).accessToken
-	let postParameters = {
-		data: {
-			"subscribe_users__user_id-0": '{current_user}',
-			"subscribe_users__table_round_id-0": table_round_id,
-			"lineups__user_fantasy_id-0": '{current_user}',
-			"lineups__table_round_id-0": table_round_id,
-			"lineups__formation-0": save_formation,
-			"lineups_players__player_id-0": players_infos[0].id,
-			"lineups_players__position_field-0": players_infos[0].position,
-			"lineups_players__player_id-1": players_infos[1].id,
-			"lineups_players__position_field-1": players_infos[1].position,
-			"lineups_players__player_id-2": players_infos[2].id,
-			"lineups_players__position_field-2": players_infos[2].position,
-			"lineups_players__player_id-3": players_infos[3].id,
-			"lineups_players__position_field-3": players_infos[3].position,
-			"lineups_players__player_id-4": players_infos[4].id,
-			"lineups_players__position_field-4": players_infos[4].position,
-			"lineups_players__player_id-5": players_infos[5].id,
-			"lineups_players__position_field-5": players_infos[5].position,
-			"lineups_players__player_id-6": players_infos[6].id,
-			"lineups_players__position_field-6": players_infos[6].position,
-			"lineups_players__player_id-7": players_infos[7].id,
-			"lineups_players__position_field-7": players_infos[7].position,
-			"lineups_players__player_id-8": players_infos[8].id,
-			"lineups_players__position_field-8": players_infos[8].position,
-			"lineups_players__player_id-9": players_infos[9].id,
-			"lineups_players__position_field-9": players_infos[9].position,
-			"lineups_players__player_id-10": players_infos[10].id,
-			"lineups_players__position_field-10": players_infos[10].position,
-			"lineups_players__player_id-11": players_infos[11].id,
-			"lineups_players__position_field-11": players_infos[11].position,
-			"lineups_players__player_id-12": players_infos[12].id,
-			"lineups_players__position_field-12": players_infos[12].position,
-			"lineups_players__player_id-13": players_infos[13].id,
-			"lineups_players__position_field-13": players_infos[13].position,
-			"lineups_players__player_id-14": players_infos[14].id,
-			"lineups_players__position_field-14": players_infos[14].position,
-			"lineups_players__player_id-15": players_infos[15].id,
-			"lineups_players__position_field-15": players_infos[15].position,
+	if (window.location.href.includes('/fantasy-lineup-edit/')){
+		save_lineup_edit()
+	}else {
+		let length_list_save = players_infos.length
+		let free_pos = 16 - length_list_save
+		for (let i = 0; i < free_pos; i++) {
+			players_infos.push({id: null})
+
 		}
-	};
-	const options = {
-		method: 'POST',
-		body: JSON.stringify( postParameters ),
-		headers: new Headers({
-			'Authorization': `Bearer ${autorizationToken}` ,
-		})
-	};
-	fetch( url, options )
-		.then( response => response.json() )
-		.then( response => {
+		let url = '';
+		let div_table_round_id = document.getElementsByClassName('div_table_round_id')
+		table_round_id = parseInt(div_table_round_id[0].textContent)
+		if (window.location.host == 'fantasy.localhost:3004') {
+			let domain = window.location.origin.split(`:3004`)[0];
+			let port = 8000;
+			url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
+		}else if(window.location.host == 'fantasydev.simbioseventures.com'){
+			let domain = 'https://apidjangodev.simbioseventures.com'
+			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
+		}else if(window.location.host == 'fantasystage.simbioseventures.com'){
+			let domain = 'https://fastcrudapistage.simbioseventures.com/'
+			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
+		}
+		let autorizationToken = JSON.parse(localStorage.fct).accessToken
+		let postParameters = {
+			data: {
+				"subscribe_users__user_id-0": '{current_user}',
+				"subscribe_users__table_round_id-0": table_round_id,
+				"lineups__user_fantasy_id-0": '{current_user}',
+				"lineups__table_round_id-0": table_round_id,
+				"lineups__formation-0": save_formation,
+				"lineups_players__player_id-0": players_infos[0].id,
+				"lineups_players__position_field-0": players_infos[0].position,
+				"lineups_players__player_id-1": players_infos[1].id,
+				"lineups_players__position_field-1": players_infos[1].position,
+				"lineups_players__player_id-2": players_infos[2].id,
+				"lineups_players__position_field-2": players_infos[2].position,
+				"lineups_players__player_id-3": players_infos[3].id,
+				"lineups_players__position_field-3": players_infos[3].position,
+				"lineups_players__player_id-4": players_infos[4].id,
+				"lineups_players__position_field-4": players_infos[4].position,
+				"lineups_players__player_id-5": players_infos[5].id,
+				"lineups_players__position_field-5": players_infos[5].position,
+				"lineups_players__player_id-6": players_infos[6].id,
+				"lineups_players__position_field-6": players_infos[6].position,
+				"lineups_players__player_id-7": players_infos[7].id,
+				"lineups_players__position_field-7": players_infos[7].position,
+				"lineups_players__player_id-8": players_infos[8].id,
+				"lineups_players__position_field-8": players_infos[8].position,
+				"lineups_players__player_id-9": players_infos[9].id,
+				"lineups_players__position_field-9": players_infos[9].position,
+				"lineups_players__player_id-10": players_infos[10].id,
+				"lineups_players__position_field-10": players_infos[10].position,
+				"lineups_players__player_id-11": players_infos[11].id,
+				"lineups_players__position_field-11": players_infos[11].position,
+				"lineups_players__player_id-12": players_infos[12].id,
+				"lineups_players__position_field-12": players_infos[12].position,
+				"lineups_players__player_id-13": players_infos[13].id,
+				"lineups_players__position_field-13": players_infos[13].position,
+				"lineups_players__player_id-14": players_infos[14].id,
+				"lineups_players__position_field-14": players_infos[14].position,
+				"lineups_players__player_id-15": players_infos[15].id,
+				"lineups_players__position_field-15": players_infos[15].position,
+			}
+		};
+		const options = {
+			method: 'POST',
+			body: JSON.stringify( postParameters ),
+			headers: new Headers({
+				'Authorization': `Bearer ${autorizationToken}` ,
+			})
+		};
+		fetch( url, options )
+			.then( response => response.json() )
+			.then( response => {
 
-		});
-})
+			});
+	}
+
+	})
 
 
 /*Esta função recebe dois parâmetros "valor" e "operação" /compra ou venda/ e ela faz todos os cálculos/débitos e injeta no html*/
@@ -1294,99 +1302,113 @@ function countAvailablePlayers(position_num){
 		}
 
 }
-
-
 var numberIdentifier = 0;
-if (window.location.href.includes('/fantasy-lineup-edit/')) {
-	numberIdentifier = window.location.href
-	numberIdentifier = numberIdentifier.toString()
-	numberIdentifier = numberIdentifier.split('/')
-	numberIdentifier = numberIdentifier[numberIdentifier.length - 1]
-	document.getElementById('btn_save').id = "btn_edit"
-	saveLineupEditButton = document.getElementById('btn_edit')
-	editLineup(numberIdentifier)
+function save_lineup_edit() {
 
-	saveLineupEditButton.addEventListener('click', (e) => {
+	if (window.location.href.includes('/fantasy-lineup-edit/')) {
 
-		let players_update = {}
-		for (i = 0; i < 16; i++) {
+		numberIdentifier = window.location.href
 
-			let player = players_infos.find(element => element.position == `p_${i}`)
-			if (player) {
-				players_update[`player_id_${i}`] = player.id
+		numberIdentifier = numberIdentifier.toString()
 
-			} else {
-				players_update[`player_id_${i}`] = 0
+		numberIdentifier = numberIdentifier.split('/')
+
+		numberIdentifier = numbersOnly(numberIdentifier[numberIdentifier.length - 1])
+
+		saveLineupEditButton = document.getElementById('btn_save')
+
+
+
+			console.log('chamou editar')
+			let players_update = {}
+			for (i = 0; i < 16; i++) {
+
+				let player = players_infos.find(element => element.position == `p_${i}`)
+				if (player) {
+					players_update[`player_id_${i}`] = player.id
+
+				} else {
+					players_update[`player_id_${i}`] = 0
+				}
 			}
-		}
-		let formationSelect = document.getElementsByClassName('formation')
-		console.log('formacao salva',formationSelect[0].value)
+			let formationSelect = document.getElementsByClassName('formation')
+			console.log('formacao salva', formationSelect[0].value)
 
-		players_update['identifier'] = identifier_current_lineup
-		players_update['formation'] = formationSelect[0].value
-		executeAction('update-lineup-formation', 1, players_update)
-		// executeAction('update-lineup-formation', 1, { 'identifier': identifier_current_lineup, 'formation': formationSelect[0].value})
+			players_update['identifier'] = numberIdentifier
+			players_update['formation'] = formationSelect[0].value
+			executeAction('update-lineup-formation', numberIdentifier, players_update)
+			// executeAction('update-lineup-formation', 1, { 'identifier': identifier_current_lineup, 'formation': formationSelect[0].value})
 
-	})
+
+	}
+
+
+
+
+	let count_lineup_edit = 0;
+	control_identifier = numberIdentifier
 }
 
-function numbersOnly(string) {
-	numsStr = window.location.href.replace(/[^0-9]/g, '');
-	return numsStr;
+
+
+function numbersOnly(string)
+{
+    var numsStr = string.replace(/[^0-9]/g,'');
+    return numsStr.toString();
 }
 
-function editLineup(numberIdentifier) {
-	numberIdentifier.toString()
-	identifier_current_lineup = numberIdentifier
-	executeAction('select-lineup-um', null, {identifier: numberIdentifier}).then((result) => {
-		tatic = result
+	if (window.location.href.includes('/fantasy-lineup-edit/')){
+		numberIdentifier = window.location.href
 
-		formationSelect[0].value = tatic[0].lineups__formation;
-		save_lineups()
-		tatic = numbersOnly()
+		numberIdentifier = numberIdentifier.toString()
 
-	}).catch(err => console.log(err))
+		numberIdentifier = numberIdentifier.split('/')
 
+		numberIdentifier = numbersOnly(numberIdentifier[numberIdentifier.length - 1])
+		get_lineup(numberIdentifier)
+	}
+	function get_lineup(numberIdentifier) {
+		numberIdentifier.toString()
+		identifier_current_lineup = numberIdentifier
+		executeAction('select-lineup-um', null, {identifier: numberIdentifier}).then((result) => {
+			tatic = result
 
-	executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
+			formationSelect[0].value = tatic[0].lineups__formation;
+			save_lineups()
+			tatic = numbersOnly()
 
-		obj_players = result
-
-		for (i = 0; result.length; i++) {
-			conc_var = 'span_'
-			result = conc_var + obj_players[i].pos_field
-			document.getElementById(result).innerText = obj_players[i].players__player_name
-			document.getElementById(result).className += ' preenchido'
-			document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.className += ' saopaulo'
-			elemento = document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.firstElementChild
-			elemento.style.display = 'none'
-
-			value_players = parseFloat(obj_players[i].team_players__player_value)
-
-			balanceController(value_players, 'purchase')
-			players_infos.push({
-				position: obj_players[i].pos_field,
-				id: obj_players[i].player_Id,
-				price: obj_players[i].team_players__player_value,
-				name: obj_players[i].players__player_name
-			})
-			let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
-			btnBuySaleColor.classList.remove('buyButton')
-			btnBuySaleColor.classList.add('salleButton')
-			players_obj_btn.push(obj_players[i].player_Id)
-		}
-
-	}).catch(err => console.log(err))
+		}).catch(err => console.log(err))
 
 
-}
+		executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
 
-let count_lineup_edit = 0;
-control_identifier = numberIdentifier
+			obj_players = result
+
+			for (i = 0; result.length; i++) {
+				conc_var = 'span_'
+				result = conc_var + obj_players[i].pos_field
+				document.getElementById(result).innerText = obj_players[i].players__player_name
+				document.getElementById(result).className += ' preenchido'
+				document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.className += ' saopaulo'
+				elemento = document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.firstElementChild
+				elemento.style.display = 'none'
+
+				value_players = parseFloat(obj_players[i].team_players__player_value)
+
+				balanceController(value_players, 'purchase')
+				players_infos.push({
+					position: obj_players[i].pos_field,
+					id: obj_players[i].player_Id,
+					price: obj_players[i].team_players__player_value,
+					name: obj_players[i].players__player_name
+				})
+				let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
+				btnBuySaleColor.classList.remove('buyButton')
+				btnBuySaleColor.classList.add('salleButton')
+				players_obj_btn.push(obj_players[i].player_Id)
+			}
+
+		}).catch(err => console.log(err))
 
 
-
-
-
-
-
+	}
