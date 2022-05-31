@@ -9,6 +9,7 @@ get_field_click()
 get_backArrow_click()
 searchPlayer()
 
+
 let cost_team = 0
 let bal_aval = 120000
 let players_obj = {}
@@ -136,6 +137,86 @@ function resetSearchInput(position){
 	}
 }
 
+function getCaptain(){
+	let players = document.getElementsByClassName('playerContainer')
+	let delBtn = document.getElementsByClassName('deletePlayer')
+	let finalPosition = ''
+	for(let i=0; i<players.length; i++){
+		delBtn[i].addEventListener(('click'), function(){
+			let test = event.path[1].id
+			let test2 = test.split('_')
+			finalPosition = 'span_' + test2[2] + '_' + test2[3]
+		})
+		players[i].addEventListener('click', function(event){
+			let position = event.target.id
+			let positionString = position.split('_')
+			if(positionString[0] == 'p'){
+				finalPosition = 'span_' + positionString[0] + '_' + positionString[1]
+			}else if (positionString[0] == 'span'){
+				finalPosition = positionString[0] + '_' + positionString[1] + '_' + positionString[2]
+			}
+
+			let player = document.getElementById(finalPosition)
+			if(player.className.includes('preenchido')){
+				//event.target.parentNode.parentNode.children[3].style.display = 'flex'
+				//console.log(event.target.parentNode.parentNode.children[3].getAttribute('style'))
+				if(event.target.parentNode.parentNode.children[3].getAttribute('style') == null ||  event.target.parentNode.parentNode.children[3].getAttribute('style') == 'display: none;'){
+					event.target.parentNode.parentNode.children[3].setAttribute('style', 'display: flex;')
+				} else if(event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #F8B655; display: flex'){
+					event.target.parentNode.parentNode.children[3].setAttribute('style', 'background-color: #F8B655; display: flex;')
+				} else if(event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #FFFFFF; display: none;'){
+					event.target.parentNode.parentNode.children[3].setAttribute('style', 'display: flex;')
+				}
+			}
+
+			if(event.path[0].className != 'captainContainer captain'){
+				let captainContainer = document.getElementsByClassName('captainContainer')
+				for(let j=0; j<captainContainer.length; j++){
+					if(captainContainer[j].parentNode.id != event.target.id){
+						let captainContainerAttr = captainContainer[j].getAttribute("style")
+						 if(captainContainerAttr == 'display: flex;'){
+							captainContainer[j].setAttribute('style', 'display: none;')
+						}
+					}
+				}
+			}
+
+		})
+	}
+
+	let captainContainer = document.getElementsByClassName('captainContainer')
+	for(let x=0; x<captainContainer.length; x++){
+		captainContainer[x].addEventListener('click', function(){
+
+			if(!captainContainer[x].getAttribute('style').includes('#F8B655')){
+				captainContainer[x].setAttribute('style', 'background-color: #F8B655; display: flex;')
+				captainContainer[x].parentNode.children[0].children[0].classList.add('captain')
+			}else{
+				captainContainer[x].parentNode.children[0].children[0].classList.remove('captain')
+				captainContainer[x].setAttribute('style', 'background-color: #FFFFFF; display: none;')
+			}
+
+			//Aqui vou ter que varrer todos os captainContainers para verificar se já existe outro capitão e tornar ele um jogador comum
+			for(let y=0; y<11; y++){
+				//Esse for varre todos os captains containers. Aqui tenho que verificar se existe outro captain container amarelo e se ele existe, se o id dele é igual ao do cara que acabei de clicar. se o id for diferente, transformo o outro em branco e o que cliquei agora amarelo
+				//console.log(captainContainer[y].parentNode.id) //Retorna o id de todos os captain containers
+				//console.log(captainContainer[x].parentNode.id) //Id do cara que cliquei
+
+				if(captainContainer[y].getAttribute('style') == 'background-color: #F8B655; display: flex;'){
+					if(captainContainer[y].parentNode.id != captainContainer[x].parentNode.id){
+						captainContainer[y].parentNode.children[0].children[0].classList.remove('captain')
+						captainContainer[y].setAttribute('style', 'background-color: #FFFFFF; display: none;')
+					}
+				}
+
+				/*if(captainContainer[y].getAttribute('style') == 'background-color: #FFFFFF; display: flex;' || captainContainer[y].getAttribute('style') == null){
+					captainContainer[y].setAttribute('style', 'background-color: #FFFFFF; display: none;')
+				}*/
+			}
+		})
+	}
+}
+
 function resetLabelsPlayers(){
 	let playersContainers = document.getElementsByClassName('playerContainer')
 	for (let i = 0; i < playersContainers.length; i++) {
@@ -172,38 +253,48 @@ save_lineups()
 
 function save_lineups() {
 	let backReservation = document.getElementsByClassName('full-backReservation')
+	//let reservationsPlayers = document.getElementsByClassName('playersReservations')
+	//let aditionalMidfielderReservation = reservationsPlayers[0].children[2]
 	switch (formationSelect[0].value){
 		case '3-4-3':
 			formations = formation343
-			backReservation[0].style.display = 'none'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#F8B655'
+			//backReservation[0].style.display = 'none'
 			break
 		case '4-3-3':
 			formations = formation433
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 		case '3-5-2':
 			formations = formation352
-			backReservation[0].style.display = 'none'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#F8B655'
+			//backReservation[0].style.display = 'none'
 			break
 		case '4-2-4':
 			formations = formation424
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 		case '4-4-2':
 			formations = formation442
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 		case '4-5-1':
 			formations = formation451
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 		case '5-3-2':
 			formations = formation532
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 		case '5-4-1':
 			formations = formation541
-			backReservation[0].style.display = 'flex'
+			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
+			//backReservation[0].style.display = 'flex'
 			break
 	}
 
@@ -213,13 +304,24 @@ function save_lineups() {
 	}
 	save_formation = formationSelect[0].value
 	resetLabelsPlayers()
-	// resetNames()
+	resetNames()
 
 
 }
 
 	formationSelect[0].addEventListener('change', save_lineups)
 
+let numIdentifier = window.location.href
+numIdentifier = numIdentifier.toString()
+numIdentifier = numIdentifier.split('/')
+numIdentifier = numbersOnly(numIdentifier[numIdentifier.length - 1])
+
+ executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
+        teste = result
+        if(teste[0].table_rules__captain == 1){
+			getCaptain()
+		}
+    }).catch(err => console.log(err))
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
 
 	let saveLineupButton = document.getElementById('btn_save')
@@ -229,6 +331,24 @@ saveLineupButton.addEventListener('click', function saveLineup() {
 	if (window.location.href.includes('/fantasy-lineup-edit/')){
 		save_lineup_edit()
 	}else {
+
+		let captainPlayer = ''
+		//Esta parte da função serve para pegar o jogador capitão
+		let allTitularPlayers = document.getElementsByClassName('playerContainer')
+		for(let i=0; i<allTitularPlayers.length; i++){
+			if(allTitularPlayers[i].children[0].children[0].className.includes('captain')){
+				captainPlayer = allTitularPlayers[i].id
+			}
+		}
+		for(let j=0; j<players_infos.length; j++){
+			if(players_infos[j].position == captainPlayer){
+				captainPlayer = players_infos[j].id
+			}
+		}
+		//Aqui acaba a parte que pega o capitão
+		//Tenho que salvar o captainPlayer (id do jogador) dentro de lineups__captain
+		//table_rules__captain tem que ser igual a 1
+
 		let length_list_save = players_infos.length
 		let free_pos = 16 - length_list_save
 		for (let i = 0; i < free_pos; i++) {
@@ -257,6 +377,7 @@ saveLineupButton.addEventListener('click', function saveLineup() {
 				"lineups__user_fantasy_id-0": '{current_user}',
 				"lineups__table_round_id-0": table_round_id,
 				"lineups__formation-0": save_formation,
+				"lineups__captain-0": captainPlayer,
 				"lineups_players__player_id-0": players_infos[0].id,
 				"lineups_players__position_field-0": players_infos[0].position,
 				"lineups_players__player_id-1": players_infos[1].id,
@@ -307,7 +428,6 @@ saveLineupButton.addEventListener('click', function saveLineup() {
 
 	})
 
-
 /*Esta função recebe dois parâmetros "valor" e "operação" /compra ou venda/ e ela faz todos os cálculos/débitos e injeta no html*/
 function balanceController(price, operation){
 
@@ -331,13 +451,22 @@ function balanceController(price, operation){
 function get_field_click() {
     let field = document.getElementsByClassName('field')
     let botoes = document.getElementsByClassName('deletePlayer')
+	let captainContainer = document.getElementsByClassName('captainContainer')
     for (var i = 0; i < field.length; i++) {
         field[i].addEventListener('click', function (event) {
             if (event.target.id == '') {
                 for (i = 0; i < botoes.length; i++) {
                     botoes[i].style.display = 'none'
                 }
-            } else {
+				if(event.path[0].tagName != 'DIV'){
+					for (let j=0; j<captainContainer.length; j++){
+
+						if(!captainContainer[j].parentNode.children[0].children[0].className.includes('captain')){
+							//captainContainer[j].style.display = 'none'
+							captainContainer[j].setAttribute('style', 'background-color: #FFFFFF; display: none;')
+						}
+					}
+				}
             }
         })
     }
@@ -394,21 +523,39 @@ function del_unique_player(id_btn) {
     let display_btn_unique_del_player = document.getElementById(btn_str)
     display_btn_unique_del_player.style.display = 'none'
     display_unique_del_player.classList.remove("preenchido")
-    if (control_if == 15 || control_if == 0) {
-        display_unique_del_player.textContent = "GOL"
-    }
-    if (control_if == 14 || control_if == 2 || control_if == 1) {
-        display_unique_del_player.textContent = "ZAG"
-    }
-    if (control_if == 13 || control_if == 3 || control_if == 4) {
-        display_unique_del_player.textContent = "LAT"
-    }
-    if (control_if == 12 || control_if == 5 || control_if == 6 || control_if == 7) {
-        display_unique_del_player.textContent = "MEI"
-    }
-    if (control_if == 11 || control_if == 8 || control_if == 9 || control_if == 10) {
-        display_unique_del_player.textContent = "ATA"
-    }
+	if(formationSelect[0].value == '3-4-3' || formationSelect[0].value == '3-5-2'){
+		if (control_if == 15 || control_if == 0) {
+			display_unique_del_player.textContent = "GOL"
+		}
+		if (control_if == 14 || control_if == 2 || control_if == 1) {
+			display_unique_del_player.textContent = "ZAG"
+		}
+		if (control_if == 3 || control_if == 4) {
+			display_unique_del_player.textContent = "LAT"
+		}
+		if (control_if == 12 || control_if == 5 || control_if == 6 || control_if == 7 || control_if == 13) {
+			display_unique_del_player.textContent = "MEI"
+		}
+		if (control_if == 11 || control_if == 8 || control_if == 9 || control_if == 10) {
+			display_unique_del_player.textContent = "ATA"
+		}
+	}else{
+		if (control_if == 15 || control_if == 0) {
+			display_unique_del_player.textContent = "GOL"
+		}
+		if (control_if == 14 || control_if == 2 || control_if == 1) {
+			display_unique_del_player.textContent = "ZAG"
+		}
+		if (control_if == 13 || control_if == 3 || control_if == 4) {
+			display_unique_del_player.textContent = "LAT"
+		}
+		if (control_if == 12 || control_if == 5 || control_if == 6 || control_if == 7) {
+			display_unique_del_player.textContent = "MEI"
+		}
+		if (control_if == 11 || control_if == 8 || control_if == 9 || control_if == 10) {
+			display_unique_del_player.textContent = "ATA"
+		}
+	}
     let elemento_del_unique = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild.firstElementChild
     elemento_del_unique.style.display = 'flex'
     let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
@@ -505,7 +652,7 @@ function resetPlayer(position){
 		if(position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11'){
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12'){
+		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12' || position == 'p_13'){
 			player.children[2].textContent = 'MEI'
 		}
 		if(position == 'p_1' || position == 'p_2' || position == 'p_3'|| position == 'p_14'){
@@ -519,7 +666,7 @@ function resetPlayer(position){
 		if(position == 'p_8' || position == 'p_9' || position == 'p_11'){
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_12'){
+		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_12' || position == 'p_13'){
 			player.children[2].textContent = 'MEI'
 		}
 		if(position == 'p_1' || position == 'p_2' || position == 'p_3'|| position == 'p_14'){
@@ -856,7 +1003,12 @@ function resetNames() {
     let display13 = document.getElementById('span_p_13')
     let displayBtn13 = document.getElementById('btn_del_p_13')
     displayBtn13.style.display = 'none'
-    display13.textContent = "LAT"
+	let selectFormation = document.getElementsByClassName('formation')
+	if(selectFormation[0].value == '3-4-3' || selectFormation[0].value == '3-5-2'){
+    	display13.textContent = "MEI"
+	}else{
+		display13.textContent = "LAT"
+	}
     display13.classList.remove("preenchido")
     let elemento_btn_cor_jogador_14 = document.getElementById('p_14').firstElementChild.firstElementChild
     elemento_btn_cor_jogador_14.classList.remove('saopaulo')
@@ -1180,6 +1332,7 @@ function countAvailablePlayers(position_num){
 		midfielders.push(document.getElementById('p_' + i))
 		}
 		midfielders.push(document.getElementById('p_12'))
+		midfielders.push(document.getElementById('p_13'))
 	}
 	if (formationSelect[0].value == '3-5-2'){
 		for(var i=4; i<8; i++){
@@ -1187,6 +1340,7 @@ function countAvailablePlayers(position_num){
 		}
 		midfielders.push(document.getElementById('p_10'))
 		midfielders.push(document.getElementById('p_12'))
+		midfielders.push(document.getElementById('p_13'))
 	}
 	if (formationSelect[0].value == '4-2-4'){
 		midfielders.push(document.getElementById('p_5'))
@@ -1286,7 +1440,7 @@ function countAvailablePlayers(position_num){
 			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_10' || position_num == 'p_11') {
 				return availableAtackers
 			}
-			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12') {
+			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12' || position_num == 'p_13') {
 				return availableMidfielders
 			}
 			/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
@@ -1321,7 +1475,7 @@ function countAvailablePlayers(position_num){
 			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
 				return availableAtackers
 			}
-			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12') {
+			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12' || position_num == 'p_13') {
 				return availableMidfielders
 			}
 			/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
@@ -1489,9 +1643,9 @@ function numbersOnly(string)
 	function get_lineup(numberIdentifier) {
 		numberIdentifier.toString()
 		identifier_current_lineup = numberIdentifier
-		executeAction('select-lineup-um', null, {identifier: numberIdentifier}).then((result) => {
-			tatic = result
 
+		executeAction('select-lineup-fomation', null, {identifier: numberIdentifier}).then((result) => {
+			tatic = result
 			formationSelect[0].value = tatic[0].lineups__formation;
 			save_lineups()
 			tatic = numbersOnly()
@@ -1531,3 +1685,9 @@ function numbersOnly(string)
 
 
 	}
+
+
+function numbersOnly(string){
+    var numsStr = string.replace(/[^0-9]/g,'');
+    return numsStr.toString();
+}
