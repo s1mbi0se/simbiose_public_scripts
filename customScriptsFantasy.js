@@ -8,6 +8,7 @@ checkPlayersForHiddenModal()
 get_field_click()
 get_backArrow_click()
 searchPlayer()
+accountDelete()
 
 
 let cost_team = 0
@@ -19,6 +20,12 @@ players_infos.shift()
 let table_round_id = 1
 let save_formation = '4-3-3'
 var identifier_current_lineup= 0
+
+function accountDelete(){
+	components.openModalDeleteUser.onClick(() => {
+    		openModal({ container: 'fantasy-modal-delete-user', identifier: null, viewMode: 'center' })
+	})
+}
 
 function searchPlayer(){
 
