@@ -101,3 +101,32 @@ function list_ids() {
 
 getMarket()
 
+/* Função para desabilitar botão de escalação na tela Listagem Mesas caso tenha atingido limite de lineups da mesa */
+function disableBtnListagemMesas() {
+	if (window.location.href.includes('/fantasy-listagem-mesas')) {
+		let user = document.getElementById('logged_user').innerText
+		executeAction('get-limit-lineups', null, {identifier: user}).then((result) => {
+			for (let i = 0; i < result.length; i++) {
+				if (result[i].user_lineups === result[i].limit_lineups) {
+					let btns = document.querySelectorAll('button')
+					for (let j = 0; j < btns.length; j++) {
+						if (btns[j].id === result[i].table_round_id + 'btn') {
+							btns[j].disable = true
+							btns[j].style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+							btns[j].addEventListener("click", function (event) {
+								event.preventDefault();
+							}, false);
+						}
+					}
+
+
+				}
+			}
+
+		}).catch(err => console.log(err))
+
+	}
+}
+
+disableBtnListagemMesas()
+
