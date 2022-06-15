@@ -786,6 +786,20 @@ function resetPlayer(position){
 let j
 //Função de venda de um jogador
 function sallePlayer(player_id){
+	//O for abaixo serve para resetar o alertContainer dos jogadores
+	for(let i=0; i<16;i++){
+		let btn = document.getElementById(`p_${i}`)
+		btn.children[4].setAttribute('style', 'display:none')
+		btn.children[0].children[0].classList.remove('alert')
+	}
+
+	//Este outro for reseta o captainContainer dos jogadores
+	for(let i=0; i<11;i++){
+		let btn = document.getElementById(`p_${i}`)
+		btn.children[3].removeAttribute('style')
+		btn.children[0].children[0].classList.remove('captain')
+	}
+
 	let salleBtn = document.getElementsByClassName('salleButton')
 	for (let i = 0; i < salleBtn.length; i++) {
         salleBtn[i].addEventListener('click', function (event) {
