@@ -648,14 +648,9 @@ function del_unique_player(id_btn) {
 	let btn = document.getElementById(elemento_del_unique.id)
 	btn.children[3].removeAttribute('style')
 	btn.children[0].children[0].classList.remove('captain')
-	let num = id_btn.split('_')
-	if(num[num.length - 1] < 11){
-		btn.children[4].setAttribute('style', 'display:none')
-		btn.children[0].children[0].classList.remove('alert')
-	}else if(num[num.length - 1] > 10){
-		btn.children[3].setAttribute('style', 'display:none')
-		btn.children[0].children[0].classList.remove('alert')
-	}
+	btn.children[4].setAttribute('style', 'display:none')
+	btn.children[0].children[0].classList.remove('alert')
+
 
 	/*Return green color in button inside modal*/
 	let player_id = ''
@@ -976,7 +971,7 @@ function joinPlayer(player_id, name) {
 
 		players_infos.push({position: retorno[j].id, id: player_id, price: player_value, name: retorno[j].children[2].textContent})
 
-		if(name.includes('pendurado') || name.includes('lesionado')){
+		if(name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')){
 			let playerBtn = retorno[j]
 			playerBtn.children[4].setAttribute('style', 'display: flex')
 			playerBtn.children[0].children[0].classList.add('alert')
@@ -1015,14 +1010,8 @@ function resetNames() {
 	//O for abaixo serve para resetar o alertContainer dos jogadores
 	for(let i=0; i<16;i++){
 		let btn = document.getElementById(`p_${i}`)
-		if(i<11){
-			btn.children[4].setAttribute('style', 'display:none')
-			btn.children[0].children[0].classList.remove('alert')
-		}else{
-			btn.children[3].setAttribute('style', 'display:none')
-			btn.children[0].children[0].classList.remove('alert')
-		}
-
+		btn.children[4].setAttribute('style', 'display:none')
+		btn.children[0].children[0].classList.remove('alert')
 	}
 
 	//Este outro for reseta o captainContainer dos jogadores
@@ -1454,10 +1443,6 @@ function countAvailablePlayers(position_num){
 		atackers.push(document.getElementById('p_7'))
 		atackers.push(document.getElementById('p_10'))
 		atackers.push(document.getElementById('p_8'))
-		atackers.push(document.getElementById('p_9'))
-		atackers.push(document.getElementById('p_11'))
-	}
-	if (formationSelect[0].value == '4-5-1'){
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
 	}
