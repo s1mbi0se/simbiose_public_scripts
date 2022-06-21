@@ -1,4 +1,4 @@
-onAction('fantasy-admin-add-wallet-users', 'createAndRedirect', function (formData) {
+onAction('fantasy-admin-add-users-wallet', 'createAndRedirect', function (formData) {
     let sum = parseInt(formData.wallet__value_add) + parseInt(formData.wallet__value)
 	let wallet_id = parseInt(formData.wallet__wallet_id)
 	let numberIdentifier = window.location.href
