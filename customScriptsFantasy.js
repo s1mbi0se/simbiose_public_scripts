@@ -583,7 +583,15 @@ executeAction('query-select-table-round-id', null, {identifier: tableidentifier}
 }).catch(err => console.log(err))
 let viewLineupBtnEdit = document.getElementsByClassName('viewLineupBtn')
 viewLineupBtnEdit[0].addEventListener('click', function (){
-	let link = 'http://fantasy.localhost:3004/fantasy-minhas-ligas-visualizar/' + table_id
+	let link = ''
+	if (window.location.host == 'fantasy.localhost:3004') {
+			link = 'http://fantasy.localhost:3004/fantasy-minhas-ligas-visualizar/' + table_id
+		}else if(window.location.host == 'fantasydev.simbioseventures.com'){
+			link = 'http://fantasydev.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+		}else if(window.location.host == 'fantasystage.simbioseventures.com'){
+			link = 'http://fantasystage.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+		}
+
 	window.location.href = link
 })
 
