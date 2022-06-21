@@ -382,6 +382,7 @@ function saveLineup() {
 			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 		}
 		let autorizationToken = JSON.parse(localStorage.fct).accessToken
+		console.log("entrounodata")
 		let postParameters = {
 			data: {
 				"subscribe_users__user_id-0": '{current_user}',
@@ -425,6 +426,7 @@ function saveLineup() {
 				"lineups_players__position_field-15": players_infos[15].position,
 			}
 		};
+		console.log("saiu do data")
 		const options = {
 			method: 'POST',
 			body: JSON.stringify(postParameters),
@@ -1924,13 +1926,24 @@ async function handleBalance() {
 		let balance = data1[0].user_fantasy__balance                   //saldo em dinheiro
 		let coin_type1 = coin_types[0].table_rules__coin_type_id      //tipo de valor(dinheiro / bolas de ouro)
 		console.log(user_id)
-		switch (coin_type1) {
+		if (coin_type1 == null){
+			await executeAction('relationalinsert-subscribe-process-wallet', null, {
+						wallet_process__user_fantasy_id: user_id,
+						wallet_process__status_transaction_id: '2',
+						wallet_process__process_type: 'Inscrição',
+						wallet__user_fantasy_id: user_id,
+						wallet__process_type: 'Inscrição',
+						wallet__table_id: identifierTable
+					})
+				console.log("caso nulo")
+					saveLineup()
+					window.location.href = "#saveLineupModal"
+		} else {
+			switch (coin_type1) {
 			case 1:
 				if (parseFloat(bet_value) <= parseFloat(gold_balls)) {
 					console.log('if1')
 					await executeAction('relationalinsert-subscribe-process-wallet', null, {
-						subscribe_users__user_id: user_id,
-						subscribe_users__table_round_id: identifierTable,
 						wallet_process__user_fantasy_id: user_id,
 						wallet_process__status_transaction_id: '2',
 						wallet_process__coin_value: bet_value,
@@ -1947,8 +1960,6 @@ async function handleBalance() {
 					window.location.href = "#saveLineupModal"
 				} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value)) {
 					await executeAction('relationalinsert-subscribe-process-wallet', null, {
-						subscribe_users__user_id: user_id,
-						subscribe_users__table_round_id: identifierTable,
 						wallet_process__user_fantasy_id: user_id,
 						wallet_process__status_transaction_id: '2',
 						wallet_process__coin_value: bet_value,
@@ -1970,8 +1981,6 @@ async function handleBalance() {
 			case 2:
 				if ((parseInt(bet_value) <= parseInt(gold_balls))) {
 					await executeAction('relationalinsert-subscribe-process-wallet', null, {
-						subscribe_users__user_id: user_id,
-						subscribe_users__table_round_id: identifierTable,
 						wallet_process__user_fantasy_id: user_id,
 						wallet_process__status_transaction_id: '2',
 						wallet_process__coin_value: bet_value,
@@ -1988,8 +1997,6 @@ async function handleBalance() {
 					window.location.href = "#saveLineupModal"
 				} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value)) {
 					await executeAction('relationalinsert-subscribe-process-wallet', null, {
-						subscribe_users__user_id: user_id,
-						subscribe_users__table_round_id: identifierTable,
 						wallet_process__user_fantasy_id: user_id,
 						wallet_process__status_transaction_id: '2',
 						wallet_process__coin_value: bet_value,
@@ -2008,6 +2015,7 @@ async function handleBalance() {
 					window.location.href = ("http://fantasy.localhost:3004/fantasy-management-packs")
 				}
 				break;
+		}
 		}
 	} catch (err) {
 		showToast('error', 'Erro de conexão')
