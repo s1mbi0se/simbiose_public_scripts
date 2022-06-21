@@ -353,10 +353,10 @@ function getCaptainInEdit(){
 }
 
  executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
-	 	console.log('result', result)
-	 	console.log('result[0]', result[0])
-	 	console.log('result[0].table_rules__captain', result[0].table_rules__captain)
-        if( result == 'Success' || result[0].table_rules__captain == 1 || result[0] == undefined){
+	 	const {message, table_rules__captain} = result[0];
+		console.log(message)
+	 	console.log(table_rules__captain)
+        if( message == 'Success' || table_rules__captain == 1){
 			getCaptain()
 		}
     }).catch(err => console.log(err))
