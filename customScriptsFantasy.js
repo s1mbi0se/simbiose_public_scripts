@@ -1012,11 +1012,10 @@ function getClickBtn() {
 
 /*Esta função é responsável por resetar os nomes e a classe preenchido de cada jogador quando clicamos no botão "Limpar Tudo" */
 function resetNames() {
-	console.log('Entrou na resetNames')
 	//O for abaixo serve para resetar o alertContainer dos jogadores
 	for(let i=0; i<16;i++){
 		let btn = document.getElementById(`p_${i}`)
-		if(i<10){
+		if(i<11){
 			btn.children[4].setAttribute('style', 'display:none')
 			btn.children[0].children[0].classList.remove('alert')
 		}else{
