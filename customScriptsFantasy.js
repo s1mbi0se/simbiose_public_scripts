@@ -354,7 +354,7 @@ function getCaptainInEdit(){
 
  executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
         teste = result
-        if(teste[0].table_rules__captain == 1 || teste == 'Success'){
+        if(teste[0].table_rules__captain == 1 || teste == 'Success' || teste[0].table_rules__captain == '1'){
 			getCaptain()
 		}
     }).catch(err => console.log(err))
@@ -578,9 +578,11 @@ let tableidentifier = window.location.href
 tableidentifier = tableidentifier.toString()
 tableidentifier = tableidentifier.split('/')
 tableidentifier = numbersOnly(tableidentifier[tableidentifier.length - 1])
-executeAction('query-select-table-round-id', null, {identifier: tableidentifier}).then((result) => {
-	table_id = result[0].table_rounds__table_round_id
-}).catch(err => console.log(err))
+if(window.location.href.includes('/fantasy-lineup-edit/')){
+	executeAction('query-select-table-round-id', null, {identifier: tableidentifier}).then((result) => {
+		table_id = result[0].table_rounds__table_round_id
+	}).catch(err => console.log(err))
+}
 let viewLineupBtnEdit = document.getElementsByClassName('viewLineupBtn')
 viewLineupBtnEdit[0].addEventListener('click', function (){
 	let link = ''
