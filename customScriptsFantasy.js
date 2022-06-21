@@ -356,7 +356,7 @@ function getCaptainInEdit(){
 	 	console.log('result', result)
 	 	console.log('result[0]', result[0])
 	 	console.log('result[0].table_rules__captain', result[0].table_rules__captain)
-        if(result[0].table_rules__captain != 0){
+        if(result[0].table_rules__captain == 1 || result == 'Success' || result[0] == undefined){
 			getCaptain()
 		}
     }).catch(err => console.log(err))
