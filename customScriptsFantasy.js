@@ -2020,7 +2020,6 @@ let identifierTable = getObjectId()
 
 async function handleBalance() {
 	try {
-		console.log("entrou try")
 		let data1 = await executeAction('betting-balance', null, {identifier: identifierTable})
 		let coin_types = await executeAction('query-coin-type-id', null, {identifier: identifierTable})
 		let bet_value = data1[0][0].table_rules__betting_value            //valor da inscrição
