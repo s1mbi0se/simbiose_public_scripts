@@ -2014,7 +2014,6 @@ function orderFilter() {
 document.getElementById("confirmleague").addEventListener('click', (evt) => {
 	handleBalance()
 	evt.preventDefault()
-	console.log("clicou")
 })
 
 let identifierTable = getObjectId()
@@ -2056,7 +2055,6 @@ async function handleBalance() {
 							wallet__process_type: 'Inscrição',
 							wallet__table_id: identifierTable
 						})
-						console.log("caso 1 1")
 						await executeAction('update-gold-balls', null, {identifier: identifierTable})
 						saveLineup()
 						window.location.href = "#saveLineupModal"
@@ -2073,12 +2071,11 @@ async function handleBalance() {
 							wallet__process_type: 'Inscrição',
 							wallet__table_id: identifierTable
 						})
-						console.log("caso 1 2")
 						await executeAction('update-balance', null, {identifier: identifierTable})
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("http://fantasy.localhost:3004/fantasy-management-packs")
+						window.location.href = ("https://fantasydev.simbioseventures.com/fantasy-management-packs")
 					}
 					break;
 				case 2:
@@ -2115,7 +2112,7 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("http://fantasy.localhost:3004/fantasy-management-packs")
+						window.location.href = ("https://fantasydev.simbioseventures.com/fantasy-management-packs")
 					}
 					break;
 			}
