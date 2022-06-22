@@ -354,7 +354,6 @@ function getCaptainInEdit(){
 if (window.location.href.includes('/fantasy-lineup-edit/')){
 	 executeAction('query-select-table-rules-edit', null, {identifier: numIdentifier}).then((result) => {
 			const {table_rules__captain} = result.flat()[0]
-			console.log('agora', table_rules__captain)
 			if(table_rules__captain == 1){
 				getCaptain()
 			}
@@ -362,7 +361,6 @@ if (window.location.href.includes('/fantasy-lineup-edit/')){
 }else if(window.location.href.includes('/fantasy-lineup/')){
 	 executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
 			const {table_rules__captain} = result.flat()[0]
-			console.log('agora2', table_rules__captain)
 			if(table_rules__captain == 1){
 				getCaptain()
 			}
@@ -590,7 +588,6 @@ tableidentifier = tableidentifier.split('/')
 tableidentifier = numbersOnly(tableidentifier[tableidentifier.length - 1])
 if(window.location.href.includes('/fantasy-lineup-edit/')){
 	executeAction('query-select-table-round-id', null, {identifier: tableidentifier}).then((result) => {
-		console.log('oi', result[0][0])
 		table_id = result[0][0].lineups__table_round_id
 	}).catch(err => console.log(err))
 }
@@ -1842,14 +1839,8 @@ function numbersOnly(string)
 				if(players_infos[i].situation == 'pendurado' || players_infos[i].situation == 'lesionado' || players_infos[i].situation == 'suspenso'){
 					let player = document.getElementById(players_infos[i].position)
 					let position = players_infos[i].position.split('_')
-					if(position[position.length - 1] < 11){
-						player.children[4].setAttribute('style', 'display: flex')
-						player.children[0].children[0].classList.add('alert')
-					}else if(position[position.length - 1] > 10){
-						player.children[3].setAttribute('style', 'display: flex')
-						player.children[0].children[0].classList.add('alert')
-					}
-
+					player.children[4].setAttribute('style', 'display: flex')
+					player.children[0].children[0].classList.add('alert')
 				}
 
 				let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
