@@ -2,6 +2,7 @@
 callAllFunctions()
 statusFilter()
 orderFilter()
+
 function callAllFunctions(){
 	get_player_click_buy()
 	get_player_click()
@@ -12,6 +13,7 @@ function callAllFunctions(){
 	get_field_click()
 	get_backArrow_click()
 	searchPlayer()
+	getCaptainInEdit()
 }
 
 
@@ -37,6 +39,12 @@ confirmNameModalBtn[0].addEventListener('click', function(){
 		saveLineup()
 	}
 })
+
+
+
+
+
+
 
 function searchPlayer(){
 
@@ -203,7 +211,6 @@ function getCaptain(){
 	let captainContainer = document.getElementsByClassName('captainContainer')
 	for(let x=0; x<captainContainer.length; x++){
 		captainContainer[x].addEventListener('click', function(){
-
 			if(!captainContainer[x].getAttribute('style').includes('#F8B655')){
 				captainContainer[x].setAttribute('style', 'background-color: #F8B655; display: flex;')
 				captainContainer[x].parentNode.children[0].children[0].classList.add('captain')
@@ -250,6 +257,8 @@ function resetLabelsPlayers(){
 
 let playerContainer = document.getElementsByClassName('playerContainer')
 let formationSelect = document.getElementsByClassName('formation')
+formationSelect[0].addEventListener('change', save_lineups)
+formationSelect[0].addEventListener('change', resetNames)
 let formation343 = ['defender_One3-4-3', 'defender_Two3-4-3', 'defender_Three3-4-3', 'midfielder_One3-4-3', 'midfielder_Two3-4-3', 'midfielder_Three3-4-3', 'midfielder_Four3-4-3', 'attacker_One3-4-3', 'attacker_Two3-4-3', 'attacker_Three3-4-3']
 let formation433 = ['defender_One4-3-3', 'defender_Two4-3-3', 'leftBack_4-3-3', 'rightBack_4-3-3', 'midfielder_One4-3-3', 'midfielder_Two4-3-3', 'midfielder_Three4-3-3', 'attacker_One4-3-3', 'attacker_Two4-3-3', 'attacker_Three4-3-3']
 let formation352 = ['defender_One3-5-2', 'defender_Two3-5-2', 'defender_Three3-5-2', 'midfielder_One3-5-2', 'midfielder_Two3-5-2', 'midfielder_Three3-5-2', 'midfielder_Four3-5-2', 'midfielder_Five3-5-2', 'attacker_One3-5-2', 'attacker_Two3-5-2']
@@ -269,73 +278,100 @@ function save_lineups() {
 			formations = formation343
 			backReservation[0].children[0].children[0].style.backgroundColor = '#F8B655'
 			//backReservation[0].style.display = 'none'
-			break
+			break;
 		case '4-3-3':
 			formations = formation433
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 		case '3-5-2':
 			formations = formation352
 			backReservation[0].children[0].children[0].style.backgroundColor = '#F8B655'
 			//backReservation[0].style.display = 'none'
-			break
+			break;
 		case '4-2-4':
 			formations = formation424
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 		case '4-4-2':
 			formations = formation442
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 		case '4-5-1':
 			formations = formation451
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 		case '5-3-2':
 			formations = formation532
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 		case '5-4-1':
 			formations = formation541
 			backReservation[0].children[0].children[0].style.backgroundColor = '#33E130'
 			//backReservation[0].style.display = 'flex'
-			break
+			break;
 	}
 
 	for (let i = 1; i < 11; i++) {
 		let nameClass = playerContainer[i].className.split(' ')
 		playerContainer[i].classList.replace(nameClass[1], formations[i - 1]);
 	}
+
+
 	save_formation = formationSelect[0].value
 	resetLabelsPlayers()
-	resetNames()
-
-
 }
 
-	formationSelect[0].addEventListener('change', save_lineups)
+
+
 
 let numIdentifier = window.location.href
 numIdentifier = numIdentifier.toString()
 numIdentifier = numIdentifier.split('/')
 numIdentifier = numbersOnly(numIdentifier[numIdentifier.length - 1])
 
- executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
-        teste = result
-        if(teste[0].table_rules__captain == 1){
-			getCaptain()
+function getCaptainInEdit(){
+	let numIdentifier = window.location.href
+	numIdentifier = numIdentifier.toString()
+	numIdentifier = numIdentifier.split('/')
+	numIdentifier = numbersOnly(numIdentifier[numIdentifier.length - 1])
+
+	executeAction('query-select-captain-position-field', null, {identifier: numIdentifier}).then((result) => {
+		if (window.location.href.includes('/fantasy-lineup-edit/')){
+			let p_captain_position = result[0].length != 0 ? result[0][0].lineups_players__position_field : 0
+			if(p_captain_position != 0){
+				let captain = document.getElementById(p_captain_position)
+				captain.children[0].children[0].classList.add('captain')
+				captain.children[3].setAttribute('style', 'background-color: #F8B655; display: flex;')
+			}
 		}
-    }).catch(err => console.log(err))
+	}).catch(err => console.log(err))
+}
+if (window.location.href.includes('/fantasy-lineup-edit/')){
+	 executeAction('query-select-table-rules-edit', null, {identifier: numIdentifier}).then((result) => {
+			const {table_rules__captain} = result.flat()[0]
+			console.log('agora', table_rules__captain)
+			if(table_rules__captain == 1){
+				getCaptain()
+			}
+		}).catch(err => console.log(err))
+}else if(window.location.href.includes('/fantasy-lineup/')){
+	 executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
+			const {table_rules__captain} = result.flat()[0]
+			console.log('agora2', table_rules__captain)
+			if(table_rules__captain == 1){
+				getCaptain()
+			}
+		}).catch(err => console.log(err))
+}
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
 
 
 function saveLineup() {
-
 	if (window.location.href.includes('/fantasy-lineup-edit/')){
 		save_lineup_edit()
 	}else {
@@ -368,6 +404,30 @@ function saveLineup() {
 		let url = '';
 		let div_table_round_id = document.getElementsByClassName('div_table_round_id')
 		table_round_id = parseInt(div_table_round_id[0].textContent)
+		//Aqui eu crio um array e populo com todas as posições do campo p_1, p_2... até p_15
+		let positionsArr = []
+		for(let x=0; x<16; x++){
+			positionsArr.push(`p_${x}`)
+		}
+
+		//Aqui eu varro o array criado acima removendo dele as posiçoes que tenho jogadores comprados
+		for(let y=0; y<players_infos.length; y++){
+			for(let k=0; k<positionsArr.length; k++){
+				if(positionsArr[k] == players_infos[y].position){
+					positionsArr.splice(k, 1)
+				}
+			}
+		}
+
+		//Aqui tenho que inserir onde não tenho jogador comprado, o id=0 e cada position do array acima
+		let pos = 16 - parseInt(positionsArr.length)
+		for(let o=0; o<16; o++){
+			if(!players_infos[o].id){
+				players_infos[o].id = 0
+				players_infos[o].position = positionsArr[o - pos]
+			}
+		}
+
 		if (window.location.host == 'fantasy.localhost:3004') {
 			let domain = window.location.origin.split(`:3004`)[0];
 			let port = 8000;
@@ -523,10 +583,33 @@ function checkAllDeleteButtons(){
     }
 }
 
+let table_id = ''
+let tableidentifier = window.location.href
+tableidentifier = tableidentifier.toString()
+tableidentifier = tableidentifier.split('/')
+tableidentifier = numbersOnly(tableidentifier[tableidentifier.length - 1])
+if(window.location.href.includes('/fantasy-lineup-edit/')){
+	executeAction('query-select-table-round-id', null, {identifier: tableidentifier}).then((result) => {
+		console.log('oi', result[0][0])
+		table_id = result[0][0].lineups__table_round_id
+	}).catch(err => console.log(err))
+}
+let viewLineupBtnEdit = document.getElementsByClassName('viewLineupBtn')
+viewLineupBtnEdit[0].addEventListener('click', function (){
+	let link = ''
+	if (window.location.host == 'fantasy.localhost:3004') {
+			link = 'http://fantasy.localhost:3004/fantasy-minhas-ligas-visualizar/' + table_id
+		}else if(window.location.host == 'fantasydev.simbioseventures.com'){
+			link = 'http://fantasydev.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+		}else if(window.location.host == 'fantasystage.simbioseventures.com'){
+			link = 'http://fantasystage.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+		}
+
+	window.location.href = link
+})
 
 // Esta função vende o jogador através do x na tela do campo
 function del_unique_player(id_btn) {
-
 	btn_str = "btn_del_"
     btn_str += id_btn
     span_str = "span_"
@@ -574,11 +657,13 @@ function del_unique_player(id_btn) {
     let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
     elemento_btn_cor_jogador.classList.remove('saopaulo')
 
+	//Aqui removo os botões de alert e captain
 	let btn = document.getElementById(elemento_del_unique.id)
-	btn.children[4].setAttribute('style', 'display:none')
-	btn.children[0].children[0].classList.remove('alert')
 	btn.children[3].removeAttribute('style')
 	btn.children[0].children[0].classList.remove('captain')
+	btn.children[4].setAttribute('style', 'display:none')
+	btn.children[0].children[0].classList.remove('alert')
+
 
 	/*Return green color in button inside modal*/
 	let player_id = ''
@@ -786,38 +871,39 @@ function resetPlayer(position){
 let j
 //Função de venda de um jogador
 function sallePlayer(player_id){
-	//O for abaixo serve para resetar o alertContainer dos jogadores
-	for(let i=0; i<16;i++){
-		let btn = document.getElementById(`p_${i}`)
-		btn.children[4].setAttribute('style', 'display:none')
-		btn.children[0].children[0].classList.remove('alert')
+	let player_id_conserved = player_id
+	for(let x=0; x<players_infos.length; x++){
+		if(players_infos[x].id == player_id){
+			player_id = players_infos[x].position
+		}
 	}
 
-	//Este outro for reseta o captainContainer dos jogadores
-	for(let i=0; i<11;i++){
-		let btn = document.getElementById(`p_${i}`)
-		btn.children[3].removeAttribute('style')
-		btn.children[0].children[0].classList.remove('captain')
-	}
+	let btn = document.getElementById(player_id)
+	//Remove o CaptainContainer
+	btn.children[3].removeAttribute('style')
+	btn.children[0].children[0].classList.remove('captain')
+	//Remove o AlertContainer
+	btn.children[4].setAttribute('style', 'display:none')
+	btn.children[0].children[0].classList.remove('alert')
+
 
 	let salleBtn = document.getElementsByClassName('salleButton')
-	for (let i = 0; i < salleBtn.length; i++) {
+    for (let i = 0; i < salleBtn.length; i++) {
         salleBtn[i].addEventListener('click', function (event) {
-			/*let btnBuyColor = event.target.parentElement.parentElement.children[2].firstElementChild
-			btnBuyColor.classList.remove('salleButton')
-			btnBuyColor.classList.add('buyButton')*/
-			let posicao = players_obj_btn.indexOf(player_id)
-			if(posicao > 0){
-				players_obj_btn.splice(posicao, 1)
-			}
+            /*let btnBuyColor = event.target.parentElement.parentElement.children[2].firstElementChild
+            btnBuyColor.classList.remove('salleButton')
+            btnBuyColor.classList.add('buyButton')*/
+            let posicao = players_obj_btn.indexOf(player_id_conserved)
+            if(posicao > 0){
+                players_obj_btn.splice(posicao, 1)
+            }
         })
     }
-	let btnBuySaleColor = document.getElementById(player_id).parentElement.parentElement.children[2].firstElementChild
-	btnBuySaleColor.classList.remove('salleButton')
-	btnBuySaleColor.classList.add('buyButton')
-
+    let btnBuySaleColor = document.getElementById(player_id_conserved).parentElement.parentElement.children[2].firstElementChild
+    btnBuySaleColor.classList.remove('salleButton')
+    btnBuySaleColor.classList.add('buyButton')
 	players_infos.forEach(object =>{
-		if(object.id === player_id){
+		if(object.id === player_id_conserved){
 			resetPlayer(object.position)
 			balanceController(object.price, 'sale')
 			players_infos.splice(players_infos.indexOf(object), 1)
@@ -833,6 +919,7 @@ function sallePlayer(player_id){
 	enableButtons()
 }
 
+let id_player_for_edit = []
 //Função de compra de um jogador
 function joinPlayer(player_id, name) {
 	j = 0
@@ -860,6 +947,9 @@ function joinPlayer(player_id, name) {
         player_value = parseFloat(player_value)
         players_obj = {...players_obj, [pos_player]: player_value}
 		balanceController(player_value, 'purchase')
+		if(window.location.href.includes('/fantasy-lineup-edit/')){
+			id_player_for_edit.push({position: pos_player, id: player_id})
+		}
         pos_player = ''
 
         /*Esta parte faz com que o + no botão do jogador desapareça quando escolhemos um jogador*/
@@ -894,10 +984,14 @@ function joinPlayer(player_id, name) {
 
 		players_infos.push({position: retorno[j].id, id: player_id, price: player_value, name: retorno[j].children[2].textContent})
 
-		if(name.includes('pendurado') || name.includes('lesionado')){
+		if(name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')){
 			let playerBtn = retorno[j]
 			playerBtn.children[4].setAttribute('style', 'display: flex')
 			playerBtn.children[0].children[0].classList.add('alert')
+		}
+
+		if(window.location.href.includes('/fantasy-lineup-edit/')){
+			id_player_for_edit.push({position: retorno[j].id, id: player_id})
 		}
 
 		j += 1 //aqui j é incrementado para que na próxima função de comprar pegue a outra posição livre
@@ -909,6 +1003,8 @@ function joinPlayer(player_id, name) {
 
 
 	}
+
+
 }
 
 /*Script para deletar todos os jogadores */
@@ -924,7 +1020,6 @@ function getClickBtn() {
 
 /*Esta função é responsável por resetar os nomes e a classe preenchido de cada jogador quando clicamos no botão "Limpar Tudo" */
 function resetNames() {
-
 	//O for abaixo serve para resetar o alertContainer dos jogadores
 	for(let i=0; i<16;i++){
 		let btn = document.getElementById(`p_${i}`)
@@ -1364,10 +1459,6 @@ function countAvailablePlayers(position_num){
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
 	}
-	if (formationSelect[0].value == '4-5-1'){
-		atackers.push(document.getElementById('p_9'))
-		atackers.push(document.getElementById('p_11'))
-	}
 	if (formationSelect[0].value == '4-5-1' || formationSelect[0].value == '5-4-1'){
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
@@ -1637,46 +1728,58 @@ function countAvailablePlayers(position_num){
 }
 var numberIdentifier = 0;
 function save_lineup_edit() {
-
 	if (window.location.href.includes('/fantasy-lineup-edit/')) {
-
 		numberIdentifier = window.location.href
-
 		numberIdentifier = numberIdentifier.toString()
-
 		numberIdentifier = numberIdentifier.split('/')
-
 		numberIdentifier = numbersOnly(numberIdentifier[numberIdentifier.length - 1])
-
 		saveLineupEditButton = document.getElementById('btn_save')
 
 
+		let players_update = {}
+		for (let i = 0; i < 16; i++) {
+			let player = players_infos.find(element => element.position == `p_${i}`)
+			if (player) {
+				players_update[`player_id_${i}`] = player.id
+			} else {
+				players_update[`player_id_${i}`] = 0
+			}
+		}
+		let formationSelect = document.getElementsByClassName('formation')
 
+		players_update['identifier'] = numberIdentifier
+		players_update['formation'] = formationSelect[0].value
 
-			let players_update = {}
-			for (i = 0; i < 16; i++) {
-
-				let player = players_infos.find(element => element.position == `p_${i}`)
-				if (player) {
-					players_update[`player_id_${i}`] = player.id
-
-				} else {
-					players_update[`player_id_${i}`] = 0
+		let captain_position = ''
+		let captain_id = 0
+		let allPlayers = document.getElementsByClassName('playerContainer')
+		for(let j=0; j<11; j++){
+			if(allPlayers[j].children[3].getAttribute('style') == 'background-color: #F8B655; display: flex;'){
+				captain_position = allPlayers[j].getAttribute('id')
+				for(let x=0; x<obj_players.length;x++){
+					if(obj_players[x].pos_field == captain_position){
+						captain_id = obj_players[x].player_Id
+					}else if(obj_players[x].pos_field != captain_position){
+						for(let y=0; y<id_player_for_edit.length; y++){
+							if(id_player_for_edit[y].position == captain_position){
+								captain_id = id_player_for_edit[y].id
+							}
+						}
+					}
 				}
 			}
-			let formationSelect = document.getElementsByClassName('formation')
-
-
-			players_update['identifier'] = numberIdentifier
-			players_update['formation'] = formationSelect[0].value
-			executeAction('update-lineup-formation', numberIdentifier, players_update)
-			// executeAction('update-lineup-formation', 1, { 'identifier': identifier_current_lineup, 'formation': formationSelect[0].value})
-
+		}
+		let inputConfirmNameModal = document.getElementsByClassName('inputConfirmNameModal')[0].value
+		players_update['lineup_name'] = inputConfirmNameModal
+		if(captain_id == 0){
+			captain_id = 1
+		}
+		players_update['captain'] = captain_id
+		executeAction('update-lineup-formation', numberIdentifier, players_update)
+		//executeAction('update-lineup-formation', numberIdentifier, players_update)
+		// executeAction('update-lineup-formation', 1, { 'identifier': identifier_current_lineup, 'formation': formationSelect[0].value})
 
 	}
-
-
-
 
 	let count_lineup_edit = 0;
 	control_identifier = numberIdentifier
@@ -1705,19 +1808,17 @@ function numbersOnly(string)
 		identifier_current_lineup = numberIdentifier
 
 		executeAction('select-lineup-formation', null, {identifier: numberIdentifier}).then((result) => {
-			tatic = result
-			formationSelect[0].value = tatic[0].lineups__formation;
+			tatic = result[0][0]
+			formationSelect[0].value = tatic.lineups__formation;
 			save_lineups()
-			tatic = numbersOnly()
+			//tatic = numbersOnly()
 
 		}).catch(err => console.log(err))
 
 
 		executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
-
-			obj_players = result
-
-			for (i = 0; result.length; i++) {
+			obj_players = result[0]
+			for (i = 0; i < obj_players.length; i++) {
 				conc_var = 'span_'
 				result = conc_var + obj_players[i].pos_field
 				document.getElementById(result).innerText = obj_players[i].players__player_name
@@ -1733,8 +1834,24 @@ function numbersOnly(string)
 					position: obj_players[i].pos_field,
 					id: obj_players[i].player_Id,
 					price: obj_players[i].team_players__player_value,
-					name: obj_players[i].players__player_name
+					name: obj_players[i].players__player_name,
+					situation: obj_players[i].situation
 				})
+
+				//Aqui verifico se algum jogador est com os status abaixo para colocar o simbolo de alerta no campo na tela de edicao
+				if(players_infos[i].situation == 'pendurado' || players_infos[i].situation == 'lesionado' || players_infos[i].situation == 'suspenso'){
+					let player = document.getElementById(players_infos[i].position)
+					let position = players_infos[i].position.split('_')
+					if(position[position.length - 1] < 11){
+						player.children[4].setAttribute('style', 'display: flex')
+						player.children[0].children[0].classList.add('alert')
+					}else if(position[position.length - 1] > 10){
+						player.children[3].setAttribute('style', 'display: flex')
+						player.children[0].children[0].classList.add('alert')
+					}
+
+				}
+
 				let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
 				btnBuySaleColor.classList.remove('buyButton')
 				btnBuySaleColor.classList.add('salleButton')
@@ -1743,7 +1860,7 @@ function numbersOnly(string)
 
 		}).catch(err => console.log(err))
 
-
+	getCaptainInEdit()
 	}
 
 
@@ -1790,7 +1907,7 @@ function orderFilter(){
 				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
 					executeAction('query-select-to-order-atackers-asc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1799,7 +1916,7 @@ function orderFilter(){
 				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
 					executeAction('query-select-to-order-atackers-desc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1811,7 +1928,7 @@ function orderFilter(){
 				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
 					executeAction('query-select-to-order-midfielders-asc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1820,7 +1937,7 @@ function orderFilter(){
 				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
 					executeAction('query-select-to-order-midfielders-desc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1832,7 +1949,7 @@ function orderFilter(){
 				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
 					executeAction('query-select-to-order-backs-asc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1841,7 +1958,7 @@ function orderFilter(){
 				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
 					executeAction('query-select-to-order-backs-desc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1853,7 +1970,7 @@ function orderFilter(){
 				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
 					executeAction('query-select-to-order-defenders-asc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1862,7 +1979,7 @@ function orderFilter(){
 				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
 					executeAction('query-select-to-order-defenders-desc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1874,7 +1991,7 @@ function orderFilter(){
 				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
 					executeAction('query-select-to-order-goalkeepers-asc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -1883,7 +2000,7 @@ function orderFilter(){
 				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
 					executeAction('query-select-to-order-goalkeepers-desc', null, {identifier: numberIdentifier}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for(let j=0; j<result[0].length; j++){
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
