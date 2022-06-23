@@ -175,7 +175,14 @@ function disableBtnLimitSubs() {
 	if (window.location.href.includes('/fantasy-tables-rules')) {
 		let identifierTable = getObjectId()
 		executeAction('get-subs', null, {identifier: identifierTable}).then((result) => {
-			if (result[0].subs === result[0].max_users) {
+
+			let currentDate = new Date();
+
+			let utcDate = result[0].finish_date
+			let dateRound = new Date(utcDate)
+
+
+			if (result[0].subs === result[0].max_users || dateRound<=currentDate) {
 				let btn_rules = document.getElementById('btn_rules')
 				btn_rules.disable = true
 				btn_rules.style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
@@ -265,7 +272,6 @@ function disableBtnLineup() {
 	}).catch(err => console.log(err))
 }
 
-
 /* Função para desabilitar botão de escalação na tela Minhas Ligas caso tenha atingido limite de lineups da mesa */
 function disableBtnMinhasLigas() {
 	if (window.location.href.includes('/fantasy-minhas-ligas-visualizar')) {
@@ -308,4 +314,5 @@ function disableBtnMinhasLigasMaxSubs() {
 
 
 }
+
 
