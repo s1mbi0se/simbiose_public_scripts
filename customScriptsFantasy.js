@@ -1,3 +1,11 @@
+disableBtnListagemMesas()
+disableBtnRules()
+disableBtnLimitSubs()
+disableBtnListagemMesasMaxSubs()
+disableBtnLineup()
+disableBtnMinhasLigas()
+disableBtnMinhasLigasMaxSubs()
+
 async function getMarket() {
 	setInterval(countdown, 1000)
 }
@@ -140,4 +148,164 @@ function disableBtnListagemMesas() {
 
 }
 
-disableBtnListagemMesas()
+/* Função para desabilitar botão de escalação na tela regras da mesa caso tenha atingido limite de lineups da mesa */
+function disableBtnRules() {
+
+	if (window.location.href.includes('/fantasy-tables-rules')) {
+
+		let user = document.getElementById('logged_user').innerHTML
+		executeAction('get-limit-lineups', null, {identifier: user}).then((result) => {
+
+			for (let i = 0; i < result.length; i++) {
+				if ((result[i].user_lineups === result[i].limit_lineups) && (window.location.href.includes('/fantasy-tables-rules/' + result[i].table_round_id))) {
+					let btn_rules = document.getElementById('btn_rules')
+					btn_rules.disable = true
+					btn_rules.style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+					btn_rules.addEventListener("click", function (event) {
+						event.preventDefault();
+					}, false);
+				}
+			}
+		}).catch(err => console.log(err))
+	}
+}
+
+/* Função para desabilitar botão de escalação na tela regras da mesa caso tenha atingido limite de incrições da mesa */
+function disableBtnLimitSubs() {
+	if (window.location.href.includes('/fantasy-tables-rules')) {
+		let identifierTable = getObjectId()
+		executeAction('get-subs', null, {identifier: identifierTable}).then((result) => {
+			if (result[0].subs === result[0].max_users) {
+				let btn_rules = document.getElementById('btn_rules')
+				btn_rules.disable = true
+				btn_rules.style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+				btn_rules.addEventListener("click", function (event) {
+					event.preventDefault();
+				}, false);
+			}
+		}).catch(err => console.log(err))
+	}
+}
+
+/* Função para desabilitar botão de escalação na tela Listagem Mesas caso tenha atingido limite de inscrições da mesa */
+function disableBtnListagemMesasMaxSubs() {
+	if (window.location.href.includes('/fantasy-listagem-mesas')) {
+
+		executeAction('get-all-subs', null).then((result) => {
+			for (let i = 0; i < result.length; i++) {
+				if (result[i].subs === result[i].max_users && result[i].max_users != null) {
+					let btns = document.querySelectorAll('button')
+					for (let j = 0; j < btns.length; j++) {
+						if (btns[j].id === result[i].table_id + 'btn') {
+							btns[j].disable = true
+							btns[j].style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+							btns[j].addEventListener("click", function (event) {
+								event.preventDefault();
+							}, false);
+						} else if (btns[j].id === result[i].table_id + 'Grátisbtn') {
+							btns[j].disable = true
+							btns[j].style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+							btns[j].addEventListener("click", function (event) {
+								event.preventDefault();
+							}, false);
+						} else if (btns[j].id === result[i].table_id + 'Pagasbtn') {
+							btns[j].disable = true
+							btns[j].style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+							btns[j].addEventListener("click", function (event) {
+								event.preventDefault();
+							}, false);
+						}
+
+					}
+
+
+				}
+			}
+
+		}).catch(err => console.log(err))
+	}
+
+}
+
+
+/* Função para desabilitar botão de escalação na tela lineup caso tenha atingido limite de lineups da mesa */
+function disableBtnLineup() {
+
+	let user = document.getElementById('logged_user').innerText
+	executeAction('get-limit-lineups', null, {identifier: user}).then((result) => {
+
+		for (let i = 0; i < result.length; i++) {
+			if ((result[i].user_lineups === result[i].limit_lineups) && (window.location.href.includes('/fantasy-lineup/' + result[i].table_round_id))) {
+				let btn_sv_ln = document.getElementById("btn_save")
+				btn_sv_ln.setAttribute("disabled", "disabled");
+				btn_sv_ln.style.cssText = 'border: 1px solid #999999;' + 'color: #666666;' + 'background-color: #cccccc;' + 'cursor: not-allowed'
+				btn_sv_ln.addEventListener("click", function (event) {
+					event.preventDefault();
+				}, false);
+				let playersContainers = document.getElementsByClassName('playerContainer')
+				for (let i = 0; i < playersContainers.length; i++) {
+					playersContainers[i].setAttribute("disabled", "disabled");
+					playersContainers[i].style.cssText = 'cursor: not-allowed'
+					playersContainers[i].addEventListener("click", function (event) {
+						event.preventDefault();
+					}, false);
+				}
+				let reservContainers = document.getElementsByClassName('reservationsContainer')
+				for (let i = 0; i < playersContainers.length; i++) {
+					reservContainers[i].setAttribute("disabled", "disabled");
+					reservContainers[i].style.cssText = 'cursor: not-allowed'
+					reservContainers[i].addEventListener("click", function (event) {
+						event.preventDefault();
+					}, false);
+				}
+
+
+			}
+		}
+	}).catch(err => console.log(err))
+}
+
+
+/* Função para desabilitar botão de escalação na tela Minhas Ligas caso tenha atingido limite de lineups da mesa */
+function disableBtnMinhasLigas() {
+	if (window.location.href.includes('/fantasy-minhas-ligas-visualizar')) {
+		let user = document.getElementById('logged_user').innerText
+		executeAction('get-limit-lineups', null, {identifier: user}).then((result) => {
+			for (let i = 0; i < result.length; i++) {
+				if ((result[i].user_lineups === result[i].limit_lineups) && (window.location.href.includes('/fantasy-minhas-ligas-visualizar/' + result[i].table_round_id))) {
+					let intro = document.getElementsByTagName('button');
+					intro[0].disabled = true
+					intro[0].addEventListener("click", function (event) {
+						event.preventDefault();
+					}, false);
+				}
+
+			}
+
+		}).catch(err => console.log(err))
+	}
+
+
+}
+
+/* Função para desabilitar botão de escalação na tela Minhas Ligas caso tenha atingido limite usuarios da mesa */
+function disableBtnMinhasLigasMaxSubs() {
+
+	if (window.location.href.includes('/fantasy-minhas-ligas-visualizar')) {
+		let identifierTable = getObjectId()
+		executeAction('get-subs', null, {identifier: identifierTable}).then((result) => {
+
+			if ((result[0].subs === result[0].max_users) && result[0].max_users != null) {
+				let intro = document.getElementsByTagName('button');
+				intro[0].disabled = true
+				intro[0].addEventListener("click", function (event) {
+					event.preventDefault();
+				}, false);
+			}
+
+		}).catch(err => console.log(err))
+	}
+
+
+}
+
