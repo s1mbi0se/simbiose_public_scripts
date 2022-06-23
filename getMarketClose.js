@@ -85,4 +85,3 @@ function list_ids(){
 }
 
 getMarket()
-
