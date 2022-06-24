@@ -2082,9 +2082,6 @@ async function handleBalance() {
 				wallet_process__user_fantasy_id: user_id,
 				wallet_process__status_transaction_id: '2',
 				wallet_process__process_type: 'Inscrição',
-				wallet__user_fantasy_id: user_id,
-				wallet__process_type: 'Inscrição',
-				wallet__table_id: identifierTable
 			})
 			saveLineup()
 			window.location.href = "#saveLineupModal"
@@ -2114,7 +2111,7 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("https://fantasydev.simbioseventures.com/fantasy-management-packs")
+						window.location.href = ("/fantasy-management-packs")
 					}
 					break;
 				case 2:
@@ -2141,7 +2138,7 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("https://fantasydev.simbioseventures.com/fantasy-management-packs")
+						window.location.href = ("/fantasy-management-packs")
 					}
 					break;
 			}
