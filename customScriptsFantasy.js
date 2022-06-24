@@ -3,7 +3,7 @@ callAllFunctions()
 statusFilter()
 orderFilter()
 
-function callAllFunctions(){
+function callAllFunctions() {
 	get_player_click_buy()
 	get_player_click()
 	getClickBtn()
@@ -25,28 +25,23 @@ let players_infos = [{}]
 players_infos.shift()
 let table_round_id = 1
 let save_formation = '4-3-3'
-var identifier_current_lineup= 0
+var identifier_current_lineup = 0
 
 //A funçao abaixo serve pare monitorar o input do nome da escalação. Caso o nome esteja vazio o modal não é redirecionado
 let confirmNameModalBtn = document.getElementsByClassName('confirmNameModalBtn')
-confirmNameModalBtn[0].addEventListener('click', function(){
+confirmNameModalBtn[0].addEventListener('click', function () {
 	let inputNameModal = document.getElementsByClassName('inputConfirmNameModal')
-	if(inputNameModal[0].value == ''){
+	if (inputNameModal[0].value == '') {
 		inputNameModal[0].setAttribute('placeholder', 'Digite um nome para a escalação')
 		confirmNameModalBtn[0].children[0].setAttribute('href', '#confirmNameModal')
-	}else{
+	} else {
 		confirmNameModalBtn[0].children[0].setAttribute('href', '#saveLineupModal')
 		// saveLineup()
 	}
 })
 
 
-
-
-
-
-
-function searchPlayer(){
+function searchPlayer() {
 
 	let searchStrikerPlayerInput = document.getElementById('searchStrikerPlayerInput')
 	let searchMidfielderPlayerInput = document.getElementById('searchMidfielderPlayerInput')
@@ -54,68 +49,68 @@ function searchPlayer(){
 	let searchDefenderPlayerInput = document.getElementById('searchDefenderPlayerInput')
 	let searchBackPlayerInput = document.getElementById('searchBackPlayerInput')
 	//TO-DO
-	searchStrikerPlayerInput.addEventListener('keyup', function(){
+	searchStrikerPlayerInput.addEventListener('keyup', function () {
 		let strikerContainer = document.getElementsByClassName('insideinfoPlayerContainerStriker')
 		let allStrikerPlayers = strikerContainer[0].children
-		for(let j=0; j<allStrikerPlayers.length; j++){
-			if(!(allStrikerPlayers[j].children[0].children[1].children[0].textContent.includes(searchStrikerPlayerInput.value) || allStrikerPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchStrikerPlayerInput.value))){
+		for (let j = 0; j < allStrikerPlayers.length; j++) {
+			if (!(allStrikerPlayers[j].children[0].children[1].children[0].textContent.includes(searchStrikerPlayerInput.value) || allStrikerPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchStrikerPlayerInput.value))) {
 				allStrikerPlayers[j].style.display = 'none'
-			}else{
+			} else {
 				allStrikerPlayers[j].style.display = 'block'
 			}
 		}
 	})
 
-	searchMidfielderPlayerInput.addEventListener('keyup', function(){
+	searchMidfielderPlayerInput.addEventListener('keyup', function () {
 		let MidfielderContainer = document.getElementsByClassName('insideinfoPlayerContainerMidfielder')
 		let allMidfieldersPlayers = MidfielderContainer[0].children
-		for(let j=0; j<allMidfieldersPlayers.length; j++){
-			if(!(allMidfieldersPlayers[j].children[0].children[1].children[0].textContent.includes(searchMidfielderPlayerInput.value) || allMidfieldersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchMidfielderPlayerInput.value))){
+		for (let j = 0; j < allMidfieldersPlayers.length; j++) {
+			if (!(allMidfieldersPlayers[j].children[0].children[1].children[0].textContent.includes(searchMidfielderPlayerInput.value) || allMidfieldersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchMidfielderPlayerInput.value))) {
 				allMidfieldersPlayers[j].style.display = 'none'
-			}else{
+			} else {
 				allMidfieldersPlayers[j].style.display = 'block'
 			}
 		}
 	})
 
-	searchGoalkeeperPlayerInput.addEventListener('keyup', function(){
+	searchGoalkeeperPlayerInput.addEventListener('keyup', function () {
 		let goalkeeperContainer = document.getElementsByClassName('insideinfoPlayerContainerGoalkeeper')
 		let allGoalkeepersPlayers = goalkeeperContainer[0].children
-		for(let j=0; j<allGoalkeepersPlayers.length; j++){
-			if(!(allGoalkeepersPlayers[j].children[0].children[1].children[0].textContent.includes(searchGoalkeeperPlayerInput.value) || allGoalkeepersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchGoalkeeperPlayerInput.value))){
+		for (let j = 0; j < allGoalkeepersPlayers.length; j++) {
+			if (!(allGoalkeepersPlayers[j].children[0].children[1].children[0].textContent.includes(searchGoalkeeperPlayerInput.value) || allGoalkeepersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchGoalkeeperPlayerInput.value))) {
 				allGoalkeepersPlayers[j].style.display = 'none'
-			}else{
+			} else {
 				allGoalkeepersPlayers[j].style.display = 'block'
 			}
 		}
 	})
 
-	searchDefenderPlayerInput.addEventListener('keyup', function(){
+	searchDefenderPlayerInput.addEventListener('keyup', function () {
 		let defenderContainer = document.getElementsByClassName('insideinfoPlayerContainerDefender')
 		let allDefendersPlayers = defenderContainer[0].children
-		for(let j=0; j<allDefendersPlayers.length; j++){
-			if(!(allDefendersPlayers[j].children[0].children[1].children[0].textContent.includes(searchDefenderPlayerInput.value) || allDefendersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchDefenderPlayerInput.value))){
+		for (let j = 0; j < allDefendersPlayers.length; j++) {
+			if (!(allDefendersPlayers[j].children[0].children[1].children[0].textContent.includes(searchDefenderPlayerInput.value) || allDefendersPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchDefenderPlayerInput.value))) {
 				allDefendersPlayers[j].style.display = 'none'
-			}else{
+			} else {
 				allDefendersPlayers[j].style.display = 'block'
 			}
 		}
 	})
 
-	searchBackPlayerInput.addEventListener('keyup', function(){
+	searchBackPlayerInput.addEventListener('keyup', function () {
 		let backContainer = document.getElementsByClassName('insideinfoPlayerContainerBack')
 		let allBacksPlayers = backContainer[0].children
-		for(let j=0; j<allBacksPlayers.length; j++){
-			if(!(allBacksPlayers[j].children[0].children[1].children[0].textContent.includes(searchBackPlayerInput.value) || allBacksPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchBackPlayerInput.value))){
+		for (let j = 0; j < allBacksPlayers.length; j++) {
+			if (!(allBacksPlayers[j].children[0].children[1].children[0].textContent.includes(searchBackPlayerInput.value) || allBacksPlayers[j].children[0].children[1].children[1].children[2].textContent.includes(searchBackPlayerInput.value))) {
 				allBacksPlayers[j].style.display = 'none'
-			}else{
+			} else {
 				allBacksPlayers[j].style.display = 'block'
 			}
 		}
 	})
 }
 
-function resetSearchInput(position){
+function resetSearchInput(position) {
 	/*Aqui eu limpo o input de pesquisa dos jogadores*/
 	document.getElementById('searchStrikerPlayerInput').value = ''
 	document.getElementById('searchMidfielderPlayerInput').value = ''
@@ -124,81 +119,81 @@ function resetSearchInput(position){
 	document.getElementById('searchBackPlayerInput').value = ''
 
 	/*Aqui eu seto novamente o display block nos jogadores que estavam escondidos*/
-	switch(position){
+	switch (position) {
 		case 'Atacantes':
 			let strikerContainer = document.getElementsByClassName('insideinfoPlayerContainerStriker')
 			let allStrikerPlayers = strikerContainer[0].children
-			for(let j=0; j<allStrikerPlayers.length; j++){
+			for (let j = 0; j < allStrikerPlayers.length; j++) {
 				allStrikerPlayers[j].style.display = 'block'
 			}
 			break;
 		case 'Meias':
 			let midfielderContainer = document.getElementsByClassName('insideinfoPlayerContainerMidfielder')
 			let allMidfieldersPlayers = midfielderContainer[0].children
-			for(let j=0; j<allMidfieldersPlayers.length; j++){
+			for (let j = 0; j < allMidfieldersPlayers.length; j++) {
 				allMidfieldersPlayers[j].style.display = 'block'
 			}
 			break;
 		case 'Laterais':
 			let backContainer = document.getElementsByClassName('insideinfoPlayerContainerBack')
 			let allBackPlayers = backContainer[0].children
-			for(let j=0; j<allBackPlayers.length; j++){
+			for (let j = 0; j < allBackPlayers.length; j++) {
 				allBackPlayers[j].style.display = 'block'
 			}
 			break;
 		case 'Zagueiros':
 			let defenderContainer = document.getElementsByClassName('insideinfoPlayerContainerDefender')
 			let allDefendersPlayers = defenderContainer[0].children
-			for(let j=0; j<allDefendersPlayers.length; j++){
+			for (let j = 0; j < allDefendersPlayers.length; j++) {
 				allDefendersPlayers[j].style.display = 'block'
 			}
 			break;
 		case 'Goleiros':
 			let goalkeeperContainer = document.getElementsByClassName('insideinfoPlayerContainerGoalkeeper')
 			let allGoalkeepersPlayers = goalkeeperContainer[0].children
-			for(let j=0; j<allGoalkeepersPlayers.length; j++){
+			for (let j = 0; j < allGoalkeepersPlayers.length; j++) {
 				allGoalkeepersPlayers[j].style.display = 'block'
 			}
 			break;
 	}
 }
 
-function getCaptain(){
+function getCaptain() {
 	let players = document.getElementsByClassName('playerContainer')
 	let delBtn = document.getElementsByClassName('deletePlayer')
 	let finalPosition = ''
-	for(let i=0; i<players.length; i++){
-		delBtn[i].addEventListener(('click'), function(){
+	for (let i = 0; i < players.length; i++) {
+		delBtn[i].addEventListener(('click'), function () {
 			let test = event.path[1].id
 			let test2 = test.split('_')
 			finalPosition = 'span_' + test2[2] + '_' + test2[3]
 		})
-		players[i].addEventListener('click', function(event){
+		players[i].addEventListener('click', function (event) {
 			let position = event.target.id
 			let positionString = position.split('_')
-			if(positionString[0] == 'p'){
+			if (positionString[0] == 'p') {
 				finalPosition = 'span_' + positionString[0] + '_' + positionString[1]
-			}else if (positionString[0] == 'span'){
+			} else if (positionString[0] == 'span') {
 				finalPosition = positionString[0] + '_' + positionString[1] + '_' + positionString[2]
 			}
 
 			let player = document.getElementById(finalPosition)
-			if(player.className.includes('preenchido')){
-				if(event.target.parentNode.parentNode.children[3].getAttribute('style') == null ||  event.target.parentNode.parentNode.children[3].getAttribute('style') == 'display: none;'){
+			if (player.className.includes('preenchido')) {
+				if (event.target.parentNode.parentNode.children[3].getAttribute('style') == null || event.target.parentNode.parentNode.children[3].getAttribute('style') == 'display: none;') {
 					event.target.parentNode.parentNode.children[3].setAttribute('style', 'display: flex;')
-				} else if(event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #F8B655; display: flex'){
+				} else if (event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #F8B655; display: flex') {
 					event.target.parentNode.parentNode.children[3].setAttribute('style', 'background-color: #F8B655; display: flex;')
-				} else if(event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #FFFFFF; display: none;'){
+				} else if (event.target.parentNode.parentNode.children[3].getAttribute('style') == 'background-color: #FFFFFF; display: none;') {
 					event.target.parentNode.parentNode.children[3].setAttribute('style', 'display: flex;')
 				}
 			}
 
-			if(event.path[0].className != 'captainContainer captain'){
+			if (event.path[0].className != 'captainContainer captain') {
 				let captainContainer = document.getElementsByClassName('captainContainer')
-				for(let j=0; j<captainContainer.length; j++){
-					if(captainContainer[j].parentNode.id != event.target.id){
+				for (let j = 0; j < captainContainer.length; j++) {
+					if (captainContainer[j].parentNode.id != event.target.id) {
 						let captainContainerAttr = captainContainer[j].getAttribute("style")
-						 if(captainContainerAttr == 'display: flex;'){
+						if (captainContainerAttr == 'display: flex;') {
 							captainContainer[j].setAttribute('style', 'display: none;')
 						}
 					}
@@ -209,21 +204,21 @@ function getCaptain(){
 	}
 
 	let captainContainer = document.getElementsByClassName('captainContainer')
-	for(let x=0; x<captainContainer.length; x++){
-		captainContainer[x].addEventListener('click', function(){
-			if(!captainContainer[x].getAttribute('style').includes('#F8B655')){
+	for (let x = 0; x < captainContainer.length; x++) {
+		captainContainer[x].addEventListener('click', function () {
+			if (!captainContainer[x].getAttribute('style').includes('#F8B655')) {
 				captainContainer[x].setAttribute('style', 'background-color: #F8B655; display: flex;')
 				captainContainer[x].parentNode.children[0].children[0].classList.add('captain')
-			}else{
+			} else {
 				captainContainer[x].parentNode.children[0].children[0].classList.remove('captain')
 				captainContainer[x].setAttribute('style', 'background-color: #FFFFFF; display: none;')
 			}
 
 			//Aqui vou ter que varrer todos os captainContainers para verificar se já existe outro capitão e tornar ele um jogador comum
-			for(let y=0; y<11; y++){
+			for (let y = 0; y < 11; y++) {
 				//Esse for varre todos os captains containers. Aqui tenho que verificar se existe outro captain container amarelo e se ele existe, se o id dele é igual ao do cara que acabei de clicar. se o id for diferente, transformo o outro em branco e o que cliquei agora amarelo
-				if(captainContainer[y].getAttribute('style') == 'background-color: #F8B655; display: flex;'){
-					if(captainContainer[y].parentNode.id != captainContainer[x].parentNode.id){
+				if (captainContainer[y].getAttribute('style') == 'background-color: #F8B655; display: flex;') {
+					if (captainContainer[y].parentNode.id != captainContainer[x].parentNode.id) {
 						captainContainer[y].parentNode.children[0].children[0].classList.remove('captain')
 						captainContainer[y].setAttribute('style', 'background-color: #FFFFFF; display: none;')
 					}
@@ -233,7 +228,7 @@ function getCaptain(){
 	}
 }
 
-function resetLabelsPlayers(){
+function resetLabelsPlayers() {
 	let playersContainers = document.getElementsByClassName('playerContainer')
 	for (let i = 0; i < playersContainers.length; i++) {
 		if (playersContainers[i].children[2].parentNode.className.includes('defender') && !playersContainers[i].children[2].className.includes('preenchido')) {
@@ -273,7 +268,7 @@ function save_lineups() {
 	let backReservation = document.getElementsByClassName('full-backReservation')
 	//let reservationsPlayers = document.getElementsByClassName('playersReservations')
 	//let aditionalMidfielderReservation = reservationsPlayers[0].children[2]
-	switch (formationSelect[0].value){
+	switch (formationSelect[0].value) {
 		case '3-4-3':
 			formations = formation343
 			backReservation[0].children[0].children[0].style.backgroundColor = '#F8B655'
@@ -327,23 +322,21 @@ function save_lineups() {
 }
 
 
-
-
 let numIdentifier = window.location.href
 numIdentifier = numIdentifier.toString()
 numIdentifier = numIdentifier.split('/')
 numIdentifier = numbersOnly(numIdentifier[numIdentifier.length - 1])
 
-function getCaptainInEdit(){
+function getCaptainInEdit() {
 	let numIdentifier = window.location.href
 	numIdentifier = numIdentifier.toString()
 	numIdentifier = numIdentifier.split('/')
 	numIdentifier = numbersOnly(numIdentifier[numIdentifier.length - 1])
 
 	executeAction('query-select-captain-position-field', null, {identifier: numIdentifier}).then((result) => {
-		if (window.location.href.includes('/fantasy-lineup-edit/')){
+		if (window.location.href.includes('/fantasy-lineup-edit/')) {
 			let p_captain_position = result.length != 0 ? result[0].lineups_players__position_field : 0
-			if(p_captain_position != 0){
+			if (p_captain_position != 0) {
 				let captain = document.getElementById(p_captain_position)
 				captain.children[0].children[0].classList.add('captain')
 				captain.children[3].setAttribute('style', 'background-color: #F8B655; display: flex;')
@@ -351,41 +344,43 @@ function getCaptainInEdit(){
 		}
 	}).catch(err => console.log(err))
 }
-if (window.location.href.includes('/fantasy-lineup-edit/')){
-	 executeAction('query-select-table-rules-edit', null, {identifier: numIdentifier}).then((result) => {
-			const {table_rules__captain} = result.flat()[0]
-			if(table_rules__captain == 1){
-				getCaptain()
-			}
-		}).catch(err => console.log(err))
-}else if(window.location.href.includes('/fantasy-lineup/')){
-	 executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
-			const {table_rules__captain} = result.flat()[0]
-			if(table_rules__captain == 1){
-				getCaptain()
-			}
-		}).catch(err => console.log(err))
+
+if (window.location.href.includes('/fantasy-lineup-edit/')) {
+	executeAction('query-select-table-rules-edit', null, {identifier: numIdentifier}).then((result) => {
+		const {table_rules__captain} = result.flat()[0]
+		if (table_rules__captain == 1) {
+			getCaptain()
+		}
+	}).catch(err => console.log(err))
+} else if (window.location.href.includes('/fantasy-lineup/')) {
+	executeAction('query-select-table-rules', null, {identifier: numIdentifier}).then((result) => {
+		const {table_rules__captain} = result.flat()[0]
+		if (table_rules__captain == 1) {
+			getCaptain()
+		}
+	}).catch(err => console.log(err))
 }
+
 /*A funçao abaixo e acionada quando clicamos no botao de salvar a escalacao*/
 
 
 function saveLineup() {
-	if (window.location.href.includes('/fantasy-lineup-edit/')){
+	if (window.location.href.includes('/fantasy-lineup-edit/')) {
 		save_lineup_edit()
-	}else {
+	} else {
 		//Aqui eu pego o texto digitado no input de nome da formação
 		let inputConfirmNameModal = document.getElementsByClassName('inputConfirmNameModal')[0].value
 
 		let captainPlayer = ''
 		//Esta parte da função serve para pegar o jogador capitão
 		let allTitularPlayers = document.getElementsByClassName('playerContainer')
-		for(let i=0; i<allTitularPlayers.length; i++){
-			if(allTitularPlayers[i].children[0].children[0].className.includes('captain')){
+		for (let i = 0; i < allTitularPlayers.length; i++) {
+			if (allTitularPlayers[i].children[0].children[0].className.includes('captain')) {
 				captainPlayer = allTitularPlayers[i].id
 			}
 		}
-		for(let j=0; j<players_infos.length; j++){
-			if(players_infos[j].position == captainPlayer){
+		for (let j = 0; j < players_infos.length; j++) {
+			if (players_infos[j].position == captainPlayer) {
 				captainPlayer = players_infos[j].id
 			}
 		}
@@ -404,14 +399,14 @@ function saveLineup() {
 		table_round_id = parseInt(div_table_round_id[0].textContent)
 		//Aqui eu crio um array e populo com todas as posições do campo p_1, p_2... até p_15
 		let positionsArr = []
-		for(let x=0; x<16; x++){
+		for (let x = 0; x < 16; x++) {
 			positionsArr.push(`p_${x}`)
 		}
 
 		//Aqui eu varro o array criado acima removendo dele as posiçoes que tenho jogadores comprados
-		for(let y=0; y<players_infos.length; y++){
-			for(let k=0; k<positionsArr.length; k++){
-				if(positionsArr[k] == players_infos[y].position){
+		for (let y = 0; y < players_infos.length; y++) {
+			for (let k = 0; k < positionsArr.length; k++) {
+				if (positionsArr[k] == players_infos[y].position) {
 					positionsArr.splice(k, 1)
 				}
 			}
@@ -419,8 +414,8 @@ function saveLineup() {
 
 		//Aqui tenho que inserir onde não tenho jogador comprado, o id=0 e cada position do array acima
 		let pos = 16 - parseInt(positionsArr.length)
-		for(let o=0; o<16; o++){
-			if(!players_infos[o].id){
+		for (let o = 0; o < 16; o++) {
+			if (!players_infos[o].id) {
 				players_infos[o].id = 0
 				players_infos[o].position = positionsArr[o - pos]
 			}
@@ -428,10 +423,10 @@ function saveLineup() {
 
 		//Aqui crio o array start_bench para saber quando o jogador começa no campo ou quando começa no banco
 		let start_bench = []
-		for(let x=0; x<players_infos.length; x++){
-			if(players_infos[x].position.split('_')[players_infos[x].position.split('_').length-1] > 10 && players_infos[x].id != 0){
+		for (let x = 0; x < players_infos.length; x++) {
+			if (players_infos[x].position.split('_')[players_infos[x].position.split('_').length - 1] > 10 && players_infos[x].id != 0) {
 				start_bench.push(1)
-			}else{
+			} else {
 				start_bench.push(0)
 			}
 		}
@@ -440,10 +435,10 @@ function saveLineup() {
 			let domain = window.location.origin.split(`:3004`)[0];
 			let port = 8000;
 			url = `${domain}:${port}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
-		}else if(window.location.host == 'fantasydev.simbioseventures.com'){
+		} else if (window.location.host == 'fantasydev.simbioseventures.com') {
 			let domain = 'https://apidjangodev.simbioseventures.com'
 			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
-		}else if(window.location.host == 'fantasystage.simbioseventures.com'){
+		} else if (window.location.host == 'fantasystage.simbioseventures.com') {
 			let domain = 'https://fastcrudapistage.simbioseventures.com/'
 			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 		}
@@ -509,33 +504,33 @@ function saveLineup() {
 		};
 		const options = {
 			method: 'POST',
-			body: JSON.stringify( postParameters ),
+			body: JSON.stringify(postParameters),
 			headers: new Headers({
-				'Authorization': `Bearer ${autorizationToken}` ,
+				'Authorization': `Bearer ${autorizationToken}`,
 			})
 		};
-		fetch( url, options )
-			.then( response => response.json() )
-			.then( response => {
+		fetch(url, options)
+			.then(response => response.json())
+			.then(response => {
 
 			});
 	}
 
-	}
+}
 
 /*Esta função recebe dois parâmetros "valor" e "operação" /compra ou venda/ e ela faz todos os cálculos/débitos e injeta no html*/
-function balanceController(price, operation){
+function balanceController(price, operation) {
 
-	if(operation == 'purchase'){ //compra
+	if (operation == 'purchase') { //compra
 
 		bal_aval -= price
 		cost_team += price
-	} else if(operation == 'sale'){ //venda
+	} else if (operation == 'sale') { //venda
 		bal_aval += price
 		cost_team -= price
 	}
 
-	for(let i=0; i < 6; i++){
+	for (let i = 0; i < 6; i++) {
 		document.getElementsByClassName('balance_available')[i].innerText = '$' + bal_aval
 		document.getElementsByClassName('team_price')[i].innerText = '$' + cost_team
 	}
@@ -544,38 +539,38 @@ function balanceController(price, operation){
 
 /*Esta função captura o click no campo para tirar o x do jogador selecionado*/
 function get_field_click() {
-    let field = document.getElementsByClassName('field')
-    let botoes = document.getElementsByClassName('deletePlayer')
+	let field = document.getElementsByClassName('field')
+	let botoes = document.getElementsByClassName('deletePlayer')
 	let captainContainer = document.getElementsByClassName('captainContainer')
-    for (var i = 0; i < field.length; i++) {
-        field[i].addEventListener('click', function (event) {
-            if (event.target.id == '') {
-                for (i = 0; i < botoes.length; i++) {
-                    botoes[i].style.display = 'none'
-                }
-				if(event.path[0].tagName != 'DIV'){
-					for (let j=0; j<captainContainer.length; j++){
+	for (var i = 0; i < field.length; i++) {
+		field[i].addEventListener('click', function (event) {
+			if (event.target.id == '') {
+				for (i = 0; i < botoes.length; i++) {
+					botoes[i].style.display = 'none'
+				}
+				if (event.path[0].tagName != 'DIV') {
+					for (let j = 0; j < captainContainer.length; j++) {
 
-						if(!captainContainer[j].parentNode.children[0].children[0].className.includes('captain')){
+						if (!captainContainer[j].parentNode.children[0].children[0].className.includes('captain')) {
 							//captainContainer[j].style.display = 'none'
 							captainContainer[j].setAttribute('style', 'background-color: #FFFFFF; display: none;')
 						}
 					}
 				}
-            }
-        })
-    }
+			}
+		})
+	}
 }
 
 /*Captura o click do botão Comprar*/
 function get_player_click_buy() {
 	let els = document.getElementsByClassName('button')
-	for(let i=0; i<els.length; i++){
+	for (let i = 0; i < els.length; i++) {
 		els[i].addEventListener('click', function (event) {
-			if(els[i].className.includes('buyButton')){
+			if (els[i].className.includes('buyButton')) {
 				let statusPlayer = els[i].parentNode.parentNode.parentNode.children[1].children[1].children[0].children[1].className
 				joinPlayer(event.target.id, statusPlayer)
-			}else if(els[i].className.includes('salleButton')){
+			} else if (els[i].className.includes('salleButton')) {
 				sallePlayer(event.target.id)
 			}
 		})
@@ -583,28 +578,29 @@ function get_player_click_buy() {
 }
 
 var get_player_click_variable = '';
+
 /*Função que captura o click no botão do jogador*/
 function get_player_click() {
-    var playersBtn = document.getElementsByClassName('player')
-    for (var i = 0; i < playersBtn.length; i++) {
-        playersBtn[i].addEventListener('click', function (event) {
-            checkAllDeleteButtons()
-            return get_player_click_variable = event.target.id
-        })
-    }
+	var playersBtn = document.getElementsByClassName('player')
+	for (var i = 0; i < playersBtn.length; i++) {
+		playersBtn[i].addEventListener('click', function (event) {
+			checkAllDeleteButtons()
+			return get_player_click_variable = event.target.id
+		})
+	}
 }
 
-function checkAllDeleteButtons(){
-    let playersBtn = document.getElementsByClassName('deletePlayer')
-    let playersBtnReservation = document.getElementsByClassName('deletePlayerReservation')
-    let allBtn = [...playersBtn, ...playersBtnReservation]
-    for(i=0; i<allBtn.length; i++){
-        let svgBtn = allBtn[i]
-        let svgBtnAttr = svgBtn.getAttribute("style")
-        if(svgBtnAttr == 'display: flex;'){
-            allBtn[i].setAttribute('style', 'display: none;')
-        }
-    }
+function checkAllDeleteButtons() {
+	let playersBtn = document.getElementsByClassName('deletePlayer')
+	let playersBtnReservation = document.getElementsByClassName('deletePlayerReservation')
+	let allBtn = [...playersBtn, ...playersBtnReservation]
+	for (i = 0; i < allBtn.length; i++) {
+		let svgBtn = allBtn[i]
+		let svgBtnAttr = svgBtn.getAttribute("style")
+		if (svgBtnAttr == 'display: flex;') {
+			allBtn[i].setAttribute('style', 'display: none;')
+		}
+	}
 }
 
 let table_id = ''
@@ -612,21 +608,21 @@ let tableidentifier = window.location.href
 tableidentifier = tableidentifier.toString()
 tableidentifier = tableidentifier.split('/')
 tableidentifier = numbersOnly(tableidentifier[tableidentifier.length - 1])
-if(window.location.href.includes('/fantasy-lineup-edit/')){
+if (window.location.href.includes('/fantasy-lineup-edit/')) {
 	executeAction('query-select-table-round-id', null, {identifier: tableidentifier}).then((result) => {
 		table_id = result[0].lineups__table_round_id
 	}).catch(err => console.log(err))
 }
 let viewLineupBtnEdit = document.getElementsByClassName('viewLineupBtn')
-viewLineupBtnEdit[0].addEventListener('click', function (){
+viewLineupBtnEdit[0].addEventListener('click', function () {
 	let link = ''
 	if (window.location.host == 'fantasy.localhost:3004') {
-			link = 'http://fantasy.localhost:3004/fantasy-minhas-ligas-visualizar/' + table_id
-		}else if(window.location.host == 'fantasydev.simbioseventures.com'){
-			link = 'http://fantasydev.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
-		}else if(window.location.host == 'fantasystage.simbioseventures.com'){
-			link = 'http://fantasystage.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
-		}
+		link = 'http://fantasy.localhost:3004/fantasy-minhas-ligas-visualizar/' + table_id
+	} else if (window.location.host == 'fantasydev.simbioseventures.com') {
+		link = 'http://fantasydev.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+	} else if (window.location.host == 'fantasystage.simbioseventures.com') {
+		link = 'http://fantasystage.simbioseventures.com/fantasy-minhas-ligas-visualizar/' + table_id
+	}
 
 	window.location.href = link
 })
@@ -634,15 +630,15 @@ viewLineupBtnEdit[0].addEventListener('click', function (){
 // Esta função vende o jogador através do x na tela do campo
 function del_unique_player(id_btn) {
 	btn_str = "btn_del_"
-    btn_str += id_btn
-    span_str = "span_"
-    span_str += id_btn
-    control_if = id_btn.replace(/[^0-9]/g, '')
-    let display_unique_del_player = document.getElementById(span_str)
-    let display_btn_unique_del_player = document.getElementById(btn_str)
-    display_btn_unique_del_player.style.display = 'none'
-    display_unique_del_player.classList.remove("preenchido")
-	if(formationSelect[0].value == '3-4-3' || formationSelect[0].value == '3-5-2'){
+	btn_str += id_btn
+	span_str = "span_"
+	span_str += id_btn
+	control_if = id_btn.replace(/[^0-9]/g, '')
+	let display_unique_del_player = document.getElementById(span_str)
+	let display_btn_unique_del_player = document.getElementById(btn_str)
+	display_btn_unique_del_player.style.display = 'none'
+	display_unique_del_player.classList.remove("preenchido")
+	if (formationSelect[0].value == '3-4-3' || formationSelect[0].value == '3-5-2') {
 		if (control_if == 15 || control_if == 0) {
 			display_unique_del_player.textContent = "GOL"
 		}
@@ -658,7 +654,7 @@ function del_unique_player(id_btn) {
 		if (control_if == 11 || control_if == 8 || control_if == 9 || control_if == 10) {
 			display_unique_del_player.textContent = "ATA"
 		}
-	}else{
+	} else {
 		if (control_if == 15 || control_if == 0) {
 			display_unique_del_player.textContent = "GOL"
 		}
@@ -675,10 +671,10 @@ function del_unique_player(id_btn) {
 			display_unique_del_player.textContent = "ATA"
 		}
 	}
-    let elemento_del_unique = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique.style.display = 'flex'
-    let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
-    elemento_btn_cor_jogador.classList.remove('saopaulo')
+	let elemento_del_unique = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique.style.display = 'flex'
+	let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
+	elemento_btn_cor_jogador.classList.remove('saopaulo')
 
 	//Aqui removo os botões de alert e captain
 	let btn = document.getElementById(elemento_del_unique.id)
@@ -690,8 +686,8 @@ function del_unique_player(id_btn) {
 
 	/*Return green color in button inside modal*/
 	let player_id = ''
-	players_infos.forEach(object =>{
-		if(id_btn == object.position){
+	players_infos.forEach(object => {
+		if (id_btn == object.position) {
 			player_id = object.id
 		}
 	});
@@ -701,16 +697,16 @@ function del_unique_player(id_btn) {
 
 	//delete players_obj[id_btn]
 
-	players_obj_btn.forEach(object =>{
-		if(object == player_id){
+	players_obj_btn.forEach(object => {
+		if (object == player_id) {
 			players_obj_btn.splice(players_obj_btn.indexOf(object), 1)
 		}
 
 	});
 
 	//let indexForBalanceController
-	players_infos.forEach(object =>{
-		if(object.position === id_btn){
+	players_infos.forEach(object => {
+		if (object.position === id_btn) {
 			balanceController(object.price, 'sale')
 			players_infos.splice(players_infos.indexOf(object), 1)
 		}
@@ -718,10 +714,10 @@ function del_unique_player(id_btn) {
 }
 
 //Esta função desabilita todos os botões dos jogadores que não estão comprados
-function disableButtons(){
+function disableButtons() {
 	let disableButton = document.querySelectorAll('.button');
 	disableButton.forEach(element => {
-		if(!players_obj_btn.includes(element.id)){
+		if (!players_obj_btn.includes(element.id)) {
 			element.setAttribute('disabled', '')
 			element.classList.remove('buyButton')
 			element.classList.add('disabledButton')
@@ -730,10 +726,10 @@ function disableButtons(){
 }
 
 //Esta função habilita todos os botões na tela de jogadores
-function enableButtons(){
+function enableButtons() {
 	let enableButton = document.querySelectorAll('.button');
 	enableButton.forEach(element => {
-		if(element.className.includes('disabledButton')){
+		if (element.className.includes('disabledButton')) {
 			element.removeAttribute('disabled', '')
 			element.classList.remove('disabledButton')
 			element.classList.add('buyButton')
@@ -743,148 +739,148 @@ function enableButtons(){
 
 //Esta função habilita os botões quando clicamos na seta de voltar para o campo
 function get_backArrow_click() {
-    let arrowBacks = document.getElementsByClassName('arrowbackContainer')
-    for (let i = 0; i < arrowBacks.length; i++) {
-        arrowBacks[i].addEventListener('click', function (event) {
-            enableButtons()
+	let arrowBacks = document.getElementsByClassName('arrowbackContainer')
+	for (let i = 0; i < arrowBacks.length; i++) {
+		arrowBacks[i].addEventListener('click', function (event) {
+			enableButtons()
 			resetSearchInput(arrowBacks[i].parentNode.children[1].children[0].textContent)
-        })
-    }
+		})
+	}
 }
 
-function resetPlayer(position){
+function resetPlayer(position) {
 	let player = document.getElementById(position)
 	player.children[0].children[0].classList.remove('saopaulo')
 	player.children[2].classList.remove('preenchido')
 	player.children[0].children[0].children[0].style.display = 'flex'
 
-	if(formationSelect[0].value == '4-3-3'){
-		if(position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '4-3-3') {
+		if (position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12'){
+		if (position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_3' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_3' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '3-4-3'){
-		if(position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '3-4-3') {
+		if (position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12' || position == 'p_13'){
+		if (position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_12' || position == 'p_13') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_3'|| position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '3-5-2'){
-		if(position == 'p_8' || position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '3-5-2') {
+		if (position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_12' || position == 'p_13'){
+		if (position == 'p_4' || position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10' || position == 'p_12' || position == 'p_13') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_3'|| position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '4-2-4'){
-		if(position == 'p_7' || position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '4-2-4') {
+		if (position == 'p_7' || position == 'p_10' || position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_5' || position == 'p_6' || position == 'p_12'){
+		if (position == 'p_5' || position == 'p_6' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_3' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_3' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '4-4-2'){
-		if(position == 'p_8' || position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '4-4-2') {
+		if (position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_12'){
+		if (position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_3' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_3' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '4-5-1'){
-		if(position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '4-5-1') {
+		if (position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_8' || position == 'p_12'){
+		if (position == 'p_5' || position == 'p_6' || position == 'p_7' || position == 'p_10' || position == 'p_8' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_3' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_3' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '5-3-2'){
-		if(position == 'p_8' ||position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '5-3-2') {
+		if (position == 'p_8' || position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_12'){
+		if (position == 'p_6' || position == 'p_7' || position == 'p_10' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_5' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_5' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
-	if(formationSelect[0].value == '5-4-1'){
-		if(position == 'p_9' || position == 'p_11'){
+	if (formationSelect[0].value == '5-4-1') {
+		if (position == 'p_9' || position == 'p_11') {
 			player.children[2].textContent = 'ATA'
 		}
-		if(position == 'p_6' || position == 'p_7' || position == 'p_10'|| position == 'p_8' || position == 'p_12'){
+		if (position == 'p_6' || position == 'p_7' || position == 'p_10' || position == 'p_8' || position == 'p_12') {
 			player.children[2].textContent = 'MEI'
 		}
-		if(position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14'){
+		if (position == 'p_1' || position == 'p_2' || position == 'p_3' || position == 'p_14') {
 			player.children[2].textContent = 'ZAG'
 		}
-		if(position == 'p_5' || position == 'p_4' || position == 'p_13'){
+		if (position == 'p_5' || position == 'p_4' || position == 'p_13') {
 			player.children[2].textContent = 'LAT'
 		}
-		if(position == 'p_0' || position == 'p_15'){
+		if (position == 'p_0' || position == 'p_15') {
 			player.children[2].textContent = 'GOL'
 		}
 	}
@@ -892,11 +888,12 @@ function resetPlayer(position){
 }
 
 let j
+
 //Função de venda de um jogador
-function sallePlayer(player_id){
+function sallePlayer(player_id) {
 	let player_id_conserved = player_id
-	for(let x=0; x<players_infos.length; x++){
-		if(players_infos[x].id == player_id){
+	for (let x = 0; x < players_infos.length; x++) {
+		if (players_infos[x].id == player_id) {
 			player_id = players_infos[x].position
 		}
 	}
@@ -911,22 +908,22 @@ function sallePlayer(player_id){
 
 
 	let salleBtn = document.getElementsByClassName('salleButton')
-    for (let i = 0; i < salleBtn.length; i++) {
-        salleBtn[i].addEventListener('click', function (event) {
-            /*let btnBuyColor = event.target.parentElement.parentElement.children[2].firstElementChild
-            btnBuyColor.classList.remove('salleButton')
-            btnBuyColor.classList.add('buyButton')*/
-            let posicao = players_obj_btn.indexOf(player_id_conserved)
-            if(posicao > 0){
-                players_obj_btn.splice(posicao, 1)
-            }
-        })
-    }
-    let btnBuySaleColor = document.getElementById(player_id_conserved).parentElement.parentElement.children[2].firstElementChild
-    btnBuySaleColor.classList.remove('salleButton')
-    btnBuySaleColor.classList.add('buyButton')
-	players_infos.forEach(object =>{
-		if(object.id === player_id_conserved){
+	for (let i = 0; i < salleBtn.length; i++) {
+		salleBtn[i].addEventListener('click', function (event) {
+			/*let btnBuyColor = event.target.parentElement.parentElement.children[2].firstElementChild
+			btnBuyColor.classList.remove('salleButton')
+			btnBuyColor.classList.add('buyButton')*/
+			let posicao = players_obj_btn.indexOf(player_id_conserved)
+			if (posicao > 0) {
+				players_obj_btn.splice(posicao, 1)
+			}
+		})
+	}
+	let btnBuySaleColor = document.getElementById(player_id_conserved).parentElement.parentElement.children[2].firstElementChild
+	btnBuySaleColor.classList.remove('salleButton')
+	btnBuySaleColor.classList.add('buyButton')
+	players_infos.forEach(object => {
+		if (object.id === player_id_conserved) {
 			resetPlayer(object.position)
 			balanceController(object.price, 'sale')
 			players_infos.splice(players_infos.indexOf(object), 1)
@@ -934,7 +931,7 @@ function sallePlayer(player_id){
 	});
 
 	players_obj_btn.forEach(element => {
-		if(element == player_id){
+		if (element == player_id) {
 			let index = players_obj_btn.indexOf(element)
 			players_obj_btn.splice(index, 1)
 		}
@@ -943,84 +940,90 @@ function sallePlayer(player_id){
 }
 
 let id_player_for_edit = []
+
 //Função de compra de um jogador
 function joinPlayer(player_id, name) {
 	j = 0
 	let div_value_str = player_id + 'value'
-    let display_btn_buy = ''
-    let display_btn = ''
-    let str_btn = 'btn_del_'
-    let span_ = 'span_'
-    let btn_str_buy = 'btn_buy_'
-    pos_player = get_player_click_variable
-    str_btn += String(pos_player)
-    span_ += String(pos_player)
-    btn_str_buy += String(pos_player)
-    display_btn = document.getElementById(str_btn)
-    display = document.getElementById(span_)
+	let display_btn_buy = ''
+	let display_btn = ''
+	let str_btn = 'btn_del_'
+	let span_ = 'span_'
+	let btn_str_buy = 'btn_buy_'
+	pos_player = get_player_click_variable
+	str_btn += String(pos_player)
+	span_ += String(pos_player)
+	btn_str_buy += String(pos_player)
+	display_btn = document.getElementById(str_btn)
+	display = document.getElementById(span_)
 	let retorno = countAvailablePlayers(pos_player)
 	let btnBuySaleColor = document.getElementById(player_id).parentElement.parentElement.children[2].firstElementChild
 	btnBuySaleColor.classList.remove('buyButton')
 	btnBuySaleColor.classList.add('salleButton')
 
-    if (!display.classList.contains('preenchido')) {
-        document.getElementById(span_).className += ' preenchido'
-        display.textContent = document.getElementById(player_id).textContent
+	if (!display.classList.contains('preenchido')) {
+		document.getElementById(span_).className += ' preenchido'
+		display.textContent = document.getElementById(player_id).textContent
 		player_value = document.getElementById(div_value_str).innerText
-        player_value = parseFloat(player_value)
-        players_obj = {...players_obj, [pos_player]: player_value}
+		player_value = parseFloat(player_value)
+		players_obj = {...players_obj, [pos_player]: player_value}
 		balanceController(player_value, 'purchase')
-		if(window.location.href.includes('/fantasy-lineup-edit/')){
+		if (window.location.href.includes('/fantasy-lineup-edit/')) {
 			id_player_for_edit.push({position: pos_player, id: player_id})
 		}
-        pos_player = ''
+		pos_player = ''
 
-        /*Esta parte faz com que o + no botão do jogador desapareça quando escolhemos um jogador*/
-        let elemento = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild.firstElementChild
-        elemento.style.display = 'none'
-        // o codigo abaixo muda a cor do botao do jogador
-        let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
-        elemento_btn_cor_jogador.className += ' saopaulo'
+		/*Esta parte faz com que o + no botão do jogador desapareça quando escolhemos um jogador*/
+		let elemento = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild.firstElementChild
+		elemento.style.display = 'none'
+		// o codigo abaixo muda a cor do botao do jogador
+		let elemento_btn_cor_jogador = document.getElementById(get_player_click_variable).firstElementChild.firstElementChild
+		elemento_btn_cor_jogador.className += ' saopaulo'
 		j += 1
 		players_obj_btn.push(player_id)
 
 		players_infos.push({position: elemento.id, id: player_id, price: player_value, name: display.textContent})
 
-		if(retorno[j] == undefined || retorno[j] == []){
+		if (retorno[j] == undefined || retorno[j] == []) {
 			disableButtons()
 		}
-		if(name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')){
+		if (name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')) {
 			let playerBtn = document.getElementById(elemento.id)
 			playerBtn.children[4].setAttribute('style', 'display: flex')
 			playerBtn.children[0].children[0].classList.add('alert')
 		}
 
-    } else if(display.classList.contains('preenchido') && retorno.length != 0){
-		retorno[j].children[2].className+= ' preenchido'
+	} else if (display.classList.contains('preenchido') && retorno.length != 0) {
+		retorno[j].children[2].className += ' preenchido'
 		retorno[j].children[2].textContent = document.getElementById(player_id).textContent
 		retorno[j].children[0].firstChild.className += ' saopaulo'
 		retorno[j].firstElementChild.firstElementChild.firstElementChild.style.display = 'none'
 		player_value = document.getElementById(div_value_str).innerText
-        player_value = parseFloat(player_value)
-        players_obj = {...players_obj, [retorno[j].id]: player_value, [retorno[j].id + 'x2']: player_id}
+		player_value = parseFloat(player_value)
+		players_obj = {...players_obj, [retorno[j].id]: player_value, [retorno[j].id + 'x2']: player_id}
 		balanceController(player_value, 'purchase')
 
-		players_infos.push({position: retorno[j].id, id: player_id, price: player_value, name: retorno[j].children[2].textContent})
+		players_infos.push({
+			position: retorno[j].id,
+			id: player_id,
+			price: player_value,
+			name: retorno[j].children[2].textContent
+		})
 
-		if(name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')){
+		if (name.includes('pendurado') || name.includes('lesionado') || name.includes('suspenso')) {
 			let playerBtn = retorno[j]
 			playerBtn.children[4].setAttribute('style', 'display: flex')
 			playerBtn.children[0].children[0].classList.add('alert')
 		}
 
-		if(window.location.href.includes('/fantasy-lineup-edit/')){
+		if (window.location.href.includes('/fantasy-lineup-edit/')) {
 			id_player_for_edit.push({position: retorno[j].id, id: player_id})
 		}
 
 		j += 1 //aqui j é incrementado para que na próxima função de comprar pegue a outra posição livre
 		players_obj_btn.push(player_id)
 
-		if(retorno[j] == undefined || retorno[j] == []){
+		if (retorno[j] == undefined || retorno[j] == []) {
 			disableButtons()
 		}
 
@@ -1031,191 +1034,192 @@ function joinPlayer(player_id, name) {
 }
 
 /*Script para deletar todos os jogadores */
+
 /* Esta função é responsável por capturar o click do botão "Limpar Tudo" */
 function getClickBtn() {
-    let els = document.getElementsByClassName('btnClear')
-    for (var i = 0; i < els.length; i++) {
-        els[i].addEventListener('click', function (event) {
-            resetNames(event.target.id)
-        })
-    }
+	let els = document.getElementsByClassName('btnClear')
+	for (var i = 0; i < els.length; i++) {
+		els[i].addEventListener('click', function (event) {
+			resetNames(event.target.id)
+		})
+	}
 }
 
 /*Esta função é responsável por resetar os nomes e a classe preenchido de cada jogador quando clicamos no botão "Limpar Tudo" */
 function resetNames() {
 	//O for abaixo serve para resetar o alertContainer dos jogadores
-	for(let i=0; i<16;i++){
+	for (let i = 0; i < 16; i++) {
 		let btn = document.getElementById(`p_${i}`)
 		btn.children[4].setAttribute('style', 'display:none')
 		btn.children[0].children[0].classList.remove('alert')
 	}
 
 	//Este outro for reseta o captainContainer dos jogadores
-	for(let i=0; i<11;i++){
+	for (let i = 0; i < 11; i++) {
 		let btn = document.getElementById(`p_${i}`)
 		btn.children[3].removeAttribute('style')
 		btn.children[0].children[0].classList.remove('captain')
 	}
 
-    let elemento_btn_cor_jogador_0 = document.getElementById('p_0').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_0.classList.remove('saopaulo')
-    let elemento_del_unique_0 = document.getElementById('p_0').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_0.style.display = 'flex'
-    let display0 = document.getElementById('span_p_0')
-    let displayBtn0 = document.getElementById('btn_del_p_0')
-    displayBtn0.style.display = 'none'
-    display0.textContent = "GOL"
-    display0.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_1 = document.getElementById('p_1').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_1.classList.remove('saopaulo')
-    let elemento_del_unique_1 = document.getElementById('p_1').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_1.style.display = 'flex'
-    let display1 = document.getElementById('span_p_1')
-    let displayBtn1 = document.getElementById('btn_del_p_1')
-    displayBtn1.style.display = 'none'
-    display1.textContent = "ZAG"
-    display1.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_2 = document.getElementById('p_2').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_2.classList.remove('saopaulo')
-    let elemento_del_unique_2 = document.getElementById('p_2').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_2.style.display = 'flex'
-    let display2 = document.getElementById('span_p_2')
-    let displayBtn2 = document.getElementById('btn_del_p_2')
-    displayBtn2.style.display = 'none'
-    display2.textContent = "ZAG"
-    display2.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_3 = document.getElementById('p_3').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_3.classList.remove('saopaulo')
-    let elemento_del_unique_3 = document.getElementById('p_3').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_3.style.display = 'flex'
-    let display3 = document.getElementById('span_p_3')
-    let displayBtn3 = document.getElementById('btn_del_p_3')
-    displayBtn3.style.display = 'none'
-    display3.textContent = "LAT"
-    display3.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_4 = document.getElementById('p_4').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_4.classList.remove('saopaulo')
-    let elemento_del_unique_4 = document.getElementById('p_4').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_4.style.display = 'flex'
-    let display4 = document.getElementById('span_p_4')
-    let displayBtn4 = document.getElementById('btn_del_p_4')
-    displayBtn4.style.display = 'none'
-    display4.textContent = "LAT"
-    display4.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_5 = document.getElementById('p_5').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_5.classList.remove('saopaulo')
-    let elemento_del_unique_5 = document.getElementById('p_5').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_5.style.display = 'flex'
-    let display5 = document.getElementById('span_p_5')
-    let displayBtn5 = document.getElementById('btn_del_p_5')
-    displayBtn5.style.display = 'none'
-    display5.textContent = "MEI"
-    display5.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_6 = document.getElementById('p_6').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_6.classList.remove('saopaulo')
-    let elemento_del_unique_6 = document.getElementById('p_6').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_6.style.display = 'flex'
-    let display6 = document.getElementById('span_p_6')
-    let displayBtn6 = document.getElementById('btn_del_p_6')
-    displayBtn6.style.display = 'none'
-    display6.textContent = "MEI"
-    display6.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_7 = document.getElementById('p_7').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_7.classList.remove('saopaulo')
-    let elemento_del_unique_7 = document.getElementById('p_7').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_7.style.display = 'flex'
-    let display7 = document.getElementById('span_p_7')
-    let displayBtn7 = document.getElementById('btn_del_p_7')
-    displayBtn7.style.display = 'none'
-    display7.textContent = "MEI"
-    display7.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_8 = document.getElementById('p_8').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_8.classList.remove('saopaulo')
-    let elemento_del_unique_8 = document.getElementById('p_8').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_8.style.display = 'flex'
-    let display8 = document.getElementById('span_p_8')
-    let displayBtn8 = document.getElementById('btn_del_p_8')
-    displayBtn8.style.display = 'none'
-    display8.textContent = "ATA"
-    display8.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_9 = document.getElementById('p_9').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_9.classList.remove('saopaulo')
-    let elemento_del_unique_9 = document.getElementById('p_9').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_9.style.display = 'flex'
-    let display9 = document.getElementById('span_p_9')
-    let displayBtn9 = document.getElementById('btn_del_p_9')
-    displayBtn9.style.display = 'none'
-    display9.textContent = "ATA"
-    display9.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_10 = document.getElementById('p_10').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_10.classList.remove('saopaulo')
-    let elemento_del_unique_10 = document.getElementById('p_10').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_10.style.display = 'flex'
-    let display10 = document.getElementById('span_p_10')
-    let displayBtn10 = document.getElementById('btn_del_p_10')
-    displayBtn10.style.display = 'none'
-    display10.textContent = "ATA"
-    display10.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_11 = document.getElementById('p_11').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_11.classList.remove('saopaulo')
-    let elemento_del_unique_11 = document.getElementById('p_11').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_11.style.display = 'flex'
-    let display11 = document.getElementById('span_p_11')
-    let displayBtn11 = document.getElementById('btn_del_p_11')
-    displayBtn11.style.display = 'none'
-    display11.textContent = "ATA"
-    display11.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_12 = document.getElementById('p_12').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_12.classList.remove('saopaulo')
-    let elemento_del_unique_12 = document.getElementById('p_12').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_12.style.display = 'flex'
-    let display12 = document.getElementById('span_p_12')
-    let displayBtn12 = document.getElementById('btn_del_p_12')
-    displayBtn12.style.display = 'none'
-    display12.textContent = "MEI"
-    display12.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_13 = document.getElementById('p_13').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_13.classList.remove('saopaulo')
-    let elemento_del_unique_13 = document.getElementById('p_13').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_13.style.display = 'flex'
-    let display13 = document.getElementById('span_p_13')
-    let displayBtn13 = document.getElementById('btn_del_p_13')
-    displayBtn13.style.display = 'none'
+	let elemento_btn_cor_jogador_0 = document.getElementById('p_0').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_0.classList.remove('saopaulo')
+	let elemento_del_unique_0 = document.getElementById('p_0').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_0.style.display = 'flex'
+	let display0 = document.getElementById('span_p_0')
+	let displayBtn0 = document.getElementById('btn_del_p_0')
+	displayBtn0.style.display = 'none'
+	display0.textContent = "GOL"
+	display0.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_1 = document.getElementById('p_1').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_1.classList.remove('saopaulo')
+	let elemento_del_unique_1 = document.getElementById('p_1').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_1.style.display = 'flex'
+	let display1 = document.getElementById('span_p_1')
+	let displayBtn1 = document.getElementById('btn_del_p_1')
+	displayBtn1.style.display = 'none'
+	display1.textContent = "ZAG"
+	display1.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_2 = document.getElementById('p_2').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_2.classList.remove('saopaulo')
+	let elemento_del_unique_2 = document.getElementById('p_2').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_2.style.display = 'flex'
+	let display2 = document.getElementById('span_p_2')
+	let displayBtn2 = document.getElementById('btn_del_p_2')
+	displayBtn2.style.display = 'none'
+	display2.textContent = "ZAG"
+	display2.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_3 = document.getElementById('p_3').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_3.classList.remove('saopaulo')
+	let elemento_del_unique_3 = document.getElementById('p_3').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_3.style.display = 'flex'
+	let display3 = document.getElementById('span_p_3')
+	let displayBtn3 = document.getElementById('btn_del_p_3')
+	displayBtn3.style.display = 'none'
+	display3.textContent = "LAT"
+	display3.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_4 = document.getElementById('p_4').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_4.classList.remove('saopaulo')
+	let elemento_del_unique_4 = document.getElementById('p_4').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_4.style.display = 'flex'
+	let display4 = document.getElementById('span_p_4')
+	let displayBtn4 = document.getElementById('btn_del_p_4')
+	displayBtn4.style.display = 'none'
+	display4.textContent = "LAT"
+	display4.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_5 = document.getElementById('p_5').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_5.classList.remove('saopaulo')
+	let elemento_del_unique_5 = document.getElementById('p_5').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_5.style.display = 'flex'
+	let display5 = document.getElementById('span_p_5')
+	let displayBtn5 = document.getElementById('btn_del_p_5')
+	displayBtn5.style.display = 'none'
+	display5.textContent = "MEI"
+	display5.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_6 = document.getElementById('p_6').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_6.classList.remove('saopaulo')
+	let elemento_del_unique_6 = document.getElementById('p_6').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_6.style.display = 'flex'
+	let display6 = document.getElementById('span_p_6')
+	let displayBtn6 = document.getElementById('btn_del_p_6')
+	displayBtn6.style.display = 'none'
+	display6.textContent = "MEI"
+	display6.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_7 = document.getElementById('p_7').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_7.classList.remove('saopaulo')
+	let elemento_del_unique_7 = document.getElementById('p_7').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_7.style.display = 'flex'
+	let display7 = document.getElementById('span_p_7')
+	let displayBtn7 = document.getElementById('btn_del_p_7')
+	displayBtn7.style.display = 'none'
+	display7.textContent = "MEI"
+	display7.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_8 = document.getElementById('p_8').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_8.classList.remove('saopaulo')
+	let elemento_del_unique_8 = document.getElementById('p_8').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_8.style.display = 'flex'
+	let display8 = document.getElementById('span_p_8')
+	let displayBtn8 = document.getElementById('btn_del_p_8')
+	displayBtn8.style.display = 'none'
+	display8.textContent = "ATA"
+	display8.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_9 = document.getElementById('p_9').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_9.classList.remove('saopaulo')
+	let elemento_del_unique_9 = document.getElementById('p_9').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_9.style.display = 'flex'
+	let display9 = document.getElementById('span_p_9')
+	let displayBtn9 = document.getElementById('btn_del_p_9')
+	displayBtn9.style.display = 'none'
+	display9.textContent = "ATA"
+	display9.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_10 = document.getElementById('p_10').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_10.classList.remove('saopaulo')
+	let elemento_del_unique_10 = document.getElementById('p_10').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_10.style.display = 'flex'
+	let display10 = document.getElementById('span_p_10')
+	let displayBtn10 = document.getElementById('btn_del_p_10')
+	displayBtn10.style.display = 'none'
+	display10.textContent = "ATA"
+	display10.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_11 = document.getElementById('p_11').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_11.classList.remove('saopaulo')
+	let elemento_del_unique_11 = document.getElementById('p_11').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_11.style.display = 'flex'
+	let display11 = document.getElementById('span_p_11')
+	let displayBtn11 = document.getElementById('btn_del_p_11')
+	displayBtn11.style.display = 'none'
+	display11.textContent = "ATA"
+	display11.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_12 = document.getElementById('p_12').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_12.classList.remove('saopaulo')
+	let elemento_del_unique_12 = document.getElementById('p_12').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_12.style.display = 'flex'
+	let display12 = document.getElementById('span_p_12')
+	let displayBtn12 = document.getElementById('btn_del_p_12')
+	displayBtn12.style.display = 'none'
+	display12.textContent = "MEI"
+	display12.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_13 = document.getElementById('p_13').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_13.classList.remove('saopaulo')
+	let elemento_del_unique_13 = document.getElementById('p_13').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_13.style.display = 'flex'
+	let display13 = document.getElementById('span_p_13')
+	let displayBtn13 = document.getElementById('btn_del_p_13')
+	displayBtn13.style.display = 'none'
 	let selectFormation = document.getElementsByClassName('formation')
-	if(selectFormation[0].value == '3-4-3' || selectFormation[0].value == '3-5-2'){
-    	display13.textContent = "MEI"
-	}else{
+	if (selectFormation[0].value == '3-4-3' || selectFormation[0].value == '3-5-2') {
+		display13.textContent = "MEI"
+	} else {
 		display13.textContent = "LAT"
 	}
-    display13.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_14 = document.getElementById('p_14').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_14.classList.remove('saopaulo')
-    let elemento_del_unique_14 = document.getElementById('p_14').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_14.style.display = 'flex'
-    let display14 = document.getElementById('span_p_14')
-    let displayBtn14 = document.getElementById('btn_del_p_14')
-    displayBtn14.style.display = 'none'
-    display14.textContent = "ZAG"
-    display14.classList.remove("preenchido")
-    let elemento_btn_cor_jogador_15 = document.getElementById('p_15').firstElementChild.firstElementChild
-    elemento_btn_cor_jogador_15.classList.remove('saopaulo')
-    let elemento_del_unique_15 = document.getElementById('p_15').firstElementChild.firstElementChild.firstElementChild
-    elemento_del_unique_15.style.display = 'flex'
-    let display15 = document.getElementById('span_p_15')
-    let displayBtn15 = document.getElementById('btn_del_p_15')
-    displayBtn15.style.display = 'none'
-    display15.textContent = "GOL"
-    display15.classList.remove("preenchido")
+	display13.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_14 = document.getElementById('p_14').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_14.classList.remove('saopaulo')
+	let elemento_del_unique_14 = document.getElementById('p_14').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_14.style.display = 'flex'
+	let display14 = document.getElementById('span_p_14')
+	let displayBtn14 = document.getElementById('btn_del_p_14')
+	displayBtn14.style.display = 'none'
+	display14.textContent = "ZAG"
+	display14.classList.remove("preenchido")
+	let elemento_btn_cor_jogador_15 = document.getElementById('p_15').firstElementChild.firstElementChild
+	elemento_btn_cor_jogador_15.classList.remove('saopaulo')
+	let elemento_del_unique_15 = document.getElementById('p_15').firstElementChild.firstElementChild.firstElementChild
+	elemento_del_unique_15.style.display = 'flex'
+	let display15 = document.getElementById('span_p_15')
+	let displayBtn15 = document.getElementById('btn_del_p_15')
+	displayBtn15.style.display = 'none'
+	display15.textContent = "GOL"
+	display15.classList.remove("preenchido")
 	resetLabelsPlayers()
-	for(let i=0; i<6; i++){
+	for (let i = 0; i < 6; i++) {
 		document.getElementsByClassName('balance_available')[i].innerText = '$120.000'
-		document.getElementsByClassName('team_price')[i].innerText =  '$0'
+		document.getElementsByClassName('team_price')[i].innerText = '$0'
 		document.getElementsByClassName('balance_available')[i].style.color = '#444444'
 	}
 
 	document.getElementById("btn_save").style.backgroundColor = "#0D9876"
-    bal_aval = 120000
-    cost_team = 0
+	bal_aval = 120000
+	cost_team = 0
 	players_obj = {}
 	players_obj_btn = []
 	players_infos = []
@@ -1223,7 +1227,7 @@ function resetNames() {
 
 	let buttonsale = document.getElementsByClassName('button')
 	buttonsale.forEach(element => {
-		if(element.className.includes('salleButton')){
+		if (element.className.includes('salleButton')) {
 			element.classList.remove('salleButton')
 			element.classList.add('buyButton')
 		}
@@ -1232,126 +1236,126 @@ function resetNames() {
 
 /*Função que captura o click dos botões de excluir individualmente*/
 function getClickDeleteUniqueBtn() {
-    let element = document.getElementsByClassName('deletePlayer')
-    for (var i = 0; i < element.length; i++) {
-        element[i].addEventListener('click', function (event) {
-            del_unique_player(event.path[2].id)
-        })
-    }
+	let element = document.getElementsByClassName('deletePlayer')
+	for (var i = 0; i < element.length; i++) {
+		element[i].addEventListener('click', function (event) {
+			del_unique_player(event.path[2].id)
+		})
+	}
 }
 
 /*Função que captura o click dos botões de excluir do banco de reservas individualmente*/
 function getClickDeleteUniqueBtn2() {
-    let element2 = document.getElementsByClassName('deletePlayerReservation')
-    for (var j = 0; j < element2.length; j++) {
-        element2[j].addEventListener('click', function (event) {
-            del_unique_player(event.path[2].id)
-        })
-    }
+	let element2 = document.getElementsByClassName('deletePlayerReservation')
+	for (var j = 0; j < element2.length; j++) {
+		element2[j].addEventListener('click', function (event) {
+			del_unique_player(event.path[2].id)
+		})
+	}
 }
 
 /*Esta função checa se já existe jogador escolhido para trocar o modal pelo botão x*/
 function checkPlayersForHiddenModal() {
-    var playersButtons = document.getElementsByClassName('player')
-    for (var i = 0; i < playersButtons.length; i++) {
-        playersButtons[i].addEventListener('click', function (event) {
-            let span = 'span_'
-            let id = event.target.id
-            let aElement = document.getElementById(id)
-            span += id
-            spanElement = document.getElementById(span)
-            if (spanElement.className.includes('preenchido')) {
-                let href = aElement.firstElementChild.removeAttribute('href')
-                let btndel = 'btn_del_'
-                btndel += id
-                btndelElement = document.getElementById(btndel)
-                btndelElement.style.display = 'flex'
-            } else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'ATA') {
-                aElement.firstElementChild.setAttribute('href', '#abrirModalStriker')
-            }else if(!spanElement.className.includes('preenchido') && spanElement.textContent == 'MEI'){
+	var playersButtons = document.getElementsByClassName('player')
+	for (var i = 0; i < playersButtons.length; i++) {
+		playersButtons[i].addEventListener('click', function (event) {
+			let span = 'span_'
+			let id = event.target.id
+			let aElement = document.getElementById(id)
+			span += id
+			spanElement = document.getElementById(span)
+			if (spanElement.className.includes('preenchido')) {
+				let href = aElement.firstElementChild.removeAttribute('href')
+				let btndel = 'btn_del_'
+				btndel += id
+				btndelElement = document.getElementById(btndel)
+				btndelElement.style.display = 'flex'
+			} else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'ATA') {
+				aElement.firstElementChild.setAttribute('href', '#abrirModalStriker')
+			} else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'MEI') {
 				aElement.firstElementChild.setAttribute('href', '#abrirModalMidfielder')
-			}else if(!spanElement.className.includes('preenchido') && spanElement.textContent == 'ZAG'){
+			} else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'ZAG') {
 				aElement.firstElementChild.setAttribute('href', '#abrirModalDefender')
-			}else if(!spanElement.className.includes('preenchido') && spanElement.textContent == 'GOL'){
+			} else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'GOL') {
 				aElement.firstElementChild.setAttribute('href', '#abrirModalGoalkeeper')
-			}else if(!spanElement.className.includes('preenchido') && spanElement.textContent == 'LAT'){
+			} else if (!spanElement.className.includes('preenchido') && spanElement.textContent == 'LAT') {
 				aElement.firstElementChild.setAttribute('href', '#abrirModalBack')
 			}
-        })
-    }
+		})
+	}
 }
 
-function balance_available(discount){
+function balance_available(discount) {
 
-	for(let i=0; i<6; i++){
+	for (let i = 0; i < 6; i++) {
 		element_html_show_balance = document.getElementsByClassName('balance_available')[i].innerText
 	}
 
 	//Aqui tenho que remover o $ para ficar só o número e não retornar NaN
 	let balanceArray = element_html_show_balance.split('')
-	if(balanceArray[0] == '$'){
+	if (balanceArray[0] == '$') {
 		balanceArray.shift()
 	}
 
-	function removeDots(value){
+	function removeDots(value) {
 		return value != '.'
 	}
 
 	balanceArray = balanceArray.filter(removeDots)
 	element_html_show_balance = balanceArray.join('')
-    element_html_show_balance = parseFloat(element_html_show_balance)
-    discount = parseFloat(discount)
-    bal_aval -= parseFloat(discount)
+	element_html_show_balance = parseFloat(element_html_show_balance)
+	discount = parseFloat(discount)
+	bal_aval -= parseFloat(discount)
 
-	for(let j=0; j < 6; j++){
+	for (let j = 0; j < 6; j++) {
 		document.getElementsByClassName('balance_available')[j].innerText = '$' + parseFloat(bal_aval)//.toFixed(3)
 	}
 
-    if (element_html_show_balance <= 0){
-		for(let k=0; k < 6; k++){
+	if (element_html_show_balance <= 0) {
+		for (let k = 0; k < 6; k++) {
 			document.getElementsByClassName('balance_available')[k].style.color = "red"
 		}
-        document.getElementById("btn_save").style.backgroundColor = '#626262'
-    }
+		document.getElementById("btn_save").style.backgroundColor = '#626262'
+	}
 
-	if (element_html_show_balance > 0){
-		for(let x=0; x < 6; x++){
+	if (element_html_show_balance > 0) {
+		for (let x = 0; x < 6; x++) {
 			document.getElementsByClassName('balance_available')[x].style.color = "#444444"
 		}
-        document.getElementById("btn_save").style.backgroundColor = "#0D9876"
-    }
+		document.getElementById("btn_save").style.backgroundColor = "#0D9876"
+	}
 
 }
 
-function team_price(value_player){
-    value_player = parseFloat(value_player)
+function team_price(value_player) {
+	value_player = parseFloat(value_player)
 
-	if(cost_team == 0){
-    	cost_team = value_player
-	}else{
+	if (cost_team == 0) {
+		cost_team = value_player
+	} else {
 		let value1 = parseFloat(value_player)
 		let value2 = parseFloat(cost_team)
 		let sum = parseFloat(value1) + parseFloat(value2)
 		cost_team = sum
 	}
 
-	for(let i=0; i<6; i++){
+	for (let i = 0; i < 6; i++) {
 		element_html_show_team_price = document.getElementsByClassName('team_price')[i].innerText
 		document.getElementsByClassName('team_price')[i].innerText = '$' + cost_team
 	}
 
-    element_html_show_team_price = parseFloat(element_html_show_team_price)
+	element_html_show_team_price = parseFloat(element_html_show_team_price)
 
 }
 
-async function getMarket(){
-    setInterval(countdown, 1000)
+async function getMarket() {
+	setInterval(countdown, 1000)
 }
 
-function get_round(round){
+function get_round(round) {
 	let x = list_ids()
-	for (i=0; i<x.length ; i++){
-		let div_shown_countdown =  document.getElementsByClassName(round)[i].textContent
+	for (i = 0; i < x.length; i++) {
+		let div_shown_countdown = document.getElementsByClassName(round)[i].textContent
 		return div_shown_countdown
 	}
 }
@@ -1384,7 +1388,7 @@ function countdown() {
 			display.textContent = (dias + "d " + horas + "h " + minutes + "m " + segundos + "s")
 			display.style.color = "green"
 			display_modal.forEach(element => {
-				element.textContent =(dias + "d " + horas + "h " + minutes + "m " + segundos + "s")
+				element.textContent = (dias + "d " + horas + "h " + minutes + "m " + segundos + "s")
 				element.style.color = "green"
 			})
 			return display
@@ -1447,13 +1451,13 @@ function countdown() {
 }
 
 function formatTime(time) {
-    return time < 10 ? `0${time}` : time;
+	return time < 10 ? `0${time}` : time;
 }
 
-function list_ids(){
+function list_ids() {
 	let number_tables_div = []
 	let get_id = document.getElementsByClassName('class_id')
-	for (i=0; i<get_id.length ; i++){
+	for (i = 0; i < get_id.length; i++) {
 		number_tables_div.push(get_id[i].id)
 	}
 	return number_tables_div
@@ -1463,72 +1467,72 @@ getMarket()
 
 
 /*Aqui começa o código que conta os jogadores por posição*/
-function countAvailablePlayers(position_num){
+function countAvailablePlayers(position_num) {
 	const atackers = []
-	if (formationSelect[0].value == '4-3-3' || formationSelect[0].value == '3-4-3'){
-		for(var i=8; i<12; i++){
+	if (formationSelect[0].value == '4-3-3' || formationSelect[0].value == '3-4-3') {
+		for (var i = 8; i < 12; i++) {
 			atackers.push(document.getElementById('p_' + i))
 		}
 	}
-	if (formationSelect[0].value == '3-5-2' || formationSelect[0].value == '4-4-2' || formationSelect[0].value == '5-3-2'){
+	if (formationSelect[0].value == '3-5-2' || formationSelect[0].value == '4-4-2' || formationSelect[0].value == '5-3-2') {
 		atackers.push(document.getElementById('p_8'))
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
 	}
-	if (formationSelect[0].value == '4-2-4'){
+	if (formationSelect[0].value == '4-2-4') {
 		atackers.push(document.getElementById('p_7'))
 		atackers.push(document.getElementById('p_10'))
 		atackers.push(document.getElementById('p_8'))
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
 	}
-	if (formationSelect[0].value == '4-5-1' || formationSelect[0].value == '5-4-1'){
+	if (formationSelect[0].value == '4-5-1' || formationSelect[0].value == '5-4-1') {
 		atackers.push(document.getElementById('p_9'))
 		atackers.push(document.getElementById('p_11'))
 	}
 
 	availableAtackers = []
-	atackers.forEach(function(position) {
-		if(!position.children[2].className.includes('preenchido')){
+	atackers.forEach(function (position) {
+		if (!position.children[2].className.includes('preenchido')) {
 			availableAtackers.push(position)
 		}
 	})
 	/*====================================================================*/
 	const midfielders = []
-	if (formationSelect[0].value == '4-3-3'){
-		for(var i=5; i<8; i++){
-		midfielders.push(document.getElementById('p_' + i))
+	if (formationSelect[0].value == '4-3-3') {
+		for (var i = 5; i < 8; i++) {
+			midfielders.push(document.getElementById('p_' + i))
 		}
 		midfielders.push(document.getElementById('p_12'))
 	}
-	if (formationSelect[0].value == '3-4-3'){
-		for(var i=4; i<8; i++){
-		midfielders.push(document.getElementById('p_' + i))
+	if (formationSelect[0].value == '3-4-3') {
+		for (var i = 4; i < 8; i++) {
+			midfielders.push(document.getElementById('p_' + i))
 		}
 		midfielders.push(document.getElementById('p_12'))
 		midfielders.push(document.getElementById('p_13'))
 	}
-	if (formationSelect[0].value == '3-5-2'){
-		for(var i=4; i<8; i++){
-		midfielders.push(document.getElementById('p_' + i))
+	if (formationSelect[0].value == '3-5-2') {
+		for (var i = 4; i < 8; i++) {
+			midfielders.push(document.getElementById('p_' + i))
 		}
 		midfielders.push(document.getElementById('p_10'))
 		midfielders.push(document.getElementById('p_12'))
 		midfielders.push(document.getElementById('p_13'))
 	}
-	if (formationSelect[0].value == '4-2-4'){
+	if (formationSelect[0].value == '4-2-4') {
 		midfielders.push(document.getElementById('p_5'))
 		midfielders.push(document.getElementById('p_6'))
 		midfielders.push(document.getElementById('p_12'))
 	}
-	if (formationSelect[0].value == '4-4-2'){
+	if (formationSelect[0].value == '4-4-2') {
 		midfielders.push(document.getElementById('p_5'))
 		midfielders.push(document.getElementById('p_6'))
 		midfielders.push(document.getElementById('p_7'))
 		midfielders.push(document.getElementById('p_10'))
 		midfielders.push(document.getElementById('p_12'))
 	}
-	if (formationSelect[0].value == '4-5-1'){
+	if (formationSelect[0].value == '4-5-1') {
 		midfielders.push(document.getElementById('p_5'))
 		midfielders.push(document.getElementById('p_6'))
 		midfielders.push(document.getElementById('p_7'))
@@ -1536,13 +1540,13 @@ function countAvailablePlayers(position_num){
 		midfielders.push(document.getElementById('p_8'))
 		midfielders.push(document.getElementById('p_12'))
 	}
-	if (formationSelect[0].value == '5-3-2'){
+	if (formationSelect[0].value == '5-3-2') {
 		midfielders.push(document.getElementById('p_6'))
 		midfielders.push(document.getElementById('p_7'))
 		midfielders.push(document.getElementById('p_10'))
 		midfielders.push(document.getElementById('p_12'))
 	}
-	if (formationSelect[0].value == '5-4-1'){
+	if (formationSelect[0].value == '5-4-1') {
 		midfielders.push(document.getElementById('p_6'))
 		midfielders.push(document.getElementById('p_7'))
 		midfielders.push(document.getElementById('p_10'))
@@ -1551,38 +1555,38 @@ function countAvailablePlayers(position_num){
 	}
 
 	availableMidfielders = []
-	midfielders.forEach(function(position){
-		if(!position.children[2].className.includes('preenchido')){
+	midfielders.forEach(function (position) {
+		if (!position.children[2].className.includes('preenchido')) {
 			availableMidfielders.push(position)
 		}
 	})
 	/*====================================================================*/
 	const backs = []
-	if (formationSelect[0].value == '5-3-2' || formationSelect[0].value == '5-4-1'){
+	if (formationSelect[0].value == '5-3-2' || formationSelect[0].value == '5-4-1') {
 		backs.push(document.getElementById('p_4'))
 		backs.push(document.getElementById('p_5'))
 		backs.push(document.getElementById('p_13'))
 	}
-	if(formationSelect[0].value == '4-5-1' || formationSelect[0].value == '4-2-4' || formationSelect[0].value == '4-3-3' || formationSelect[0].value == '4-4-2'){
+	if (formationSelect[0].value == '4-5-1' || formationSelect[0].value == '4-2-4' || formationSelect[0].value == '4-3-3' || formationSelect[0].value == '4-4-2') {
 		backs.push(document.getElementById('p_3'))
 		backs.push(document.getElementById('p_4'))
 		backs.push(document.getElementById('p_13'))
 	}
 
 	const availableBacks = []
-	backs.forEach(function(position){
-		if(!position.children[2].className.includes('preenchido')){
+	backs.forEach(function (position) {
+		if (!position.children[2].className.includes('preenchido')) {
 			availableBacks.push(position)
 		}
 	})
 	/*====================================================================*/
 	const defenders = []
-	if (formationSelect[0].value == '4-3-3' || formationSelect[0].value == '4-2-4' || formationSelect[0].value == '4-4-2' || formationSelect[0].value == '4-5-1'){
+	if (formationSelect[0].value == '4-3-3' || formationSelect[0].value == '4-2-4' || formationSelect[0].value == '4-4-2' || formationSelect[0].value == '4-5-1') {
 		defenders.push(document.getElementById('p_1'))
 		defenders.push(document.getElementById('p_2'))
 		defenders.push(document.getElementById('p_14'))
 	}
-	if (formationSelect[0].value == '3-4-3' || formationSelect[0].value == '3-5-2' || formationSelect[0].value == '5-3-2' || formationSelect[0].value == '5-4-1'){
+	if (formationSelect[0].value == '3-4-3' || formationSelect[0].value == '3-5-2' || formationSelect[0].value == '5-3-2' || formationSelect[0].value == '5-4-1') {
 		defenders.push(document.getElementById('p_1'))
 		defenders.push(document.getElementById('p_2'))
 		defenders.push(document.getElementById('p_3'))
@@ -1591,8 +1595,8 @@ function countAvailablePlayers(position_num){
 
 
 	const availableDefenders = []
-	defenders.forEach(function(position){
-		if (!position.children[2].className.includes('preenchido')){
+	defenders.forEach(function (position) {
+		if (!position.children[2].className.includes('preenchido')) {
 			availableDefenders.push(position)
 		}
 	})
@@ -1601,8 +1605,8 @@ function countAvailablePlayers(position_num){
 	goalkeepers.push(document.getElementById('p_0'))
 	goalkeepers.push(document.getElementById('p_15'))
 	availableGoalkeepers = []
-	goalkeepers.forEach(function(position){
-		if(!position.children[2].className.includes('preenchido')){
+	goalkeepers.forEach(function (position) {
+		if (!position.children[2].className.includes('preenchido')) {
 			availableGoalkeepers.push(position)
 		}
 	})
@@ -1610,146 +1614,148 @@ function countAvailablePlayers(position_num){
 
 
 	//let formationSelect = document.getElementsByClassName('formation')
-		if(formationSelect[0].value == '3-4-3') {
-			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_10' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12' || position_num == 'p_13') {
-				return availableMidfielders
-			}
-			/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
-				return availableBacks
-			}*/
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
-				return availableDefenders
-			}
-
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		} else if (formationSelect[0].value == '4-3-3') {
-			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_10' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12') {
-				return availableMidfielders
-			}
-			if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
-				return availableBacks
-			}
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if(formationSelect[0].value == '3-5-2') {
-			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12' || position_num == 'p_13') {
-				return availableMidfielders
-			}
-			/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
-				return availableBacks
-			}*/
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if (formationSelect[0].value == '4-2-4') {
-			if (position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_12') {
-				return availableMidfielders
-			}
-			if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
-				return availableBacks
-			}
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if(formationSelect[0].value == '4-4-2') {
-			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12') {
-				return availableMidfielders
-			}
-			if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
-				return availableBacks
-			}
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if(formationSelect[0].value == '4-5-1') {
-			if (position_num == 'p_9' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8' || position_num == 'p_12') {
-				return availableMidfielders
-			}
-			if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
-				return availableBacks
-			}
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if(formationSelect[0].value == '5-3-2') {
-			if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
-				return availableAtackers
-			}
-			if (position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12') {
-				return availableMidfielders
-			}
-			if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_13') {
-				return availableBacks
-			}
-			if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
-				return availableDefenders
-			}
-			if (position_num == 'p_0' || position_num == 'p_15') {
-				return availableGoalkeepers
-			}
-
-		}else if(formationSelect[0].value == '5-4-1'){
-				if(position_num == 'p_9' || position_num == 'p_11'){
-					return availableAtackers
-				}
-				if(position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8'|| position_num == 'p_12'){
-					return availableMidfielders
-				}
-				if(position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_13'){
-					return availableBacks
-				}
-				if(position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14'){
-					return availableDefenders
-				}
-				if(position_num == 'p_0' || position_num == 'p_15'){
-					return availableGoalkeepers
-				}
+	if (formationSelect[0].value == '3-4-3') {
+		if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_10' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12' || position_num == 'p_13') {
+			return availableMidfielders
+		}
+		/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
+			return availableBacks
+		}*/
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
+			return availableDefenders
 		}
 
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '4-3-3') {
+		if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_10' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '3-5-2') {
+		if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12' || position_num == 'p_13') {
+			return availableMidfielders
+		}
+		/*if(position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13'){
+			return availableBacks
+		}*/
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '4-2-4') {
+		if (position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '4-4-2') {
+		if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '4-5-1') {
+		if (position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_5' || position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_3' || position_num == 'p_4' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '5-3-2') {
+		if (position_num == 'p_8' || position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+
+	} else if (formationSelect[0].value == '5-4-1') {
+		if (position_num == 'p_9' || position_num == 'p_11') {
+			return availableAtackers
+		}
+		if (position_num == 'p_6' || position_num == 'p_7' || position_num == 'p_10' || position_num == 'p_8' || position_num == 'p_12') {
+			return availableMidfielders
+		}
+		if (position_num == 'p_4' || position_num == 'p_5' || position_num == 'p_13') {
+			return availableBacks
+		}
+		if (position_num == 'p_1' || position_num == 'p_2' || position_num == 'p_3' || position_num == 'p_14') {
+			return availableDefenders
+		}
+		if (position_num == 'p_0' || position_num == 'p_15') {
+			return availableGoalkeepers
+		}
+	}
+
 }
+
 var numberIdentifier = 0;
+
 function save_lineup_edit() {
 	if (window.location.href.includes('/fantasy-lineup-edit/')) {
 		numberIdentifier = window.location.href
@@ -1776,15 +1782,15 @@ function save_lineup_edit() {
 		let captain_position = ''
 		let captain_id = 0
 		let allPlayers = document.getElementsByClassName('playerContainer')
-		for(let j=0; j<11; j++){
-			if(allPlayers[j].children[3].getAttribute('style') == 'background-color: #F8B655; display: flex;'){
+		for (let j = 0; j < 11; j++) {
+			if (allPlayers[j].children[3].getAttribute('style') == 'background-color: #F8B655; display: flex;') {
 				captain_position = allPlayers[j].getAttribute('id')
-				for(let x=0; x<obj_players.length;x++){
-					if(obj_players[x].pos_field == captain_position){
+				for (let x = 0; x < obj_players.length; x++) {
+					if (obj_players[x].pos_field == captain_position) {
 						captain_id = obj_players[x].player_Id
-					}else if(obj_players[x].pos_field != captain_position){
-						for(let y=0; y<id_player_for_edit.length; y++){
-							if(id_player_for_edit[y].position == captain_position){
+					} else if (obj_players[x].pos_field != captain_position) {
+						for (let y = 0; y < id_player_for_edit.length; y++) {
+							if (id_player_for_edit[y].position == captain_position) {
 								captain_id = id_player_for_edit[y].id
 							}
 						}
@@ -1794,7 +1800,7 @@ function save_lineup_edit() {
 		}
 		let inputConfirmNameModal = document.getElementsByClassName('inputConfirmNameModal')[0].value
 		players_update['lineup_name'] = inputConfirmNameModal
-		if(captain_id == 0){
+		if (captain_id == 0) {
 			captain_id = 1
 		}
 		players_update['captain'] = captain_id
@@ -1802,25 +1808,28 @@ function save_lineup_edit() {
 		//Aqui crio o array start_bench para saber quando o jogador começa no campo ou quando começa no banco
 		let reservationsNames = []
 		let playersReservations = document.getElementsByClassName('playersReservations')
-		for(let x=0; x<5; x++){
-			if(playersReservations[0].children[x].children[2].className.includes('preenchido')){
+		for (let x = 0; x < 5; x++) {
+			if (playersReservations[0].children[x].children[2].className.includes('preenchido')) {
 				//Aqui eu pego o nome de todos os jogadores reservas no momento que salvo a edição da escalação e guardo em um array
-				reservationsNames.push({playerName: playersReservations[0].children[x].children[2].textContent, playerPosition: `p_1${x+1}`})
+				reservationsNames.push({
+					playerName: playersReservations[0].children[x].children[2].textContent,
+					playerPosition: `p_1${x + 1}`
+				})
 			}
 		}
 
 		posArr = ['p_11', 'p_12', 'p_13', 'p_14', 'p_15']
-		let j=0
-		for(let y = 11; y < 16; y++){
-			if(reservationsNames[y-11] != undefined){
-				players_update[`start_bench_${reservationsNames[y-11].playerPosition}`] = 1
+		let j = 0
+		for (let y = 11; y < 16; y++) {
+			if (reservationsNames[y - 11] != undefined) {
+				players_update[`start_bench_${reservationsNames[y - 11].playerPosition}`] = 1
 
-				for(let z=0; z<posArr.length; z++){
-					if(posArr[z] == reservationsNames[y-11].playerPosition){
+				for (let z = 0; z < posArr.length; z++) {
+					if (posArr[z] == reservationsNames[y - 11].playerPosition) {
 						posArr.splice(z, 1)
 					}
 				}
-			}else{
+			} else {
 				players_update[`start_bench_${posArr[j]}`] = 0
 				j++
 			}
@@ -1835,95 +1844,94 @@ function save_lineup_edit() {
 }
 
 
-
-function numbersOnly(string)
-{
-    var numsStr = string.replace(/[^0-9]/g,'');
-    return numsStr.toString();
+function numbersOnly(string) {
+	var numsStr = string.replace(/[^0-9]/g, '');
+	return numsStr.toString();
 }
 
-	if (window.location.href.includes('/fantasy-lineup-edit/')){
-		numberIdentifier = window.location.href
+if (window.location.href.includes('/fantasy-lineup-edit/')) {
+	numberIdentifier = window.location.href
 
-		numberIdentifier = numberIdentifier.toString()
+	numberIdentifier = numberIdentifier.toString()
 
-		numberIdentifier = numberIdentifier.split('/')
+	numberIdentifier = numberIdentifier.split('/')
 
-		numberIdentifier = numbersOnly(numberIdentifier[numberIdentifier.length - 1])
-		get_lineup(numberIdentifier)
-	}
-	function get_lineup(numberIdentifier) {
-		numberIdentifier.toString()
-		identifier_current_lineup = numberIdentifier
+	numberIdentifier = numbersOnly(numberIdentifier[numberIdentifier.length - 1])
+	get_lineup(numberIdentifier)
+}
 
-		executeAction('select-lineup-formation', null, {identifier: numberIdentifier}).then((result) => {
-			tatic = result[0]
-			formationSelect[0].value = tatic.lineups__formation;
-			save_lineups()
-			//tatic = numbersOnly()
+function get_lineup(numberIdentifier) {
+	numberIdentifier.toString()
+	identifier_current_lineup = numberIdentifier
 
-		}).catch(err => console.log(err))
+	executeAction('select-lineup-formation', null, {identifier: numberIdentifier}).then((result) => {
+		tatic = result[0]
+		formationSelect[0].value = tatic.lineups__formation;
+		save_lineups()
+		//tatic = numbersOnly()
+
+	}).catch(err => console.log(err))
 
 
-		executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
-			obj_players = result
-			for (i = 0; i < obj_players.length; i++) {
-				conc_var = 'span_'
-				result = conc_var + obj_players[i].pos_field
-				document.getElementById(result).innerText = obj_players[i].players__player_name
-				document.getElementById(result).className += ' preenchido'
-				document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.className += ' saopaulo'
-				elemento = document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.firstElementChild
-				elemento.style.display = 'none'
+	executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
+		obj_players = result
+		for (i = 0; i < obj_players.length; i++) {
+			conc_var = 'span_'
+			result = conc_var + obj_players[i].pos_field
+			document.getElementById(result).innerText = obj_players[i].players__player_name
+			document.getElementById(result).className += ' preenchido'
+			document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.className += ' saopaulo'
+			elemento = document.getElementById(obj_players[i].pos_field).firstElementChild.firstElementChild.firstElementChild
+			elemento.style.display = 'none'
 
-				value_players = parseFloat(obj_players[i].team_players__player_value)
+			value_players = parseFloat(obj_players[i].team_players__player_value)
 
-				balanceController(value_players, 'purchase')
-				players_infos.push({
-					position: obj_players[i].pos_field,
-					id: obj_players[i].player_Id,
-					price: obj_players[i].team_players__player_value,
-					name: obj_players[i].players__player_name,
-					situation: obj_players[i].situation
-				})
+			balanceController(value_players, 'purchase')
+			players_infos.push({
+				position: obj_players[i].pos_field,
+				id: obj_players[i].player_Id,
+				price: obj_players[i].team_players__player_value,
+				name: obj_players[i].players__player_name,
+				situation: obj_players[i].situation
+			})
 
-				//Aqui verifico se algum jogador est com os status abaixo para colocar o simbolo de alerta no campo na tela de edicao
-				if(players_infos[i].situation == 'pendurado' || players_infos[i].situation == 'lesionado' || players_infos[i].situation == 'suspenso'){
-					let player = document.getElementById(players_infos[i].position)
-					let position = players_infos[i].position.split('_')
-					player.children[4].setAttribute('style', 'display: flex')
-					player.children[0].children[0].classList.add('alert')
-				}
-
-				let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
-				btnBuySaleColor.classList.remove('buyButton')
-				btnBuySaleColor.classList.add('salleButton')
-				players_obj_btn.push(obj_players[i].player_Id)
+			//Aqui verifico se algum jogador est com os status abaixo para colocar o simbolo de alerta no campo na tela de edicao
+			if (players_infos[i].situation == 'pendurado' || players_infos[i].situation == 'lesionado' || players_infos[i].situation == 'suspenso') {
+				let player = document.getElementById(players_infos[i].position)
+				let position = players_infos[i].position.split('_')
+				player.children[4].setAttribute('style', 'display: flex')
+				player.children[0].children[0].classList.add('alert')
 			}
 
-		}).catch(err => console.log(err))
+			let btnBuySaleColor = document.getElementById(obj_players[i].player_Id).parentElement.parentElement.children[2].firstElementChild
+			btnBuySaleColor.classList.remove('buyButton')
+			btnBuySaleColor.classList.add('salleButton')
+			players_obj_btn.push(obj_players[i].player_Id)
+		}
+
+	}).catch(err => console.log(err))
 
 	getCaptainInEdit()
-	}
+}
 
 
-function numbersOnly(string){
-    var numsStr = string.replace(/[^0-9]/g,'');
-    return numsStr.toString();
+function numbersOnly(string) {
+	var numsStr = string.replace(/[^0-9]/g, '');
+	return numsStr.toString();
 }
 
 //A Função abaixo é responsável pelo filtro dos jogadores pelo status 'provável', 'dúvida', 'machucado' ou 'suspenso'
-function statusFilter(){
+function statusFilter() {
 	let statusFilter = document.getElementsByClassName('second-line')
-	for(let i=0; i<5; i++){
-		statusFilter[i].children[1].childNodes[1].addEventListener('change', function(){
+	for (let i = 0; i < 5; i++) {
+		statusFilter[i].children[1].childNodes[1].addEventListener('change', function () {
 			let allPlayers = statusFilter[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].children
-			for(let j=0; j<allPlayers.length; j++){
-				if(statusFilter[i].children[1].childNodes[1].value == 'todos'){
+			for (let j = 0; j < allPlayers.length; j++) {
+				if (statusFilter[i].children[1].childNodes[1].value == 'todos') {
 					allPlayers[j].style.display = 'block'
-				}else if(!allPlayers[j].children[1].children[1].children[0].children[1].className.includes(statusFilter[i].children[1].childNodes[1].value)) {
+				} else if (!allPlayers[j].children[1].children[1].children[0].children[1].className.includes(statusFilter[i].children[1].childNodes[1].value)) {
 					allPlayers[j].style.display = 'none'
-				}else{
+				} else {
 					allPlayers[j].style.display = 'block'
 				}
 			}
@@ -1932,112 +1940,112 @@ function statusFilter(){
 }
 
 //A função abaixo é responsável pelo filtro de ordenação por 'maior preço', 'menor preço' ou 'melhor média'
-function orderFilter(){
+function orderFilter() {
 	let statusOrder = document.getElementsByClassName('second-line')
-	for(let i=0; i<5; i++) {
-		statusOrder[i].children[0].childNodes[1].addEventListener('change', function() {
+	for (let i = 0; i < 5; i++) {
+		statusOrder[i].children[0].childNodes[1].addEventListener('change', function () {
 
 			statusOrder[i].children[1].children[0].children[0].removeAttribute("selected")
 
-			if(statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Atacantes'){
-			statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
-				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
+			if (statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Atacantes') {
+				statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
+				if (statusOrder[i].children[0].children[0].value == 'Menor Preço') {
 					executeAction('query-select-to-order-atackers-asc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
-				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
+				} else if (statusOrder[i].children[0].children[0].value == 'Maior Preço') {
 					executeAction('query-select-to-order-atackers-desc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
 				}
-			}else if(statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Meias'){
-			statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
-				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
+			} else if (statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Meias') {
+				statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
+				if (statusOrder[i].children[0].children[0].value == 'Menor Preço') {
 					executeAction('query-select-to-order-midfielders-asc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
-				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
+				} else if (statusOrder[i].children[0].children[0].value == 'Maior Preço') {
 					executeAction('query-select-to-order-midfielders-desc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
 				}
-			}else if(statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Laterais'){
-			statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
-				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
+			} else if (statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Laterais') {
+				statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
+				if (statusOrder[i].children[0].children[0].value == 'Menor Preço') {
 					executeAction('query-select-to-order-backs-asc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
-				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
+				} else if (statusOrder[i].children[0].children[0].value == 'Maior Preço') {
 					executeAction('query-select-to-order-backs-desc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
 				}
-			}else if(statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Zagueiros'){
-			statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
-				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
+			} else if (statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Zagueiros') {
+				statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
+				if (statusOrder[i].children[0].children[0].value == 'Menor Preço') {
 					executeAction('query-select-to-order-defenders-asc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
-				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
+				} else if (statusOrder[i].children[0].children[0].value == 'Maior Preço') {
 					executeAction('query-select-to-order-defenders-desc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
 				}
-			}else if(statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Goleiros'){
-			statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
-				if(statusOrder[i].children[0].children[0].value == 'Menor Preço'){
+			} else if (statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[0].children[0].children[1].children[0].textContent == 'Goleiros') {
+				statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = ''
+				if (statusOrder[i].children[0].children[0].value == 'Menor Preço') {
 					executeAction('query-select-to-order-goalkeepers-asc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
 						callAllFunctions()
 					}).catch(err => console.log(err))
-				}else if(statusOrder[i].children[0].children[0].value == 'Maior Preço'){
+				} else if (statusOrder[i].children[0].children[0].value == 'Maior Preço') {
 					executeAction('query-select-to-order-goalkeepers-desc', null, {identifier: table_id}).then((result) => {
 						let playersList = ''
-						for(let j=0; j<result.length; j++){
+						for (let j = 0; j < result.length; j++) {
 							playersList += `<div class="playersContainer"><div class="topContainer"><div class="teamContainer"><div class="team saopaulo"><p class="teamInitials initialsBlack">${result[j].team_initials}</p></div></div><div class="infos"><div class="name" id='{players__player_id}'>${result[j].players__player_name}</div><div class="teams"><p class="firstTeam">${result[j].matches__home_team}</p><p class="versus">x</p><p style='display:none'>${result[j].teams__team_name}</p><p class="secondTeam ">${result[j].matches__visitor_team}</p></div><div class="date"><div class="dateValue"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.33333 5.1H2.22222V6.23333H3.33333V5.1ZM5.55556 5.1H4.44444V6.23333H5.55556V5.1ZM7.77778 5.1H6.66667V6.23333H7.77778V5.1ZM8.88889 1.13333H8.33333V0H7.22222V1.13333H2.77778V0H1.66667V1.13333H1.11111C0.494444 1.13333 0.00555555 1.64333 0.00555555 2.26667L0 10.2C0 10.8233 0.494444 11.3333 1.11111 11.3333H8.88889C9.5 11.3333 10 10.8233 10 10.2V2.26667C10 1.64333 9.5 1.13333 8.88889 1.13333ZM8.88889 10.2H1.11111V3.96667H8.88889V10.2Z" fill="#636363"/></svg><p>${result[j].matches__match_date}</p></div><div class="hour"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.994 0.166672C2.774 0.166672 0.166504 2.78001 0.166504 6.00001C0.166504 9.22001 2.774 11.8333 5.994 11.8333C9.21984 11.8333 11.8332 9.22001 11.8332 6.00001C11.8332 2.78001 9.21984 0.166672 5.994 0.166672ZM5.99984 10.6667C3.4215 10.6667 1.33317 8.57834 1.33317 6.00001C1.33317 3.42167 3.4215 1.33334 5.99984 1.33334C8.57817 1.33334 10.6665 3.42167 10.6665 6.00001C10.6665 8.57834 8.57817 10.6667 5.99984 10.6667Z" fill="#636363"/><path d="M6.2915 3.08333H5.4165V6.58333L8.479 8.42083L8.9165 7.70333L6.2915 6.14583V3.08333Z" fill="#636363"/></svg><p>${result[j].matches__math_time}</p></div></div></div><div class="buttonContainer"><button class="button buyButton" id='${result[j].players__player_id}'></button></div></div><div class="lowerContainer"><div class="priceContainer"><div class="label">Preço</div><div class="value" id='${result[j].players__div_value}'>${result[j].team_player__player_value}</div></div><div class="sections"> <div class="status"><div class="label">Status</div><div class="value ${result[j].players__situation}"></div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="media"><div class="label">Média</div><div class="value">1.57</div></div><div class="divisor"><svg width="2" height="37" viewBox="0 0 2 37" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0.833496" y1="0.5" x2="0.833494" y2="36.5" stroke="#DADADA" stroke-linecap="round"/></svg></div><div class="matches"><div class="label">Partidas</div><div class="value">${result[j].match_player_status}</div></div></div></div></div>`
 						}
 						statusOrder[i].parentNode.parentNode.parentNode.parentNode.children[1].children[0].innerHTML = playersList
@@ -2090,19 +2098,19 @@ async function handleBalance() {
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 2,
 							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							// wallet_process__table_id: identifierTable
 						})
 						await executeAction('update-gold-balls', null, {identifier: identifierTable})
 						saveLineup()
 						window.location.href = "#saveLineupModal"
-					} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value)) {
+					} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value) || gold_balls === null && parseInt(balance) >= parseInt(bet_value)) {
 						await executeAction('relationalinsert-subscribe-process-wallet', null, {
 							wallet_process__user_fantasy_id: user_id,
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 1,
 							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							// wallet_process__table_id: identifierTable
 						})
 						await executeAction('update-balance', null, {identifier: identifierTable})
 						saveLineup()
@@ -2119,19 +2127,19 @@ async function handleBalance() {
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: coin_type1,
 							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							// wallet_process__table_id: identifierTable
 						})
 						await executeAction('update-gold-balls', null, {identifier: identifierTable})
 						saveLineup()
 						window.location.href = "#saveLineupModal"
-					} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value)) {
+					} else if (parseInt(bet_value) > parseInt(gold_balls) && parseInt(balance) >= parseInt(bet_value) || gold_balls === null && parseInt(balance) >= parseInt(bet_value)) {
 						await executeAction('relationalinsert-subscribe-process-wallet', null, {
 							wallet_process__user_fantasy_id: user_id,
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 1,
 							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							// wallet_process__table_id: identifierTable
 						})
 						await executeAction('update-balance', null, {identifier: identifierTable})
 						saveLineup()
