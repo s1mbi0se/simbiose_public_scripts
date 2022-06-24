@@ -2097,8 +2097,7 @@ async function handleBalance() {
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 2,
-							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							wallet_process__process_type: 'Inscrição'
 						})
 						await executeAction('update-gold-balls', null, {identifier: identifierTable})
 						saveLineup()
@@ -2109,8 +2108,7 @@ async function handleBalance() {
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 1,
-							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							wallet_process__process_type: 'Inscrição'
 						})
 						await executeAction('update-balance', null, {identifier: identifierTable})
 						saveLineup()
@@ -2126,8 +2124,7 @@ async function handleBalance() {
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: coin_type1,
-							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							wallet_process__process_type: 'Inscrição'
 						})
 						await executeAction('update-gold-balls', null, {identifier: identifierTable})
 						saveLineup()
@@ -2138,8 +2135,7 @@ async function handleBalance() {
 							wallet_process__status_transaction_id: '2',
 							wallet_process__coin_value: bet_value,
 							wallet_process__coin_type_id: 1,
-							wallet_process__process_type: 'Inscrição',
-							wallet_process__table_id: identifierTable
+							wallet_process__process_type: 'Inscrição'
 						})
 						await executeAction('update-balance', null, {identifier: identifierTable})
 						saveLineup()
