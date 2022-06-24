@@ -176,6 +176,7 @@ function disableButtonsLimitSubsLineups() {
 		let user = document.getElementById('logged_user').innerHTML
 		let identifierTable = getObjectId()
 		executeAction('get-subs', null, {identifier: identifierTable}).then((result) => {
+			debugger
 			let currentDate = new Date();
 			let utcDate = result[0].finish_date
 			let dateRound = new Date(utcDate)
