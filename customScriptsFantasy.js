@@ -2114,7 +2114,7 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("/fantasy-management-packs")
+						window.location.href = "#saveLineupModalgoldBallsRecharge"
 					}
 					break;
 				case 2:
@@ -2143,11 +2143,26 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = ("/fantasy-management-packs")
+						window.location.href = "#saveLineupModalgoldBallsRecharge"
 					}
 					break;
 			}
 		}
+	} catch (err) {
+		showToast('error', 'Erro de conexão')
+	}
+}
+
+//Caso usuário não tenham bolas de ouro nem dinheiro o suficiente redireciona-o para loja
+document.getElementById("confirmleaguegoldBallsRecharge").addEventListener('click', (evt) => {
+	handleBalanceRecharge()
+	evt.preventDefault()
+})
+
+async function handleBalanceRecharge() {
+	try {
+		window.location.href = ("/fantasy-management-packs")
+
 	} catch (err) {
 		showToast('error', 'Erro de conexão')
 	}
