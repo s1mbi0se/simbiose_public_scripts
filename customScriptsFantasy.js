@@ -2162,7 +2162,6 @@ document.getElementById("confirmleaguegoldBallsRecharge").addEventListener('clic
 async function handleBalanceRecharge() {
 	try {
 		window.location.href = ("/fantasy-management-packs")
-
 	} catch (err) {
 		showToast('error', 'Erro de conexão')
 	}
