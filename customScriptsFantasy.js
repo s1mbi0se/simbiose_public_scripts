@@ -35,6 +35,9 @@ confirmNameModalBtn[0].addEventListener('click', function () {
 		inputNameModal[0].setAttribute('placeholder', 'Digite um nome para a escalação')
 		confirmNameModalBtn[0].children[0].setAttribute('href', '#confirmNameModal')
 	} else {
+		if(window.location.href.includes('fantasy-lineup-edit')){
+			save_lineup_edit()
+		}
 		confirmNameModalBtn[0].children[0].setAttribute('href', '#saveLineupModal')
 		// saveLineup()
 	}
@@ -2060,8 +2063,8 @@ function orderFilter() {
 
 
 //	Aqui começa a validação das inscrições By Ricardo Nascimento
-
-document.getElementById("confirmleague").addEventListener('click', (evt) => {
+//Aqui é capturado o click no botão de salvar na tela normal
+document.getElementById("confirmLeague").addEventListener('click', (evt) => {
 	handleBalance()
 	evt.preventDefault()
 })
@@ -2114,7 +2117,7 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = "#saveLineupModalgoldBallsRecharge"
+						window.location.href = ("/fantasy-management-packs")
 					}
 					break;
 				case 2:
@@ -2143,25 +2146,11 @@ async function handleBalance() {
 						saveLineup()
 						window.location.href = "#saveLineupModal"
 					} else {
-						window.location.href = "#saveLineupModalgoldBallsRecharge"
+						window.location.href = ("/fantasy-management-packs")
 					}
 					break;
 			}
 		}
-	} catch (err) {
-		showToast('error', 'Erro de conexão')
-	}
-}
-
-//Caso usuário não tenham bolas de ouro nem dinheiro o suficiente redireciona-o para loja
-document.getElementById("confirmleaguegoldBallsRecharge").addEventListener('click', (evt) => {
-	handleBalanceRecharge()
-	evt.preventDefault()
-})
-
-async function handleBalanceRecharge() {
-	try {
-		window.location.href = ("/fantasy-management-packs")
 	} catch (err) {
 		showToast('error', 'Erro de conexão')
 	}
