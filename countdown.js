@@ -4,8 +4,10 @@ async function getMarket() {
 
 function get_round(round) {
 	let x = list_ids()
+	console.log(`x: ${x}`)
 	for (i = 0; i < x.length; i++) {
 		let div_shown_countdown = document.getElementsByClassName(round)[i].textContent
+		console.log(`div_shown_countdown: ${div_shown_countdown}`)
 		return div_shown_countdown
 	}
 }
@@ -18,6 +20,7 @@ function countdown() {
 			console.log(e)
 
 			const horario_mercado_fecha = get_round(e)
+			console.log(horario_mercado_fecha);
 			const mktclose = new Date(horario_mercado_fecha);
 			console.log(mktclose);
 			const currentDate = new Date();
@@ -34,7 +37,7 @@ function countdown() {
 			let horas = formatTIme(hour);
 			let minutes = formatTIme(min);
 			let segundos = formatTIme(seconds);
-			
+
 			console.log(dias, horas, minutes, segundos)
 
 			let display = document.getElementById(e)
