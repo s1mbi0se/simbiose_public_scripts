@@ -442,7 +442,7 @@ function saveLineup() {
 			let domain = 'https://apidjangodev.simbioseventures.com'
 			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 		} else if (window.location.host == 'fantasystage.simbioseventures.com') {
-			let domain = 'https://fantasystage.simbioseventures.com'
+			let domain = 'https://fastcrudapistage.simbioseventures.com'
 			url = `${domain}/screens/fantasy-lineup-save/9/fantasy-lineup-save?mode=api`
 		}
 		let autorizationToken = JSON.parse(localStorage.fct).accessToken
