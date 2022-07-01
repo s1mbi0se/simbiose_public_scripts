@@ -4,10 +4,8 @@ async function getMarket() {
 
 function get_round(round) {
 	let x = list_ids()
-	console.log(`x: ${x}`)
 	for (i = 0; i < x.length; i++) {
 		let div_shown_countdown = document.getElementsByClassName(round)[i].textContent
-		console.log(`div_shown_countdown: ${div_shown_countdown}`)
 		return div_shown_countdown
 	}
 }
@@ -17,18 +15,12 @@ function countdown() {
 	let i = 0;
 
 	number_tables_div.forEach(e => {
-			console.log(e)
 
 			const horario_mercado_fecha = get_round(e)
-			console.log(horario_mercado_fecha);
-			const mktclose = new Date(horario_mercado_fecha);
-			console.log(mktclose);
+			const mktclose = new Date(Date(horario_mercado_fecha));
 			const currentDate = new Date();
-			console.log(currentDate);
 			const totalSeconds = (mktclose - currentDate) / 1000;
-			console.log(totalSeconds);
 			const days = Math.floor(totalSeconds / 3600 / 24);
-			console.log(days);
 			const hour = Math.floor(totalSeconds / 3600) % 24;
 			const min = Math.floor(totalSeconds / 60) % 60;
 			const seconds = Math.floor(totalSeconds) % 60;
@@ -37,8 +29,6 @@ function countdown() {
 			let horas = formatTIme(hour);
 			let minutes = formatTIme(min);
 			let segundos = formatTIme(seconds);
-
-			console.log(dias, horas, minutes, segundos)
 
 			let display = document.getElementById(e)
 			display.innerHTMl = "<div id='{tables__table_id}'>{mercado_fecha}</div>"
