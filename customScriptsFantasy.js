@@ -1960,7 +1960,6 @@ function get_lineup(numberIdentifier) {
 
 	executeAction('select-lineups', null, {identifier: numberIdentifier}).then((result) => {
 		obj_players = result
-		console.log('escalação', obj_players)
 		for (let i = 0; i < obj_players.length; i++) {
 			conc_var = 'span_'
 			result = conc_var + obj_players[i].pos_field
@@ -1980,7 +1979,6 @@ function get_lineup(numberIdentifier) {
 				name: obj_players[i].players__player_name,
 				situation: obj_players[i].situation
 			})
-			console.log('players_infos', players_infos)
 
 			//Aqui verifico se algum jogador est com os status abaixo para colocar o simbolo de alerta no campo na tela de edicao
 			if (players_infos[i].situation == 'pendurado' || players_infos[i].situation == 'lesionado' || players_infos[i].situation == 'suspenso') {
