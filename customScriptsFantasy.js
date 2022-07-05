@@ -2146,10 +2146,13 @@ function orderFilter() {
 
 //	Aqui começa a validação das inscrições By Ricardo Nascimento
 //Aqui é capturado o click no botão de salvar na tela normal
-document.getElementById("confirmLeague").addEventListener('click', (evt) => {
-	handleBalance()
-	evt.preventDefault()
-})
+
+if(!window.location.href.includes('fantasy-lineup-edit')){
+	document.getElementById("confirmLeague").addEventListener('click', (evt) => {
+		handleBalance()
+		evt.preventDefault()
+	})
+}
 
 let identifierTable = getObjectId()
 
@@ -2239,10 +2242,12 @@ async function handleBalance() {
 }
 
 //Caso usuário não tenham bolas de ouro nem dinheiro  suficiente redireciona-o para loja
-document.getElementById("confirmleaguegoldBallsRecharge").addEventListener('click', (evt) => {
-	handleBalanceRecharge()
-	evt.preventDefault()
-})
+if(!window.location.href.includes('fantasy-lineup-edit')){
+	document.getElementById("confirmleaguegoldBallsRecharge").addEventListener('click', (evt) => {
+		handleBalanceRecharge()
+		evt.preventDefault()
+	})
+}
 
 async function handleBalanceRecharge() {
 	try {
