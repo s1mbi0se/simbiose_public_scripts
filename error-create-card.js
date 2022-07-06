@@ -10,6 +10,7 @@ onAction('fantasy-register-credit-card', 'createAndRedirect', async formData => 
 	  customer_credit_card__user_fantasy_id: formData.customer_credit_card__user_fantasy_id
     })
   } catch (e) {
+	  console.log({e})
     if (e.response.data.errors.before.error.code === 'incorrect_number') {
 		components.customer_credit_card__card_display_number.hasError = true
 		throw new Error('Número do cartão de crédito incorreto');
