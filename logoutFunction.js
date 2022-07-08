@@ -4,3 +4,4 @@ function log_out_user(){
      		logOut()
  })
 }
+// test
