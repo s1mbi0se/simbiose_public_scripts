@@ -4,6 +4,3 @@ let inputChangeCollor = document.getElementsByClassName('input')[0]
 buttonCollor.addEventListener('click', function (e) {
 	inputChangeCollor.style.background = "red"
 })
-
-
-
